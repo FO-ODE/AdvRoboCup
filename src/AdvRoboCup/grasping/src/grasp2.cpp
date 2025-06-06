@@ -11,6 +11,8 @@
 #include <tf2_ros/transform_listener.h>
 #include <tf2_geometry_msgs/tf2_geometry_msgs.h>
 #include <thread>
+#include <moveit/robot_model_loader/robot_model_loader.h>
+#include <moveit/robot_state/robot_state.h>
 
 class GraspExecutor {
 public:
@@ -25,11 +27,23 @@ public:
     base_pub_ = nh.advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 10);
     point_sub_ = nh.subscribe("/object_center", 1, &GraspExecutor::poseCallback, this);
 
-    move_group_.setPlannerId("RRTkConfigDefault");
+    move_group_.setPlannerId("RRTstarkConfigDefault"); // RRTstarkConfigDefault RRTkConfigDefault
     move_group_.setPoseReferenceFrame("base_footprint");
     move_group_.setEndEffectorLink("gripper_link");
     move_group_.setMaxVelocityScalingFactor(0.5);
     move_group_.setPlanningTime(10.0);
+  }
+
+  void applyArm1Constraint(double upper_limit) {
+    moveit_msgs::Constraints joint_constraints;
+    moveit_msgs::JointConstraint jc;
+    jc.joint_name = "arm_1_joint";
+    jc.position = upper_limit;
+    jc.tolerance_above = 0.0;
+    jc.tolerance_below = upper_limit;
+    jc.weight = 1.0;
+    joint_constraints.joint_constraints.push_back(jc);
+    move_group_.setPathConstraints(joint_constraints);
   }
 
   void poseCallback(const geometry_msgs::PointStamped::ConstPtr& msg) {
@@ -63,12 +77,13 @@ public:
   }
 
   bool moveArm(const geometry_msgs::PoseStamped& target_pose) {
+    applyArm1Constraint(1.6);
     move_group_.setPoseTarget(target_pose);
     move_group_.setStartStateToCurrentState();
 
     moveit::planning_interface::MoveGroupInterface::Plan plan;
     bool success = (move_group_.plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
-
+    move_group_.clearPathConstraints();
     if (!success) {
       ROS_ERROR("No plan found to target pose");
       return false;
@@ -79,6 +94,7 @@ public:
   }
 
   bool moveCartesianTo(const geometry_msgs::PoseStamped& target_pose) {
+    applyArm1Constraint(1.6);
     std::vector<geometry_msgs::Pose> waypoints;
     geometry_msgs::Pose start_pose = move_group_.getCurrentPose().pose;
 
@@ -89,8 +105,8 @@ public:
     waypoints.push_back(target);
 
     moveit_msgs::RobotTrajectory trajectory;
-    double fraction = move_group_.computeCartesianPath(waypoints, 0.02, 1.0, trajectory);
-
+    double fraction = move_group_.computeCartesianPath(waypoints, 0.01, 0.0, trajectory);
+    move_group_.clearPathConstraints();
     if (fraction < 0.9) {
       ROS_WARN("Only %.1f%% of the Cartesian path was planned", fraction * 100.0);
       return false;
@@ -112,7 +128,7 @@ public:
     ros::Duration(1.0).sleep();
 
     ROS_INFO("Moving to pre-grasp pose...");
-    moveArm(goal_pose_);
+    //moveArm(goal_pose_);
     ros::Duration(1.0).sleep();
 
     planning_scene_interface_.removeCollisionObjects({"grasp_target"});
@@ -129,7 +145,7 @@ public:
     ros::Duration(2.0).sleep();
 
     ROS_INFO("Lifting object...");
-    moveCartesianTo(lift_pose_);
+    moveArm(lift_pose_);
     ros::Duration(3.0).sleep();
 
     ROS_INFO("Tucking arm...");

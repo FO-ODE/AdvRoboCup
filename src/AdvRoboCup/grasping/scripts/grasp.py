@@ -39,7 +39,7 @@ class GraspExecutor:
     def pose_callback(self, msg: PointStamped):
         self.goal_pose.header.frame_id = msg.header.frame_id
         self.goal_pose.pose.position.x = msg.point.x - 0.3
-        self.goal_pose.pose.position.y = msg.point.y + 0.0
+        self.goal_pose.pose.position.y = msg.point.y + 0.02
         self.goal_pose.pose.position.z = msg.point.z + 0.003
         self.goal_pose.pose.orientation.x = 0.5
         self.goal_pose.pose.orientation.y = 0.5
@@ -48,13 +48,13 @@ class GraspExecutor:
 
         self.attachObject.header.frame_id = msg.header.frame_id
         self.attachObject.pose.position.x = msg.point.x - 0.15
-        self.attachObject.pose.position.y = msg.point.y + 0.0
+        self.attachObject.pose.position.y = msg.point.y + 0.02
         self.attachObject.pose.position.z = msg.point.z + 0.003
         self.attachObject.pose.orientation = self.goal_pose.pose.orientation
 
         self.liftObject.header.frame_id = msg.header.frame_id
         self.liftObject.pose.position.x = msg.point.x - 0.15
-        self.liftObject.pose.position.y = msg.point.y + 0.0
+        self.liftObject.pose.position.y = msg.point.y + 0.02
         self.liftObject.pose.position.z = msg.point.z + 0.2
         self.liftObject.pose.orientation = self.goal_pose.pose.orientation
 
@@ -89,34 +89,34 @@ class GraspExecutor:
         self.group.clear_pose_targets()
         return result
     
-    def move_cartesian_to(self, target_pose):
-        # 1. 当前末端位姿
-        start_pose = self.group.get_current_pose().pose
+    # def move_cartesian_to(self, target_pose):
+    #     # 1. 当前末端位姿
+    #     start_pose = self.group.get_current_pose().pose
 
-        # 2. 目标位姿（保持当前朝向）
-        target = geometry_msgs.msg.Pose()
-        target.position = target_pose.pose.position
-        target.orientation = start_pose.orientation
+    #     # 2. 目标位姿（保持当前朝向）
+    #     target = geometry_msgs.msg.Pose()
+    #     target.position = target_pose.pose.position
+    #     target.orientation = start_pose.orientation
 
-        # 3. 组装路点
-        waypoints = [start_pose, target]
+    #     # 3. 组装路点
+    #     waypoints = [start_pose, target]
 
-        rospy.loginfo("Planning Cartesian path to attachObject...")
+    #     rospy.loginfo("Planning Cartesian path to attachObject...")
 
-        # 4. 只给前两个必填位置参数
-        plan, fraction = self.group.compute_cartesian_path(
-            waypoints,
-            0.01,  # eef_step
-            0.0    # jump_threshold
-        )
+    #     # 4. 只给前两个必填位置参数
+    #     plan, fraction = self.group.compute_cartesian_path(
+    #         waypoints,
+    #         0.01,  # eef_step
+    #         0.0    # jump_threshold
+    #     )
 
-        if fraction < 0.9:
-            rospy.logwarn(f"Only {fraction*100:.1f}% of the path was planned!")
-            raise RuntimeError("Cartesian path planning failed")
+    #     if fraction < 0.9:
+    #         rospy.logwarn(f"Only {fraction*100:.1f}% of the path was planned!")
+    #         raise RuntimeError("Cartesian path planning failed")
 
-        rospy.loginfo("Executing Cartesian path...")
-        self.group.execute(plan, wait=True)
-        self.group.stop()
+    #     rospy.loginfo("Executing Cartesian path...")
+    #     self.group.execute(plan, wait=True)
+    #     self.group.stop()
 
 
 
@@ -143,8 +143,8 @@ class GraspExecutor:
         rospy.sleep(2.0)
 
         rospy.loginfo("Approaching object")
-        # self.move_arm(self.attachObject)
-        self.move_cartesian_to(self.attachObject)
+        self.move_arm(self.attachObject)
+        # self.move_cartesian_to(self.attachObject)
         rospy.sleep(1.0)
         
         rospy.loginfo("Closing gripper")

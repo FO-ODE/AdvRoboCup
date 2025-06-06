@@ -3,7 +3,8 @@ Panels:
     Help Height: 78
     Name: Displays
     Property Tree Widget:
-      Expanded: ~
+      Expanded:
+        - /PointCloud21
       Splitter Ratio: 0.5
     Tree Height: 429
   - Class: rviz/Selection
@@ -359,7 +360,7 @@ Visualization Manager:
       Color Transformer: Intensity
       Decay Time: 0
       Enabled: true
-      Invert Rainbow: false
+      Invert Rainbow: true
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
       Name: PointCloud2
@@ -369,7 +370,7 @@ Visualization Manager:
       Size (Pixels): 3
       Size (m): 0.009999999776482582
       Style: Flat Squares
-      Topic: /labeled_object_point_cloud
+      Topic: /objects_point_cloud
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -1290,7 +1291,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 4.22027063369751
+      Distance: 3.114671468734741
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -1298,17 +1299,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 1.1382756233215332
-        Y: 0.465521901845932
-        Z: -0.15313905477523804
+        X: 1.6509783267974854
+        Y: 0.6997585296630859
+        Z: 0.4505324363708496
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.704797089099884
+      Pitch: 0.5097970962524414
       Target Frame: <Fixed Frame>
-      Yaw: 0.5536497235298157
+      Yaw: 0.3186343312263489
     Saved: ~
 Window Geometry:
   Camera:
