@@ -1,0 +1,4 @@
+<launch>
+    <node pkg="grasping" type="object_inserter.py" name="object_inserter_node" output="screen" />
+    <node pkg="grasping" type="table_inserter.py" name="table_inserter_node" output="screen" />
+</launch>
