@@ -7,7 +7,7 @@ for real world tiago, **offline start**
     rocker --nvidia --x11 --privileged \
         --volume /home/zby/ros/RoboCup_workspace/src/AdvRoboCup:/tiago_public_ws/src/AdvRoboCup \
         --network host \
-        --name core_image \
+        --name tiago_container \
         foode258/tiago_yolo:fpmoveit10
 
 
@@ -24,7 +24,7 @@ for simulation environment
     rocker --nvidia --x11 --privileged \
         --volume /home/zby/ros/RoboCup_workspace/src/AdvRoboCup:/tiago_public_ws/src/AdvRoboCup \
         --network host \
-        --name core_image \
+        --name tiago_simulation \
         foode258/tiago_yolo:fptest11.2
 
 for object detection
@@ -32,7 +32,7 @@ for object detection
     rocker --nvidia --x11 --privileged \
         --volume /home/zby/ros/workspace \
         --network host \
-        --name yolo_image \
+        --name yolo_container \
         foode258/yolo_ros:fptest1
 
 ## Procedure
