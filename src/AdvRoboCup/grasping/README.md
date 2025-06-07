@@ -2,7 +2,7 @@
 
 This is the new grasping package.
 
-Demo Video: <https://youtu.be/o2ponm9aaUk>
+**Demo Video**: <https://youtu.be/o2ponm9aaUk>
 
 ## File Structure
 
