@@ -1,6 +1,8 @@
 # Grasping Package
 
-This is the new grasping package, completely different from the one used last semester. It is implemented entirely with Python scripts.
+This is the new grasping package.
+
+Demo Video: <https://youtu.be/o2ponm9aaUk>
 
 ## File Structure
 
@@ -9,28 +11,32 @@ This is the new grasping package, completely different from the one used last se
     |   └── add_objects.launch
     ├── scripts/
     |   ├── grasp.py
-    |   ├── insert_grasp_object.py
+    |   ├── object_inserter.py
     |   ├── planning_grasp.py
-    |   └──  table_collision_publisher.py
+    |   └── table_inserter.py
+    ├── src/
+    |   └──  grasp2.cpp
     └── README.md
 
 ## Key features
 
-- `grasp.py`: Executes the grasping procedure.
+- `grasp2.cpp`: The latest grasping pipeline written in C++, supporting Cartesian path planning. This version was used to record the demo video.
 
-- `insert_grasp_object.py`: Supports shape completion and center point estimation based on object point clouds to enable more accurate grasping. Additionally, it inserts surrounding virtual obstacles to force the arm to follow a desired approach path.
+- `grasp.py`: The previous Python-based version of the grasping pipeline, still functional but now superseded by `grasp2.cpp`.
 
-- `table_collision_publisher.py`: Adds the table as a collision object to `Planning Scene` of `MoveIt`to prevent the collision.
+- `object_inserter.py`: Performs shape completion and center estimation from object point clouds. Also adds multiple virtual obstacles around the object to guide the arm toward a desirable grasping approach.
 
-- `planning_grasp.py`: Attempts to grasp the target object in the `Planning Scene`of `MoveIt`. The current implementation is still under development and needs further improvement.
+- `table_inserter.py`: Adds the table as a collision object to `Planning Scene` of `MoveIt`to prevent the collision.
+
+- `planning_grasp.py`: An experimental script for grasp planning. The implementation is still in progress and currently not maintained.
 
 ## Usage
 
-This package must be used together with `plane_segmentation` and `object_labeling` nodes.
+Requires `plane_segmentation` and `object_labeling` nodes to be running.
 
     roslaunch grasping add_object.launch
 
-    rosrun grasping grasp.py
+    rosrun grasping grasping_node
 
 ## Example
 
@@ -45,12 +51,6 @@ This package must be used together with `plane_segmentation` and `object_labelin
 
 - **Multi-object grasping**: Enable multi-object detection and grasping, potentially by integrating the `SAM` or `YOLOv8-segmentation` model. Use the segmentation mask to project onto the point cloud and select the desired grasp target.
 
-- **Improve end-effector orientation**: Currently, the end-effector always faces the positive x-axis during grasping. To improve flexibility and reduce trajectory limitations, the orientation should dynamically face the object to enable grasping from multiple angles.
+- **Improve end-effector orientation**: Currently, the end-effector is fixed to face the positive x-axis during grasping, which limits trajectory flexibility. Dynamically adjusting the gripper to face the object could enable more natural and robust grasps from various angles. Integration with `GPD (Grasp Pose Detection)` is also under consideration.
 
-- **Fix MoveIt Cartesian Path Planning**: The current Docker image has version mismatches in MoveIt, leading to `compute_cartesian_path()` failures. Resolving this will significantly improve grasp predictability.
-
-- **Robot pose adjustment**: Estimate the straight-line distance from the object to Tiago's `base_link`, then reposition the robot to maintain optimal grasping distance and orientation.
-
-- **TF misalignment issue**: Due to TF inaccuracies, the point cloud appears tilted. Fix TF frames or introducing compensation.
-
-![TF Problem](./images/TF.png)
+- **Robot pose adjustment**: Estimate the straight-line distance from the object to the robot’s `base_link`, and move the robot to an appropriate position and orientation before initiating the grasp. This ensures that the target is within optimal reach and field of view.
