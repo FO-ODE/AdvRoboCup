@@ -1,5 +1,15 @@
 # Adv RoboCup Cheat Sheet
 
+### Timer Synchronization
+
+```bash
+# sudo apt install ntpdate
+sudo ntpdate 192.168.1.200
+
+# check the date
+watch -n 0.1 date
+```
+
 ## Container
 
 for real world tiago, **offline start**
