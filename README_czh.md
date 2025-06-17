@@ -1,6 +1,6 @@
 # Adv RoboCup Cheat Sheet
 
-## Container
+## Containerzz
 
 for real world tiago, **offline start**
 
@@ -9,7 +9,6 @@ for real world tiago, **offline start**
         --network host \
         --name tiago_container \
         foode258/tiago_yolo:fpmoveit10
-##
 
     sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'
 
