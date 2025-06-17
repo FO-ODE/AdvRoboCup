@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/AdvRoboCup/catkin_ws/install
+
+Name: minimind_chat_ros
+Description: Description of minimind_chat_ros
+Version: 0.0.1
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 

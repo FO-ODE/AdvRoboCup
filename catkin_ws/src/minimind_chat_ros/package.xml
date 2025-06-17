@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>minimind_chat_ros</name>
+  <version>0.0.1</version>
+  <description>ROS 1 package for MiniMind + LoRA model inference and intent publishing</description>
+
+  <maintainer email="your_email@example.com">Your Name</maintainer>
+  <license>MIT</license>
+
+  <!-- build -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- runtime deps -->
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>message_runtime</depend>
+
+  <!-- build deps -->
+  <build_depend>message_generation</build_depend>
+
+  <export>
+  </export>
+</package>
