@@ -5,7 +5,7 @@
 for real world tiago, **offline start**
 
     rocker --nvidia --x11 --privileged \
-        --volume /home/zby/ros/RoboCup_workspace/src/AdvRoboCup:/tiago_public_ws/src/AdvRoboCup \
+        --volume /home/zby/ros/RoboCup_workspace/src/adv_robocup_home:/tiago_public_ws/src/adv_robocup_home \
         --network host \
         --name tiago_container \
         foode258/tiago_yolo:fpmoveit10
@@ -22,7 +22,7 @@ for real world tiago, **offline start**
 for simulation environment
 
     rocker --nvidia --x11 --privileged \
-        --volume /home/zby/ros/RoboCup_workspace/src/AdvRoboCup:/tiago_public_ws/src/AdvRoboCup \
+        --volume /home/zby/ros/RoboCup_workspace/src/adv_robocup_home:/tiago_public_ws/src/adv_robocup_home \
         --network host \
         --name tiago_simulation \
         foode258/tiago_yolo:fptest11.2
