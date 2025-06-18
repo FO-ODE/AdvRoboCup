@@ -7,25 +7,33 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
 )
 
+## Declare message files
 add_message_files(
   FILES
   ChatIntent.msg
 )
 
+## Generate message and service code
 generate_messages(
   DEPENDENCIES
   std_msgs
 )
 
+## Declare catkin package
 catkin_package(
   CATKIN_DEPENDS rospy std_msgs message_runtime
 )
 
-catkin_install_python(PROGRAMS
-  scripts/chat_node.py
+## Install Python scripts
+catkin_install_python(
+  PROGRAMS
+    scripts/eval_model.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-install(DIRECTORY launch model config
+## Install model and config folders if needed
+install(DIRECTORY
+  src/minimind_chat_ros/model
+  src/minimind_chat_ros/out
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )

@@ -1,3 +1,0 @@
-model_path: src/minimind_chat_ros/model
-base_ckpt: src/minimind_chat_ros/policy/pretrain_512.pth
-lora_file: src/minimind_chat_ros/policy/lora_robocup_512.pth

@@ -1,0 +1,8 @@
+prefix=/home/ubuntu/AdvRoboCup/catkin_ws/devel
+
+Name: minimind_chat_ros
+Description: Description of minimind_chat_ros
+Version: 0.0.1
+Cflags: -I/home/ubuntu/AdvRoboCup/catkin_ws/devel/include
+Libs: -L${prefix}/lib 
+Requires: rospy std_msgs message_runtime
