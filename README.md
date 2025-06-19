@@ -99,4 +99,19 @@ rostopic echo /chat_intent
   - `src/minimind_chat_ros/scripts/eval_model.py`
 
 ---
+## Git LFS
+1. 安装
+```bash
+sudo apt install git-lfs
+```
+
+2. 执行一次初始化
+```bash
+git lfs install
+```
+3. 拉取 LFS 管理的 .pth 文件
+```bash
+cd ~/AdvRoboCup  # 或你的仓库根目录
+git lfs pull
+```
 
