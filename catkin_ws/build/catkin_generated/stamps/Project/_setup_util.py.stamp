@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/home/administrator/anaconda3/envs/minimind/bin/python3
 # -*- coding: utf-8 -*-
 
 # Software License Agreement (BSD License)
@@ -268,7 +268,7 @@ if __name__ == '__main__':
 
         if not args.local:
             # environment at generation time
-            CMAKE_PREFIX_PATH = r'/usr/local;/home/ubuntu/franka_ros_ws/devel;/opt/ros/noetic'.split(';')
+            CMAKE_PREFIX_PATH = r'/home/administrator/AdvRoboCup/catkin_ws/devel;/opt/ros/noetic;/usr/local'.split(';')
         else:
             # don't consider any other prefix path than this one
             CMAKE_PREFIX_PATH = []

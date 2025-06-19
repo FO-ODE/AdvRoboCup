@@ -43,33 +43,33 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/administrator/AdvRoboCup/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/build
+CMAKE_BINARY_DIR = /home/administrator/AdvRoboCup/catkin_ws/build
 
 # Utility rule file for minimind_chat_ros_generate_messages_py.
 
 # Include the progress variables for this target.
 include minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/progress.make
 
-minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py: /home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py
-minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py: /home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py
+minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py: /home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py
+minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py: /home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py
 
 
-/home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
-/home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py: /home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/AdvRoboCup/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG minimind_chat_ros/ChatIntent"
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg -Iminimind_chat_ros:/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p minimind_chat_ros -o /home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg
+/home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py: /home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/administrator/AdvRoboCup/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Python from MSG minimind_chat_ros/ChatIntent"
+	cd /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros && ../catkin_generated/env_cached.sh /home/administrator/anaconda3/envs/minimind/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py /home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg -Iminimind_chat_ros:/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p minimind_chat_ros -o /home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg
 
-/home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
-/home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py: /home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/AdvRoboCup/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for minimind_chat_ros"
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg --initpy
+/home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py: /opt/ros/noetic/lib/genpy/genmsg_py.py
+/home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py: /home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/administrator/AdvRoboCup/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Generating Python msg __init__.py for minimind_chat_ros"
+	cd /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros && ../catkin_generated/env_cached.sh /home/administrator/anaconda3/envs/minimind/bin/python3 /opt/ros/noetic/share/genpy/cmake/../../../lib/genpy/genmsg_py.py -o /home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg --initpy
 
 minimind_chat_ros_generate_messages_py: minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py
-minimind_chat_ros_generate_messages_py: /home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py
-minimind_chat_ros_generate_messages_py: /home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py
+minimind_chat_ros_generate_messages_py: /home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py
+minimind_chat_ros_generate_messages_py: /home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py
 minimind_chat_ros_generate_messages_py: minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build.make
 
 .PHONY : minimind_chat_ros_generate_messages_py
@@ -80,10 +80,10 @@ minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build: m
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build
 
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/clean:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros && $(CMAKE_COMMAND) -P CMakeFiles/minimind_chat_ros_generate_messages_py.dir/cmake_clean.cmake
+	cd /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros && $(CMAKE_COMMAND) -P CMakeFiles/minimind_chat_ros_generate_messages_py.dir/cmake_clean.cmake
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/clean
 
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/depend:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/AdvRoboCup/catkin_ws/src /home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros /home/ubuntu/AdvRoboCup/catkin_ws/build /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/administrator/AdvRoboCup/catkin_ws/src /home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros /home/administrator/AdvRoboCup/catkin_ws/build /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/depend
 

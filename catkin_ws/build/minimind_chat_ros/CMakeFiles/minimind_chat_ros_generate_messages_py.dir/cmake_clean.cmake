@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py"
-  "/home/ubuntu/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py"
+  "/home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/_ChatIntent.py"
+  "/home/administrator/AdvRoboCup/catkin_ws/devel/lib/python3/dist-packages/minimind_chat_ros/msg/__init__.py"
   "CMakeFiles/minimind_chat_ros_generate_messages_py"
 )
 

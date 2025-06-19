@@ -6,13 +6,22 @@ import sys
 import os
 import torch
 
-# 添加 minimind_chat_ros 路径
-script_dir = os.path.dirname(__file__)
-project_root = os.path.abspath(os.path.join(script_dir, "../src"))
-sys.path.insert(0, project_root)
+# 添加 ROS 消息路径
+catkin_ws_path = os.path.expanduser("~/AdvRoboCup/catkin_ws")
+devel_lib_path = os.path.join(catkin_ws_path, "devel", "lib", "python3", "dist-packages")
+sys.path.insert(0, devel_lib_path)
 
-from minimind_chat_ros.model.model_minimind import MiniMindForCausalLM, MiniMindConfig
-from minimind_chat_ros.model.model_lora import apply_lora, load_lora
+# 添加 minimind_chat_ros 源码路径
+script_dir = os.path.dirname(os.path.abspath(__file__))
+package_dir = os.path.abspath(os.path.join(script_dir, "..", "src", "minimind_chat_ros"))
+sys.path.insert(0, package_dir)
+
+import rospy
+from minimind_chat_ros.msg import ChatIntent
+import re
+
+from model.model_minimind import MiniMindForCausalLM, MiniMindConfig
+from model.model_lora import apply_lora, load_lora
 from transformers import AutoTokenizer, TextStreamer
 
 
@@ -36,7 +45,7 @@ def init_model():
     apply_lora(model)
     load_lora(model, os.path.join(base_dir, "out", "lora", "lora_medical_512.pth"))
 
-    print(f'MiniMind模型参数量: {sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6:.2f}M')
+    print(f'Number of parameters in the MiniMind model: {sum(p.numel() for p in model.parameters() if p.requires_grad) / 1e6:.2f}M')
     return model.eval().to("cpu"), tokenizer
 
 
@@ -48,13 +57,39 @@ def setup_seed(seed):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
+def parse_intent_from_response(response):
+    """
+    从模型输出中提取 action, object, location
+    示例输入:
+        "action: pick\nobject: bottle\nlocation: table"
+    """
+    action = "unknown"
+    object_ = "unknown"
+    location = "unknown"
+
+    action_match = re.search(r"action:\s*(\w+)", response, re.IGNORECASE)
+    object_match = re.search(r"object:\s*(\w+)", response, re.IGNORECASE)
+    location_match = re.search(r"location:\s*(\w+)", response, re.IGNORECASE)
+
+    if action_match:
+        action = action_match.group(1)
+    if object_match:
+        object_ = object_match.group(1)
+    if location_match:
+        location = location_match.group(1)
+
+    return action, object_, location
 
 def main():
+    # 初始化 ROS 节点
+    rospy.init_node("minimind_chat_node")
+    intent_pub = rospy.Publisher("chat_intent", ChatIntent, queue_size=10)
+
     model, tokenizer = init_model()
     streamer = TextStreamer(tokenizer, skip_prompt=True, skip_special_tokens=True)
 
     messages = []
-    print("🤖️ 输入 'exit' 可退出聊天")
+    print("🤖️ Type 'exit' to quit the chat.")
     while True:
         prompt = input("👶: ")
         if prompt.strip().lower() == "exit":
@@ -90,6 +125,13 @@ def main():
         messages.append({"role": "assistant", "content": response})
         print("\n")
 
+        # 构造并发布 ChatIntent 消息
+        action, object_, location = parse_intent_from_response(response)
+        intent_msg = ChatIntent()
+        intent_msg.action = action
+        intent_msg.object = object_
+        intent_msg.location = location
+        intent_pub.publish(intent_msg)
 
 if __name__ == "__main__":
     main()

@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/administrator/AdvRoboCup/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/build
+CMAKE_BINARY_DIR = /home/administrator/AdvRoboCup/catkin_ws/build
 
 # Utility rule file for _minimind_chat_ros_generate_messages_check_deps_ChatIntent.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/build
 include minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/progress.make
 
 minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py minimind_chat_ros /home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg 
+	cd /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros && ../catkin_generated/env_cached.sh /home/administrator/anaconda3/envs/minimind/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py minimind_chat_ros /home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg 
 
 _minimind_chat_ros_generate_messages_check_deps_ChatIntent: minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent
 _minimind_chat_ros_generate_messages_check_deps_ChatIntent: minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build.make
@@ -67,10 +67,10 @@ minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_Cha
 .PHONY : minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build
 
 minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/clean:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros && $(CMAKE_COMMAND) -P CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/cmake_clean.cmake
+	cd /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros && $(CMAKE_COMMAND) -P CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/cmake_clean.cmake
 .PHONY : minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/clean
 
 minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/depend:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/AdvRoboCup/catkin_ws/src /home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros /home/ubuntu/AdvRoboCup/catkin_ws/build /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/administrator/AdvRoboCup/catkin_ws/src /home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros /home/administrator/AdvRoboCup/catkin_ws/build /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/depend
 

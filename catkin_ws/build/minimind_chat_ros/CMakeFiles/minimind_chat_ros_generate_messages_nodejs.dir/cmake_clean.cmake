@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/AdvRoboCup/catkin_ws/devel/share/gennodejs/ros/minimind_chat_ros/msg/ChatIntent.js"
+  "/home/administrator/AdvRoboCup/catkin_ws/devel/share/gennodejs/ros/minimind_chat_ros/msg/ChatIntent.js"
   "CMakeFiles/minimind_chat_ros_generate_messages_nodejs"
 )
 

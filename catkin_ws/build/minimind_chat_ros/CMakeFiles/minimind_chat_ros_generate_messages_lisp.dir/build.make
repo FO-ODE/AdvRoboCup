@@ -43,26 +43,26 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/administrator/AdvRoboCup/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/build
+CMAKE_BINARY_DIR = /home/administrator/AdvRoboCup/catkin_ws/build
 
 # Utility rule file for minimind_chat_ros_generate_messages_lisp.
 
 # Include the progress variables for this target.
 include minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/progress.make
 
-minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp: /home/ubuntu/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp
+minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp: /home/administrator/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp
 
 
-/home/ubuntu/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp: /opt/ros/noetic/lib/genlisp/gen_lisp.py
-/home/ubuntu/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp: /home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/ubuntu/AdvRoboCup/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from minimind_chat_ros/ChatIntent.msg"
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros && ../catkin_generated/env_cached.sh /usr/bin/python3 /opt/ros/noetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg -Iminimind_chat_ros:/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p minimind_chat_ros -o /home/ubuntu/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg
+/home/administrator/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp: /opt/ros/noetic/lib/genlisp/gen_lisp.py
+/home/administrator/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp: /home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/home/administrator/AdvRoboCup/catkin_ws/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generating Lisp code from minimind_chat_ros/ChatIntent.msg"
+	cd /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros && ../catkin_generated/env_cached.sh /home/administrator/anaconda3/envs/minimind/bin/python3 /opt/ros/noetic/share/genlisp/cmake/../../../lib/genlisp/gen_lisp.py /home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg -Iminimind_chat_ros:/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg -Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg -p minimind_chat_ros -o /home/administrator/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg
 
 minimind_chat_ros_generate_messages_lisp: minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp
-minimind_chat_ros_generate_messages_lisp: /home/ubuntu/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp
+minimind_chat_ros_generate_messages_lisp: /home/administrator/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp
 minimind_chat_ros_generate_messages_lisp: minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build.make
 
 .PHONY : minimind_chat_ros_generate_messages_lisp
@@ -73,10 +73,10 @@ minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build:
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build
 
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/clean:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros && $(CMAKE_COMMAND) -P CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/cmake_clean.cmake
+	cd /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros && $(CMAKE_COMMAND) -P CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/cmake_clean.cmake
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/clean
 
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/depend:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/AdvRoboCup/catkin_ws/src /home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros /home/ubuntu/AdvRoboCup/catkin_ws/build /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/administrator/AdvRoboCup/catkin_ws/src /home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros /home/administrator/AdvRoboCup/catkin_ws/build /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/depend
 

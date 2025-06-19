@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/AdvRoboCup/catkin_ws/devel/include/minimind_chat_ros/ChatIntent.h"
+  "/home/administrator/AdvRoboCup/catkin_ws/devel/include/minimind_chat_ros/ChatIntent.h"
   "CMakeFiles/minimind_chat_ros_generate_messages_cpp"
 )
 

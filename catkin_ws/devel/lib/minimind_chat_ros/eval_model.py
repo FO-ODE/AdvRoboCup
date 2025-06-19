@@ -1,9 +1,9 @@
-#!/usr/bin/python3
+#!/home/administrator/anaconda3/envs/minimind/bin/python3
 # -*- coding: utf-8 -*-
 # generated from catkin/cmake/template/script.py.in
 # creates a relay to a python script source file, acting as that file.
 # The purpose is that of a symlink
-python_script = '/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/scripts/eval_model.py'
+python_script = '/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/scripts/eval_model.py'
 with open(python_script, 'r') as fh:
     context = {
         '__builtins__': __builtins__,

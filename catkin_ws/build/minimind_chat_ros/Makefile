@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/administrator/AdvRoboCup/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/build
+CMAKE_BINARY_DIR = /home/administrator/AdvRoboCup/catkin_ws/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -137,14 +137,14 @@ install/local/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/AdvRoboCup/catkin_ws/build/CMakeFiles /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/progress.marks
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/ubuntu/AdvRoboCup/catkin_ws/build/CMakeFiles 0
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/administrator/AdvRoboCup/catkin_ws/build/CMakeFiles /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/progress.marks
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/administrator/AdvRoboCup/catkin_ws/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/clean
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/clean
 .PHONY : clean
 
 # The main clean target
@@ -154,22 +154,22 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/preinstall
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/preinstall
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/rule
 
 # Convenience name for target.
@@ -179,12 +179,12 @@ minimind_chat_ros_genpy: minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.di
 
 # fast build rule for target.
 minimind_chat_ros_genpy/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/build
 .PHONY : minimind_chat_ros_genpy/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -194,12 +194,12 @@ minimind_chat_ros_generate_messages_py: minimind_chat_ros/CMakeFiles/minimind_ch
 
 # fast build rule for target.
 minimind_chat_ros_generate_messages_py/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build
 .PHONY : minimind_chat_ros_generate_messages_py/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/rule
 
 # Convenience name for target.
@@ -209,12 +209,12 @@ minimind_chat_ros_gennodejs: minimind_chat_ros/CMakeFiles/minimind_chat_ros_genn
 
 # fast build rule for target.
 minimind_chat_ros_gennodejs/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/build
 .PHONY : minimind_chat_ros_gennodejs/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -224,12 +224,12 @@ minimind_chat_ros_generate_messages_nodejs: minimind_chat_ros/CMakeFiles/minimin
 
 # fast build rule for target.
 minimind_chat_ros_generate_messages_nodejs/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/build
 .PHONY : minimind_chat_ros_generate_messages_nodejs/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -239,12 +239,12 @@ std_msgs_generate_messages_cpp: minimind_chat_ros/CMakeFiles/std_msgs_generate_m
 
 # fast build rule for target.
 std_msgs_generate_messages_cpp/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
 .PHONY : std_msgs_generate_messages_cpp/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -254,12 +254,12 @@ std_msgs_generate_messages_lisp: minimind_chat_ros/CMakeFiles/std_msgs_generate_
 
 # fast build rule for target.
 std_msgs_generate_messages_lisp/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
 .PHONY : std_msgs_generate_messages_lisp/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/rule
 
 # Convenience name for target.
@@ -269,12 +269,12 @@ _minimind_chat_ros_generate_messages_check_deps_ChatIntent: minimind_chat_ros/CM
 
 # fast build rule for target.
 _minimind_chat_ros_generate_messages_check_deps_ChatIntent/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build.make minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build.make minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build
 .PHONY : _minimind_chat_ros_generate_messages_check_deps_ChatIntent/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/rule
 
 # Convenience name for target.
@@ -284,12 +284,12 @@ std_msgs_generate_messages_py: minimind_chat_ros/CMakeFiles/std_msgs_generate_me
 
 # fast build rule for target.
 std_msgs_generate_messages_py/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/build
 .PHONY : std_msgs_generate_messages_py/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/rule
 
 # Convenience name for target.
@@ -299,12 +299,12 @@ minimind_chat_ros_generate_messages_lisp: minimind_chat_ros/CMakeFiles/minimind_
 
 # fast build rule for target.
 minimind_chat_ros_generate_messages_lisp/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build
 .PHONY : minimind_chat_ros_generate_messages_lisp/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages.dir/rule
 
 # Convenience name for target.
@@ -314,12 +314,12 @@ minimind_chat_ros_generate_messages: minimind_chat_ros/CMakeFiles/minimind_chat_
 
 # fast build rule for target.
 minimind_chat_ros_generate_messages/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages.dir/build
 .PHONY : minimind_chat_ros_generate_messages/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -329,12 +329,12 @@ std_msgs_generate_messages_eus: minimind_chat_ros/CMakeFiles/std_msgs_generate_m
 
 # fast build rule for target.
 std_msgs_generate_messages_eus/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build
 .PHONY : std_msgs_generate_messages_eus/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_cpp.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_cpp.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_cpp.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_cpp.dir/rule
 
 # Convenience name for target.
@@ -344,12 +344,12 @@ minimind_chat_ros_generate_messages_cpp: minimind_chat_ros/CMakeFiles/minimind_c
 
 # fast build rule for target.
 minimind_chat_ros_generate_messages_cpp/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_cpp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_cpp.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_cpp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_cpp.dir/build
 .PHONY : minimind_chat_ros_generate_messages_cpp/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_gencpp.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_gencpp.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_gencpp.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_gencpp.dir/rule
 
 # Convenience name for target.
@@ -359,12 +359,12 @@ minimind_chat_ros_gencpp: minimind_chat_ros/CMakeFiles/minimind_chat_ros_gencpp.
 
 # fast build rule for target.
 minimind_chat_ros_gencpp/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_gencpp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_gencpp.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_gencpp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_gencpp.dir/build
 .PHONY : minimind_chat_ros_gencpp/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
@@ -374,12 +374,12 @@ std_msgs_generate_messages_nodejs: minimind_chat_ros/CMakeFiles/std_msgs_generat
 
 # fast build rule for target.
 std_msgs_generate_messages_nodejs/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
 .PHONY : std_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/rule
 
 # Convenience name for target.
@@ -389,12 +389,12 @@ minimind_chat_ros_geneus: minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.
 
 # fast build rule for target.
 minimind_chat_ros_geneus/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/build
 .PHONY : minimind_chat_ros_geneus/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_eus.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_eus.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_eus.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_eus.dir/rule
 
 # Convenience name for target.
@@ -404,12 +404,12 @@ minimind_chat_ros_generate_messages_eus: minimind_chat_ros/CMakeFiles/minimind_c
 
 # fast build rule for target.
 minimind_chat_ros_generate_messages_eus/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_eus.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_eus.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_eus.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_eus.dir/build
 .PHONY : minimind_chat_ros_generate_messages_eus/fast
 
 # Convenience name for target.
 minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/rule:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/rule
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/rule
 .PHONY : minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/rule
 
 # Convenience name for target.
@@ -419,7 +419,7 @@ minimind_chat_ros_genlisp: minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlis
 
 # fast build rule for target.
 minimind_chat_ros_genlisp/fast:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/build
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/build
 .PHONY : minimind_chat_ros_genlisp/fast
 
 # Help Target
@@ -463,6 +463,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

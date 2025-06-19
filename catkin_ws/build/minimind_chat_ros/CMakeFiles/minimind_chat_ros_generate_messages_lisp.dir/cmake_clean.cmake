@@ -1,5 +1,5 @@
 file(REMOVE_RECURSE
-  "/home/ubuntu/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp"
+  "/home/administrator/AdvRoboCup/catkin_ws/devel/share/common-lisp/ros/minimind_chat_ros/msg/ChatIntent.lisp"
   "CMakeFiles/minimind_chat_ros_generate_messages_lisp"
 )
 

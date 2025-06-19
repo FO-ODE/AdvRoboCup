@@ -1,4 +1,4 @@
-prefix=/home/ubuntu/AdvRoboCup/catkin_ws/install
+prefix=/home/administrator/AdvRoboCup/catkin_ws/install
 
 Name: minimind_chat_ros
 Description: Description of minimind_chat_ros

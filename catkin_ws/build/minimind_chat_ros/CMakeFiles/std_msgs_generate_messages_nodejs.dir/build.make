@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/src
+CMAKE_SOURCE_DIR = /home/administrator/AdvRoboCup/catkin_ws/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/ubuntu/AdvRoboCup/catkin_ws/build
+CMAKE_BINARY_DIR = /home/administrator/AdvRoboCup/catkin_ws/build
 
 # Utility rule file for std_msgs_generate_messages_nodejs.
 
@@ -63,10 +63,10 @@ minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build: std_ms
 .PHONY : minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
 
 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/clean:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_nodejs.dir/cmake_clean.cmake
+	cd /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros && $(CMAKE_COMMAND) -P CMakeFiles/std_msgs_generate_messages_nodejs.dir/cmake_clean.cmake
 .PHONY : minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/clean
 
 minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/depend:
-	cd /home/ubuntu/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ubuntu/AdvRoboCup/catkin_ws/src /home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros /home/ubuntu/AdvRoboCup/catkin_ws/build /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros /home/ubuntu/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/administrator/AdvRoboCup/catkin_ws/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/administrator/AdvRoboCup/catkin_ws/src /home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros /home/administrator/AdvRoboCup/catkin_ws/build /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros /home/administrator/AdvRoboCup/catkin_ws/build/minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/depend
 

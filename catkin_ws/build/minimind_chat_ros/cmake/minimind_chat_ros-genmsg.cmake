@@ -2,7 +2,7 @@
 
 message(STATUS "minimind_chat_ros: 1 messages, 0 services")
 
-set(MSG_I_FLAGS "-Iminimind_chat_ros:/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iminimind_chat_ros:/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -17,9 +17,9 @@ add_custom_target(minimind_chat_ros_generate_messages ALL)
 
 
 
-get_filename_component(_filename "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
+get_filename_component(_filename "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
 add_custom_target(_minimind_chat_ros_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "minimind_chat_ros" "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" ""
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "minimind_chat_ros" "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" ""
 )
 
 #
@@ -29,7 +29,7 @@ add_custom_target(_minimind_chat_ros_generate_messages_check_deps_${_filename}
 ### Section generating for lang: gencpp
 ### Generating Messages
 _generate_msg_cpp(minimind_chat_ros
-  "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
+  "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/minimind_chat_ros
@@ -49,7 +49,7 @@ add_custom_target(minimind_chat_ros_generate_messages_cpp
 add_dependencies(minimind_chat_ros_generate_messages minimind_chat_ros_generate_messages_cpp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
+get_filename_component(_filename "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
 add_dependencies(minimind_chat_ros_generate_messages_cpp _minimind_chat_ros_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -62,7 +62,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS minimind_chat_ros_generate_messages
 ### Section generating for lang: geneus
 ### Generating Messages
 _generate_msg_eus(minimind_chat_ros
-  "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
+  "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/minimind_chat_ros
@@ -82,7 +82,7 @@ add_custom_target(minimind_chat_ros_generate_messages_eus
 add_dependencies(minimind_chat_ros_generate_messages minimind_chat_ros_generate_messages_eus)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
+get_filename_component(_filename "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
 add_dependencies(minimind_chat_ros_generate_messages_eus _minimind_chat_ros_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -95,7 +95,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS minimind_chat_ros_generate_messages
 ### Section generating for lang: genlisp
 ### Generating Messages
 _generate_msg_lisp(minimind_chat_ros
-  "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
+  "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/minimind_chat_ros
@@ -115,7 +115,7 @@ add_custom_target(minimind_chat_ros_generate_messages_lisp
 add_dependencies(minimind_chat_ros_generate_messages minimind_chat_ros_generate_messages_lisp)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
+get_filename_component(_filename "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
 add_dependencies(minimind_chat_ros_generate_messages_lisp _minimind_chat_ros_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -128,7 +128,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS minimind_chat_ros_generate_messages
 ### Section generating for lang: gennodejs
 ### Generating Messages
 _generate_msg_nodejs(minimind_chat_ros
-  "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
+  "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/minimind_chat_ros
@@ -148,7 +148,7 @@ add_custom_target(minimind_chat_ros_generate_messages_nodejs
 add_dependencies(minimind_chat_ros_generate_messages minimind_chat_ros_generate_messages_nodejs)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
+get_filename_component(_filename "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
 add_dependencies(minimind_chat_ros_generate_messages_nodejs _minimind_chat_ros_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -161,7 +161,7 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS minimind_chat_ros_generate_messages
 ### Section generating for lang: genpy
 ### Generating Messages
 _generate_msg_py(minimind_chat_ros
-  "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
+  "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/minimind_chat_ros
@@ -181,7 +181,7 @@ add_custom_target(minimind_chat_ros_generate_messages_py
 add_dependencies(minimind_chat_ros_generate_messages minimind_chat_ros_generate_messages_py)
 
 # add dependencies to all check dependencies targets
-get_filename_component(_filename "/home/ubuntu/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
+get_filename_component(_filename "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg" NAME_WE)
 add_dependencies(minimind_chat_ros_generate_messages_py _minimind_chat_ros_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
@@ -238,7 +238,7 @@ if(TARGET std_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/minimind_chat_ros)
-  install(CODE "execute_process(COMMAND \"/usr/bin/python3\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/minimind_chat_ros\")")
+  install(CODE "execute_process(COMMAND \"/home/administrator/anaconda3/envs/minimind/bin/python3\" -m compileall \"${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/minimind_chat_ros\")")
   # install generated code
   install(
     DIRECTORY ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/minimind_chat_ros
