@@ -29,7 +29,8 @@ export ROS_IP=10.68.0.131
 
 # WLAN
 export ROS_MASTER_URI=http://192.168.1.200:11311 \
-export ROS_IP=192.168.1.84
+
+export ROS_IP=192.168.1.103
 ```
 
 ### Connection Test
@@ -301,8 +302,7 @@ SSH, MAP
  ```bash
 rosservice call /pal_map_manager/change_map "input: '2025-01-30_124458'"
 ```
-
-useful command:
+useful command: 
 
 ```bash
 rosrun rviz rviz -d'rospack find tiago_2dnav'/config/rviz/navigation.rviz
