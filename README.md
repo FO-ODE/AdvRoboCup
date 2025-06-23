@@ -19,18 +19,33 @@
 
 **TIAGo Webmanager**: <http://192.168.1.200:8080>
 
-```bash
-# to determine the IP address of the development computer
-ifconfig
 
-# Ethernet
+Use `ifconfig` to determine the IP address of the development computer
+
+```bash
+ifconfig
+```
+
+Connect the TIAGo Robot with **Ethernet**
+
+```bash
 export ROS_MASTER_URI=http://192.168.1.200:11311 \
 export ROS_IP=10.68.0.131
+```
 
-# WLAN
+Connect the TIAGo Robot with **WLAN**
+
+You need to Register TIAGo as a host first
+
+```bash
+sudo gedit /etc/hosts
+
+# Add 192.168.1.200 tiago-46c to the file
+```
+
+```bash
 export ROS_MASTER_URI=http://192.168.1.200:11311 \
-
-export ROS_IP=192.168.1.103
+export ROS_IP=192.168.1.84
 ```
 
 ### Connection Test

@@ -1,7 +1,6 @@
 # modified from Tiago official Dockerfile
 # adjust the moveit version for TIAGo Robot in reality
 
-# 基础镜像
 FROM osrf/ros:noetic-desktop-full-focal
 
 LABEL maintainer="Yue Erro <yue.erro@pal-robotics.com>"
@@ -10,7 +9,7 @@ ARG REPO_WS=/tiago_public_ws
 RUN mkdir -p $REPO_WS/src
 WORKDIR $REPO_WS
 
-# 安装依赖工具
+# 安装基础依赖工具
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-utils \
     libv4l-dev \
@@ -54,31 +53,63 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ros-noetic-actionlib-tools \
     && rm -rf /var/lib/apt/lists/*
 
-# 下载 TIAGo 工程
+# 下载 TIAGo 工程源码
 RUN wget https://raw.githubusercontent.com/pal-robotics/tiago_tutorials/noetic-devel/tiago_public-noetic.rosinstall \
     && vcs import src < tiago_public-noetic.rosinstall
 
-# 拷贝 MoveIt 的 DEB 包
+# 安装 srdfdom 所需依赖
+RUN apt-get update && apt-get install -y \
+    liburdfdom-dev \
+    libconsole-bridge-dev \
+    libtinyxml2-dev \
+    cmake \
+    libboost-system-dev \
+    libboost-filesystem-dev \
+    libeigen3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 编译并安装 srdfdom 0.6.3
+RUN git clone -b 0.6.3 https://github.com/ros-planning/srdfdom.git /opt/srdfdom && \
+    mkdir -p /opt/srdf_ws/src && \
+    mv /opt/srdfdom /opt/srdf_ws/src/srdfdom && \
+    cd /opt/srdf_ws && \
+    /bin/bash -c "source /opt/ros/noetic/setup.bash && \
+                  export CMAKE_PREFIX_PATH=/opt/ros/noetic:$CMAKE_PREFIX_PATH && \
+                  catkin build && \
+                  source devel/setup.bash && \
+                  cd src/srdfdom && \
+                  mkdir build && cd build && \
+                  cmake .. -DCMAKE_INSTALL_PREFIX=/usr/local && \
+                  make -j$(nproc) && \
+                  make install" && \
+    ldconfig
+
+# 设置环境变量
+RUN echo "source /opt/srdf_ws/devel/setup.bash" >> ~/.bashrc
+ENV LD_LIBRARY_PATH=/usr/local/lib:/opt/srdf_ws/devel/lib:/usr/lib:/lib:$LD_LIBRARY_PATH
+
+# 安装自定义 MoveIt deb 包（tiago_moveit 文件夹应与 Dockerfile 同级）
 COPY tiago_moveit /opt/tiago_moveit
 WORKDIR /opt/tiago_moveit
-
-# 先卸载冲突的 MoveIt 相关包，再手动安装所需 deb
 RUN apt-get update && \
-    apt-get remove -y ros-noetic-moveit-msgs ros-noetic-moveit-core ros-noetic-moveit-kinematics || true && \
+    apt-get remove -y ros-noetic-moveit-* || true && \
     dpkg -i *.deb || apt-get install -f -y && \
     rm -rf /var/lib/apt/lists/*
 
 # 回到主工作目录
 WORKDIR $REPO_WS
 
-# 安装 ROS 依赖
+# 安装 ROS 依赖（跳过已知缺失）
 ARG ROSDEP_IGNORE="urdf_test omni_drive_controller orocos_kdl pal_filters libgazebo9-dev pal_usb_utils speed_limit_node camera_calibration_files pal_moveit_plugins pal_startup_msgs pal_local_joint_control pal_pcl_points_throttle_and_filter current_limit_controller hokuyo_node dynamixel_cpp pal_moveit_capabilities pal_pcl dynamic_footprint gravity_compensation_controller pal-orbbec-openni2 pal_loc_measure pal_map_manager ydlidar_ros_driver"
+RUN apt-get update && rosdep install --from-paths src --ignore-src -y --rosdistro noetic --skip-keys="${ROSDEP_IGNORE}" && \
+    rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && rosdep install --from-paths src --ignore-src -y --rosdistro noetic --skip-keys="${ROSDEP_IGNORE}"
-
-# 构建
+# 构建主工作空间
 RUN bash -c "source /opt/ros/noetic/setup.bash && \
-    catkin build -DCATKIN_ENABLE_TESTING=0 -j $(expr \`nproc\` / 2) && \
-    echo 'source $REPO_WS/devel/setup.bash' >> ~/.bashrc"
+             source /opt/srdf_ws/devel/setup.bash && \
+             catkin build -DCATKIN_ENABLE_TESTING=0 -j $(nproc)"
+
+# 设置默认环境变量
+RUN echo "source $REPO_WS/devel/setup.bash" >> ~/.bashrc
 
 ENTRYPOINT ["bash"]
