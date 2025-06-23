@@ -13,7 +13,7 @@
 
 ### TIAGo Handbook
 
-<https://docs.pal-robotics.com/TIAGo-base/handbook.html>
+<https://docs.pal-robotics.com/tiago-base/handbook.html>
 
 ### Connection with TIAGo Robot
 
@@ -36,10 +36,10 @@ export ROS_IP=192.168.1.103
 ### Connection Test
 
 ```bash
-ping TIAGo-46c
+ping tiago-46c
 ping 192.168.1.200
 
-ssh pal@TIAGo-46c
+ssh pal@tiago-46c
 
 rostopic pub /test_topic std_msgs/String "data: 'test'"
 rostopic echo /test_topic
@@ -65,10 +65,10 @@ When starting this container, please **disconnect from the internet**. Reconnect
 
 ```bash
 rocker --nvidia --x11 --privileged \
-    --volume /home/zby/ros/RoboCup_workspace/src/adv_robocup_home:/TIAGo_public_ws/src/adv_robocup_home \
+    --volume /home/zby/ros/RoboCup_workspace/src/adv_robocup_home:/tiago_public_ws/src/adv_robocup_home \
     --network host \
-    --name TIAGo_container \
-    foode258/TIAGo_yolo:fpmoveit10
+    --name tiago_container \
+    foode258/tiago_yolo:fpmoveit10
 
 # commandes below are not required if you don't use MoveIt
 sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -84,10 +84,10 @@ for TIAGo in simulation environment
 
 ```bash
 rocker --nvidia --x11 --privileged \
-    --volume /home/zby/ros/RoboCup_workspace/src/adv_robocup_home:/TIAGo_public_ws/src/adv_robocup_home \
+    --volume /home/zby/ros/RoboCup_workspace/src/adv_robocup_home:/tiago_public_ws/src/adv_robocup_home \
     --network host \
-    --name TIAGo_simulation \
-    foode258/TIAGo_yolo:fptest11.2
+    --name tiago_simulation \
+    foode258/tiago_yolo:fptest11.2
 ```
 
 for object detection
@@ -133,7 +133,7 @@ rosrun smach_viewer smach_viewer.py
 
 rosservice list
 
-roslaunch TIAGo_moveit_config moveit_rviz.launch config:=true
+roslaunch tiago_moveit_config moveit_rviz.launch config:=true
 ```
 
 ### TIAGo Navigation & Map
@@ -141,7 +141,7 @@ roslaunch TIAGo_moveit_config moveit_rviz.launch config:=true
 ```bash
 rosrun map_server map_server src/carry_my_luggage/ics_map/map.yaml
 
-rosrun rviz rviz -d'rospack find TIAGo_2dnav'/config/rviz/navigation.rviz
+rosrun rviz rviz -d'rospack find tiago_2dnav'/config/rviz/navigation.rviz
 
 rosservice call /pal_map_manager/change_map "input: '2025-01-30_124458'"
 
@@ -170,12 +170,12 @@ in `yolo_container`
 roslaunch object_detection object_detection.launch
 ```
 
-in `TIAGo_container`
+in `tiago_container`
 
 ```bash
 roslaunch carry_navi grasp_drop_simulation.launch
 
-roslaunch TIAGo_moveit_config move_group.launch planning_frame:=base_footprint end_effector:=pal-gripper
+roslaunch tiago_moveit_config move_group.launch planning_frame:=base_footprint end_effector:=pal-gripper
 
 rosrun grasping insert_grasp_object.py 
 
@@ -299,10 +299,10 @@ goal:
 
 SSH, MAP
 
- ```bash
+```bash
 rosservice call /pal_map_manager/change_map "input: '2025-01-30_124458'"
 ```
-useful command: 
+useful command:
 
 ```bash
 rosrun rviz rviz -d'rospack find tiago_2dnav'/config/rviz/navigation.rviz
