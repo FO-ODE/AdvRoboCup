@@ -100,3 +100,27 @@ rostopic echo /chat_intent
 
 ---
 
+# Whisper
+本部分实现了通过麦克风录音，使用 OpenAI Whisper 进行离线语音识别，并将识别出的文本发送给本地语言模型 MiniMind 进行问答推理。
+
+## 安装与测试
+```bash
+# 基础依赖
+pip install openai-whisper sounddevice numpy transformers
+
+# Whisper 需要 ffmpeg
+sudo apt install ffmpeg
+```
+Whisper 英文模型下载:自动下载
+- 测试文件位于
+```bash
+AdvRoboCup/catkin_ws/src/minimind_chat_ros/scripts/test_whisper.py
+```
+会自动下载模型文件.
+
+## 与minimind集成
+参考代码：
+```bash
+AdvRoboCup/catkin_ws/src/minimind_chat_ros/scripts/speech_to_llm.py
+```
+需现场调试
