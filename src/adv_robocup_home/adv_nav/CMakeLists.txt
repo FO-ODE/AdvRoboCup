@@ -169,6 +169,7 @@ include_directories(
 catkin_install_python(PROGRAMS
   scripts/person_follower.py
   scripts/head_scan.py
+  scripts/move_to_pose.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
