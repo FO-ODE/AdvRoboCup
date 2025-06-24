@@ -1,0 +1,4 @@
+[submodule "src/adv_perception"]
+	path = src/adv_perception
+	url = https://github.com/FO-ODE/sam2ros.git
+	branch = master
