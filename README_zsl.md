@@ -8,7 +8,7 @@ for real world tiago, **offline start**
         --volume /home/zsl/ros/AdvRoboCup/src/adv_robocup_home:/tiago_public_ws/src/adv_robocup_home \
         --network host \
         --name tiago_container \
-        foode258/tiago_yolo:fpmoveit10
+        foode258/tiago_robot:env1.0
 
 
     sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu focal main" > /etc/apt/sources.list.d/ros-latest.list'
