@@ -19,6 +19,8 @@
 ### 控制
 
 - 停止：`rostopic pub /head_scan_command std_msgs/String "data: 'stop'"`
+- 开始：`rostopic pub /head_scan_command std_msgs/String "data: 'start'"`
+- 归位：`rostopic pub /head_scan_command std_msgs/String "data: 'center'"`
 
 ## 配置
 
@@ -41,4 +43,51 @@
 - 启动时归位
 - `stop` 保持当前位置
 - `center` 手动归位
-- 确保头部控制器
+- 确保头部控制器运行
+
+---
+
+## Person Follower Node
+
+## 概述
+
+`person_follower.py` 节点旨在使 TIAGo 机器人跟随人。它订阅人的位姿信息，并向 `move_base` 发送目标点，使机器人保持与人的预设距离。
+
+## 功能
+
+- 订阅 `/person_pose` 话题，获取人的位姿信息。
+- 将目标点发布到 `/move_base_simple/goal` 话题，控制机器人移动。
+- 使用 TF2 转换坐标系，确保目标点在地图坐标系下正确。
+- 维护与人的目标距离，并在机器人到达目标点后停止移动。
+- 异常处理，包括 TF 查找失败和其他错误。
+
+## 用法
+
+1. 确保已安装所有依赖项（例如 `tf2_ros`、`geometry_msgs`）。
+2. 运行该节点：
+
+    ```bash
+    rosrun adv_nav person_follower.py
+    ```
+
+3. 确保有一个发布 `/person_pose` 话题的节点正在运行，提供人的位姿信息。
+
+## 话题
+
+### 订阅
+
+- `/person_pose` (geometry_msgs/PoseStamped): 人的位姿信息，相对于机器人的坐标系。
+
+### 发布
+
+- `/move_base_simple/goal` (geometry_msgs/PoseStamped): 发送给 `move_base` 的目标点。
+
+## 参数
+
+- `follow_distance` (float, default: 1.3): 机器人与人保持的目标距离（米）。
+
+- `tolerance` (float, default: 0.3): 机器人到达目标点的容忍度（米）。
+
+## 许可证
+
+MIT 许可证
