@@ -1,5 +1,5 @@
 import rospy
-from geometry_msgs.msg import PoseStamped, Quaternion
+from geometry_msgs.msg import PointStamped, PoseStamped, Quaternion
 from tf.transformations import quaternion_from_euler
 import tf2_ros
 import tf2_geometry_msgs
@@ -16,21 +16,21 @@ class PersonFollower:
         self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=1)
 
         # 订阅人相对于机器人的坐标
-        rospy.Subscriber('/person_pose', PoseStamped, self.person_callback)
+        rospy.Subscriber('/person_pose', PointStamped, self.person_callback)
 
         self.person_pose_robot_frame = None  # 存储人相对于机器人坐标系的位置
         self.robot_moving = False  # 标记机器人是否正在执行目标
 
-        self.follow_distance = 1.3  # 距离人的目标距离 (米)
+        self.follow_distance = 1.7  # 距离人的目标距离 (米)
         self.tolerance = 0.3  # 到达目标点的容忍度 (米)
         self.rate = rospy.Rate(10)  # 10 Hz 循环频率
 
         rospy.loginfo("Person Follower Node Initialized.")
 
     def person_callback(self, msg):
-        # 接收到人的PoseStamped消息 (假设是base_link坐标系)
+        # 接收到人的PointStamped消息 (假设是base_link坐标系)
         self.person_pose_robot_frame = msg
-        rospy.loginfo(f"Received person pose: {self.person_pose_robot_frame.pose.position.x}, {self.person_pose_robot_frame.pose.position.y}")
+        rospy.loginfo(f"Received person pose: {self.person_pose_robot_frame.point.x}, {self.person_pose_robot_frame.point.y}")
 
     def send_goal(self, goal_pose_stamped):
         """发送目标给move_base"""
@@ -74,8 +74,8 @@ class PersonFollower:
                 rospy.logwarn_throttle(2, "Waiting for person pose...")
                 self.robot_moving = False  # 如果没有人，停止移动
             else:
-                # 从PoseStamped消息中获取位置信息
-                person_position = self.person_pose_robot_frame.pose.position
+                # 从PointStamped消息中获取位置信息
+                person_position = self.person_pose_robot_frame.point
 
                 # 距离人的X/Y分量
                 person_dist = (person_position.x**2 + person_position.y**2)**0.5
