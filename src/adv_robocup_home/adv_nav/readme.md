@@ -19,8 +19,6 @@
 ### 控制
 
 - 停止：`rostopic pub /head_scan_command std_msgs/String "data: 'stop'"`
-- 开始：`rostopic pub /head_scan_command std_msgs/String "data: 'start'"`
-- 归位：`rostopic pub /head_scan_command std_msgs/String "data: 'center'"`
 
 ## 配置
 
