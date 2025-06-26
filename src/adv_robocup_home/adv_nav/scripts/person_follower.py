@@ -16,7 +16,7 @@ class PersonFollower:
         self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=1)
 
         # 订阅人相对于机器人的坐标
-        rospy.Subscriber('/person_pose', PointStamped, self.person_callback)
+        rospy.Subscriber('/adv_robocup/waving_person/position', PointStamped, self.person_callback)
 
         self.person_pose_robot_frame = None  # 存储人相对于机器人坐标系的位置
         self.robot_moving = False  # 标记机器人是否正在执行目标
