@@ -20,6 +20,18 @@ find_package(catkin REQUIRED COMPONENTS
   trajectory_msgs
 )
 
+## 安装launch文件
+install(DIRECTORY launch/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+  PATTERN ".svn" EXCLUDE
+)
+
+## 安装配置文件
+install(DIRECTORY config/
+  DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config
+  PATTERN ".svn" EXCLUDE
+)
+
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -170,6 +182,8 @@ catkin_install_python(PROGRAMS
   scripts/person_follower.py
   scripts/head_scan.py
   scripts/move_to_pose.py
+  scripts/head_tracking.py
+  scripts/adjust_pose_to_object.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
