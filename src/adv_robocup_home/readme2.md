@@ -1,0 +1,3 @@
+catkin build object_detection object_detection_world object_labeling \
+obstacle_converter pick_place place_pose plane_segmentation \
+project_msgs task_manager tiago_localization tiago_moveit_config
