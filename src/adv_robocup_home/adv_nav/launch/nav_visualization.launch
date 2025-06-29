@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Navigation Visualization Launch File -->
+  
+  <!-- Arguments -->
+  <arg name="rviz_config" default="$(find adv_nav)/config/nav_config.rviz" />
+  <arg name="rviz" default="true" />
+  
+  <!-- Launch RViz with navigation configuration -->
+  <node if="$(arg rviz)" 
+        pkg="rviz" 
+        type="rviz" 
+        name="navigation_rviz" 
+        args="-d $(arg rviz_config)" 
+        output="screen">
+    <remap from="/clicked_point" to="/clicked_point" />
+    <remap from="/initialpose" to="/initialpose" />
+    <remap from="/move_base_simple/goal" to="/move_base_simple/goal" />
+  </node>
+  
+  <!-- Optional: Static transform publishers if needed -->
+  <!-- Uncomment if you need additional transforms -->
+  <!--
+  <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom"
+        args="0 0 0 0 0 0 map odom" />
+  -->
+  
+</launch>
