@@ -14,6 +14,11 @@ class PoseAdjuster:
     def __init__(self):
         rospy.init_node('pose_adjuster', anonymous=True)
         
+        # 创建tf2监听器
+        self.tf_buffer = tf2_ros.Buffer()
+        self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
+        rospy.loginfo("TF2 Listener initialized.")
+        
         # 使用action client
         self.move_client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
         rospy.loginfo("Waiting for move_base action server...")
@@ -55,8 +60,26 @@ class PoseAdjuster:
         rospy.loginfo(f"Received object position: ({msg.point.x:.2f}, {msg.point.y:.2f}, {msg.point.z:.2f}) in base_link frame")
         self.process_point()
     
-    def calculate_approach_pose(self, object_position):
-        """计算机器人的接近位姿 - 基于物体位置点"""
+    def transform_point_to_map(self, point_stamped):
+        """将PointStamped从base_link转换到map坐标系"""
+        try:
+            # 等待变换可用
+            self.tf_buffer.can_transform("map", "base_link", rospy.Time(0), rospy.Duration(1.0))
+            
+            # 执行坐标变换
+            point_in_map = self.tf_buffer.transform(point_stamped, "map", rospy.Duration(1.0))
+            
+            rospy.loginfo(f"Point transformed from base_link to map: "
+                         f"({point_in_map.point.x:.2f}, {point_in_map.point.y:.2f}, {point_in_map.point.z:.2f})")
+            
+            return point_in_map
+            
+        except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException) as e:
+            rospy.logerr(f"Failed to transform point from base_link to map: {e}")
+            return None
+    
+    def calculate_approach_pose(self, object_position_map):
+        """计算机器人的接近位姿 - 基于map坐标系中的物体位置点"""
         
         # 从固定朝向计算接近方向
         # 四元数 [0.000, 0.000, 0.961, -0.277] 对应的yaw角度
@@ -70,13 +93,13 @@ class PoseAdjuster:
         
         rospy.loginfo(f"Fixed yaw angle: {math.degrees(robot_yaw):.1f} degrees")
         
-        # 计算机器人应该站立的位置
+        # 计算机器人应该站立的位置（在map坐标系中）
         # 机器人在物体前方，距离为approach_distance，面向固定方向
         approach_offset_x = self.approach_distance * math.cos(robot_yaw)
         approach_offset_y = self.approach_distance * math.sin(robot_yaw)
         
-        robot_x = object_position.x - approach_offset_x
-        robot_y = object_position.y - approach_offset_y
+        robot_x = object_position_map.x - approach_offset_x
+        robot_y = object_position_map.y - approach_offset_y
         
         return robot_x, robot_y
     
@@ -86,18 +109,25 @@ class PoseAdjuster:
             return
         
         try:
-            object_position = self.object_point.point
+            # 先将物体位置从base_link转换到map坐标系
+            object_point_map = self.transform_point_to_map(self.object_point)
             
-            rospy.loginfo(f"Object position: ({object_position.x:.2f}, {object_position.y:.2f}, {object_position.z:.2f})")
+            if object_point_map is None:
+                rospy.logerr("Failed to transform object position to map frame")
+                return
             
-            # 计算机器人接近位姿
-            robot_x, robot_y = self.calculate_approach_pose(object_position)
+            object_position_map = object_point_map.point
             
-            rospy.loginfo(f"Robot target position: ({robot_x:.2f}, {robot_y:.2f})")
+            rospy.loginfo(f"Object position in map frame: ({object_position_map.x:.2f}, {object_position_map.y:.2f}, {object_position_map.z:.2f})")
             
-            # 创建目标位姿 - 固定使用base_link坐标系
+            # 基于map坐标系中的物体位置计算机器人接近位姿
+            robot_x, robot_y = self.calculate_approach_pose(object_position_map)
+            
+            rospy.loginfo(f"Robot target position in map frame: ({robot_x:.2f}, {robot_y:.2f})")
+            
+            # 创建目标位姿（已在map坐标系中）
             target_pose = PoseStamped()
-            target_pose.header.frame_id = "base_link"
+            target_pose.header.frame_id = "map"
             target_pose.header.stamp = rospy.Time.now()
             
             # 设置位置
@@ -108,7 +138,7 @@ class PoseAdjuster:
             # 设置固定朝向
             target_pose.pose.orientation = self.fixed_orientation
             
-            # 直接发送移动目标，不进行坐标转换
+            # 发送移动目标
             self.move_to_goal(target_pose)
             
         except Exception as e:
