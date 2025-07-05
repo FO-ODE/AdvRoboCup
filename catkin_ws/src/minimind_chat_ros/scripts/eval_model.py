@@ -6,6 +6,15 @@ import sys
 import os
 import torch
 
+# whisper
+import whisper
+import sounddevice as sd
+import wave
+import signal
+SAMPLERATE = 16000
+DURATION = 5
+WAV_FILE = "input.wav"
+
 # 添加 ROS 消息路径
 catkin_ws_path = os.path.expanduser("~/AdvRoboCup/catkin_ws")
 devel_lib_path = os.path.join(catkin_ws_path, "devel", "lib", "python3", "dist-packages")
@@ -26,6 +35,48 @@ from transformers import AutoTokenizer, TextStreamer
 
 
 warnings.filterwarnings('ignore')
+exit_requested = False
+VALID_OBJECTS = ["bottle", "cola", "cup", "can"]
+
+def correct_keywords(text):
+    # 用简单规则或模糊匹配纠正错误关键词
+    lower_text = text.lower()
+
+    if "photo" in lower_text:
+        print("🔧 Corrected 'photo' to 'bottle'")
+        lower_text = lower_text.replace("photo", "bottle")
+    
+    # 模糊匹配
+    for word in lower_text.split():
+        for valid in VALID_OBJECTS:
+            if word.startswith(valid[:2]) and len(word) >= 4 and valid not in lower_text:
+                print(f"Replacing '{word}' with '{valid}'")
+                lower_text = lower_text.replace(word, valid)
+
+    return lower_text
+
+def record_and_transcribe():
+    print("🎤 Recording 5 seconds of audio... (Ctrl+C to exit)")
+    audio = sd.rec(int(DURATION * SAMPLERATE), samplerate=SAMPLERATE, channels=1, dtype='int16')
+    sd.wait()
+
+    with wave.open(WAV_FILE, 'wb') as wf:
+        wf.setnchannels(1)
+        wf.setsampwidth(2)
+        wf.setframerate(SAMPLERATE)
+        wf.writeframes(audio.tobytes())
+
+    print("Transcribing with Whisper...")
+    asr_model = whisper.load_model("base")
+    result = asr_model.transcribe(WAV_FILE)
+    return result["text"].strip()
+
+def shutdown_hook():
+    global exit_requested
+    if not exit_requested:
+        print("\n👋 Shutting down ROS node...")
+        exit_requested = True
+        rospy.signal_shutdown("User requested shutdown.")
 
 
 def init_model():
@@ -80,58 +131,84 @@ def parse_intent_from_response(response):
 
     return action, object_, location
 
+no_speech_count = 0
 def main():
     # 初始化 ROS 节点
-    rospy.init_node("minimind_chat_node")
+    rospy.init_node("minimind_chat_node", anonymous=True)
     intent_pub = rospy.Publisher("chat_intent", ChatIntent, queue_size=10)
+
+    # 注册退出信号（支持 Ctrl+C）
+    signal.signal(signal.SIGINT, lambda sig, frame: shutdown_hook())
 
     model, tokenizer = init_model()
     streamer = TextStreamer(tokenizer, skip_prompt=True, skip_special_tokens=True)
 
-    messages = []
-    print("🤖️ Type 'exit' to quit the chat.")
-    while True:
-        prompt = input("👶: ")
-        if prompt.strip().lower() == "exit":
+    print("🎤 Say something! Speak for 5 seconds each time. Press Ctrl+C to exit.")
+
+    while not rospy.is_shutdown() and not exit_requested:
+        try:
+            prompt = record_and_transcribe()
+            prompt = correct_keywords(prompt)
+            if not prompt:
+                no_speech_count += 1
+                print(f"No speech detected ({no_speech_count}/2)")
+                if no_speech_count >= 2:
+                    print("No valid speech for 2 times. Exiting.")
+                    shutdown_hook()
+                    break
+                else:
+                    continue
+            else:
+                no_speech_count = 0
+            print(f"👶 You said: {prompt}")
+            if not prompt:
+                continue
+
+            setup_seed(random.randint(0, 2048))
+
+            messages = [{"role": "user", "content": prompt}]
+            new_prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            inputs = tokenizer(new_prompt, return_tensors="pt", truncation=True).to("cpu")
+
+            print("🤖️: ", end='')
+            generated_ids = model.generate(
+                inputs["input_ids"],
+                max_new_tokens=1024,
+                do_sample=True,
+                attention_mask=inputs["attention_mask"],
+                pad_token_id=tokenizer.pad_token_id,
+                eos_token_id=tokenizer.eos_token_id,
+                streamer=streamer,
+                top_p=0.85,
+                temperature=0.85
+            )
+
+            response = tokenizer.decode(
+                generated_ids[0][inputs["input_ids"].shape[1]:],
+                skip_special_tokens=True
+            )
+            messages.append({"role": "assistant", "content": response})
+            print("\n")
+
+            # 构造并发布 ChatIntent 消息
+            action, object_, location = parse_intent_from_response(response)
+            intent_msg = ChatIntent()
+            intent_msg.action = action
+            intent_msg.object = object_
+            intent_msg.location = location
+            #等待订阅者
+            while intent_pub.get_num_connections() == 0 and not rospy.is_shutdown():
+                print("Waiting for subscriber to connect...")
+                rospy.sleep(0.1)
+
+            intent_pub.publish(intent_msg)
+
+        except Exception as e:
+            print(f"Error occurred: {e}")
+            print("Restarting input loop...\n")
+        except KeyboardInterrupt:
+            shutdown_hook()
             break
-        setup_seed(random.randint(0, 2048))
-
-        messages = []
-        messages.append({"role": "user", "content": prompt})
-
-        new_prompt = tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
-        )
-
-        inputs = tokenizer(new_prompt, return_tensors="pt", truncation=True).to("cpu")
-
-        print("🤖️: ", end='')
-        generated_ids = model.generate(
-            inputs["input_ids"],
-            max_new_tokens=1024,
-            do_sample=True,
-            attention_mask=inputs["attention_mask"],
-            pad_token_id=tokenizer.pad_token_id,
-            eos_token_id=tokenizer.eos_token_id,
-            streamer=streamer,
-            top_p=0.85,
-            temperature=0.85
-        )
-
-        response = tokenizer.decode(
-            generated_ids[0][inputs["input_ids"].shape[1]:],
-            skip_special_tokens=True
-        )
-        messages.append({"role": "assistant", "content": response})
-        print("\n")
-
-        # 构造并发布 ChatIntent 消息
-        action, object_, location = parse_intent_from_response(response)
-        intent_msg = ChatIntent()
-        intent_msg.action = action
-        intent_msg.object = object_
-        intent_msg.location = location
-        intent_pub.publish(intent_msg)
 
 if __name__ == "__main__":
     main()
