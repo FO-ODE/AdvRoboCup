@@ -9,25 +9,25 @@ class MoveToPose:
     def __init__(self):
         rospy.init_node('move_to_pose', anonymous=True)
         
-        # 创建move_base action客户端
+        # Create move_base action client
         self.move_base_client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
         
         rospy.loginfo("Waiting for move_base action server...")
         self.move_base_client.wait_for_server()
         rospy.loginfo("Move_base action server connected!")
         
-        rospy.loginfo("Move to Pose Node Initialized.")
+        rospy.loginfo("MoveToPose Node Initialized.")
     
     def move_to_goal(self, x, y, z, qx, qy, qz, qw, frame_id="map"):
         """
-        移动机器人到指定位姿
-        x, y, z: 位置坐标
-        qx, qy, qz, qw: 四元数表示的朝向
-        frame_id: 坐标系
+        Move the robot to the specified pose
+        x, y, z: position coordinates
+        qx, qy, qz, qw: orientation quaternion
+        frame_id: reference coordinate frame
         """
         goal = MoveBaseGoal()
         
-        # 设置目标位姿
+        # Set the target pose
         goal.target_pose.header.frame_id = frame_id
         goal.target_pose.header.stamp = rospy.Time.now()
         
@@ -40,12 +40,13 @@ class MoveToPose:
         goal.target_pose.pose.orientation.z = qz
         goal.target_pose.pose.orientation.w = qw
         
-        rospy.loginfo(f"Sending goal: Position({x:.3f}, {y:.3f}, {z:.3f}), Orientation({qx:.3f}, {qy:.3f}, {qz:.3f}, {qw:.3f})")
+        rospy.loginfo(f"Sending goal: Position({x:.3f}, {y:.3f}, {z:.3f}), "
+                      f"Orientation({qx:.3f}, {qy:.3f}, {qz:.3f}, {qw:.3f})")
         
-        # 发送目标
+        # Send the goal
         self.move_base_client.send_goal(goal)
         
-        # 等待结果
+        # Wait for result
         rospy.loginfo("Moving to goal...")
         result = self.move_base_client.wait_for_result()
         
@@ -62,8 +63,8 @@ class MoveToPose:
             return False
     
     def move_to_preset_pose(self):
-        """移动到预设位置"""
-        # 目标位置和朝向
+        """Move to a preset pose"""
+        # Preset position and orientation
         target_x = 1.289
         target_y = -0.873
         target_z = 0.099
@@ -73,11 +74,13 @@ class MoveToPose:
         target_qz = 0.967
         target_qw = -0.254
         
-        return self.move_to_goal(target_x, target_y, target_z, 
-                                target_qx, target_qy, target_qz, target_qw)
+        return self.move_to_goal(
+            target_x, target_y, target_z,
+            target_qx, target_qy, target_qz, target_qw
+        )
     
     def cancel_goal(self):
-        """取消当前目标"""
+        """Cancel the current goal"""
         rospy.loginfo("Cancelling current goal...")
         self.move_base_client.cancel_all_goals()
 
@@ -85,19 +88,19 @@ def main():
     try:
         mover = MoveToPose()
         
-        # 检查启动参数
+        # Check startup parameter
         mode = rospy.get_param('~mode', 'preset')  # 'preset', 'custom', 'cancel'
         
         if mode == 'preset':
-            # 移动到预设位置
+            # Move to preset position
             success = mover.move_to_preset_pose()
             if success:
-                rospy.loginfo("Mission completed successfully!")
+                rospy.loginfo("Preset mission completed successfully!")
             else:
-                rospy.logwarn("Mission failed!")
+                rospy.logwarn("Preset mission failed!")
                 
         elif mode == 'custom':
-            # 从参数获取自定义位置
+            # Retrieve custom pose parameters
             x = rospy.get_param('~x', 1.289)
             y = rospy.get_param('~y', -0.873)
             z = rospy.get_param('~z', 0.099)
@@ -114,16 +117,16 @@ def main():
                 rospy.logwarn("Custom mission failed!")
                 
         elif mode == 'cancel':
-            # 取消当前目标
+            # Cancel the current goal
             mover.cancel_goal()
             
         else:
-            rospy.logwarn(f"Unknown mode: {mode}. Use 'preset', 'custom', or 'cancel'")
+            rospy.logwarn(f"Unknown mode: {mode}. Use 'preset', 'custom', or 'cancel'.")
             
     except rospy.ROSInterruptException:
-        rospy.loginfo("Move to Pose Node terminated.")
+        rospy.loginfo("MoveToPose Node terminated.")
     except KeyboardInterrupt:
-        rospy.loginfo("Move to Pose Node interrupted by user.")
+        rospy.loginfo("MoveToPose Node interrupted by user.")
 
 if __name__ == '__main__':
     main()

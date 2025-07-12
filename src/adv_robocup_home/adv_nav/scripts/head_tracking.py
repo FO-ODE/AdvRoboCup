@@ -13,11 +13,11 @@ class HeadTracker:
     def __init__(self):
         rospy.init_node('head_tracker', anonymous=True)
         
-        # TF2 buffer and listener
+        # Create tf2 buffer and listener
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
         
-        # 连接到头部控制器的action server
+        # Connect to the head controller action server
         self.head_client = actionlib.SimpleActionClient(
             '/head_controller/follow_joint_trajectory',
             FollowJointTrajectoryAction
@@ -27,40 +27,40 @@ class HeadTracker:
         self.head_client.wait_for_server()
         rospy.loginfo("Head controller action server connected!")
         
-        # 订阅目标点
+        # Subscribe to target point messages
         rospy.Subscriber('/adv_robocup/waving_person/position', PointStamped, self.target_callback)
         
-        # 头部关节名称 (适用于TIAGo机器人)
+        # Head joint names (for TIAGo robot)
         self.head_joint_names = ['head_1_joint', 'head_2_joint']
         
-        # 追踪参数
-        self.move_duration = 0.4  # 头部移动时间
+        # Tracking parameters
+        self.move_duration = 0.4  # Duration for head movement
         self.tracking_enabled = True
         
-        # 头部角度限制 (弧度) - 只限制水平移动
-        self.pan_limit = math.radians(90)   # 左右±90度
-        self.tilt_angle = 0.0  # 垂直角度固定为0度 (水平)
+        # Head angle limits (radians) - only horizontal movement
+        self.pan_limit = math.radians(90)   # ±90 degrees
+        self.tilt_angle = 0.0               # Fixed vertical angle (0)
         
-        # 记录是否已经移动过
+        # Flags to track movement state
         self.has_moved = False
         self.task_completed = False
         
         rospy.loginfo("Head Tracker Node Initialized.")
-        rospy.loginfo("Head will move once to the first received target and then shutdown")
+        rospy.loginfo("Head will move once to the first received target and then shut down.")
         rospy.loginfo("Send target to /adv_robocup/waving_person/position")
     
     def target_callback(self, msg):
-        """处理目标点回调 - 只移动一次然后关闭节点"""
+        """Handle target callback - move only once then shut down the node"""
         if not self.tracking_enabled or self.task_completed:
             return
             
         if self.has_moved:
             return
         
-        rospy.loginfo(f"Received target: ({msg.point.x:.2f}, {msg.point.y:.2f}, {msg.point.z:.2f}) in {msg.header.frame_id}")
+        rospy.loginfo(f"Received target: ({msg.point.x:.2f}, {msg.point.y:.2f}, {msg.point.z:.2f}) in frame {msg.header.frame_id}")
         
         try:
-            # 将目标点转换到base_link坐标系
+            # Transform target point to base_link coordinate frame
             target_in_head_frame = self.tf_buffer.transform(
                 msg, 
                 "base_link",
@@ -69,18 +69,18 @@ class HeadTracker:
             
             target_point = target_in_head_frame.point
             
-            # 只计算水平角度 (Pan angle)
+            # Calculate only the horizontal angle (pan)
             target_pan_angle = math.atan2(target_point.y, target_point.x)
             
-            # 应用角度限制
+            # Apply angle limits
             target_pan_angle = max(-self.pan_limit, min(self.pan_limit, target_pan_angle))
             
-            rospy.loginfo(f"Moving head to: pan={math.degrees(target_pan_angle):.1f}°")
+            rospy.loginfo(f"Moving head to pan={math.degrees(target_pan_angle):.1f}°")
             
-            # 移动头部
+            # Move the head
             success = self.move_head(target_pan_angle, self.tilt_angle)
             
-            # 标记任务完成
+            # Mark task completion
             self.has_moved = True
             self.task_completed = True
             
@@ -100,16 +100,16 @@ class HeadTracker:
     
     def move_head(self, pan_angle, tilt_angle):
         """
-        移动头部到指定角度
-        pan_angle: 水平角度 (左右转动)
-        tilt_angle: 垂直角度 (固定为0)
-        返回: True if successful, False otherwise
+        Move head to the specified angles
+        pan_angle: horizontal angle (yaw)
+        tilt_angle: vertical angle (pitch)
+        Returns True if successful, False otherwise
         """
         goal = FollowJointTrajectoryGoal()
         goal.trajectory = JointTrajectory()
         goal.trajectory.joint_names = self.head_joint_names
         
-        # 创建轨迹点
+        # Create trajectory point
         point = JointTrajectoryPoint()
         point.positions = [pan_angle, tilt_angle]
         point.velocities = [0.0, 0.0]
@@ -118,15 +118,13 @@ class HeadTracker:
         goal.trajectory.points = [point]
         goal.trajectory.header.stamp = rospy.Time.now()
         
-        # 发送目标并等待完成
+        # Send goal and wait for completion
         self.head_client.send_goal(goal)
         rospy.loginfo("Waiting for head movement to complete...")
         self.head_client.wait_for_result()
         
-        # 检查结果
+        # Check the result
         state = self.head_client.get_state()
-        result = self.head_client.get_result()
-        
         if state == actionlib.GoalStatus.SUCCEEDED:
             rospy.loginfo("Head movement action succeeded!")
             return True
@@ -141,11 +139,11 @@ class HeadTracker:
             return False
     
     def run(self):
-        """主循环 - 保持节点运行直到任务完成"""
+        """Main loop - keep node running until the task completes"""
         rospy.loginfo("Head tracker running. Waiting for target point...")
-        rospy.loginfo("Will move once to the first received target and then shutdown")
+        rospy.loginfo("Will move once to the first received target and then shut down.")
         
-        # 简单的自旋，等待回调
+        # Simple spin, waiting for callbacks
         rospy.spin()
 
 def main():

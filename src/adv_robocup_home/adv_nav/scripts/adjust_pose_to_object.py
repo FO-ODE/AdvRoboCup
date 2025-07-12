@@ -14,31 +14,31 @@ class PoseAdjuster:
     def __init__(self):
         rospy.init_node('pose_adjuster', anonymous=True)
         
-        # 创建tf2监听器
+        # Create tf2 listener
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
         rospy.loginfo("TF2 Listener initialized.")
         
-        # 使用action client
+        # Use action client
         self.move_client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
         rospy.loginfo("Waiting for move_base action server...")
         self.move_client.wait_for_server()
         rospy.loginfo("Move_base action server connected!")
         
-        # 订阅物体位置点数据
+        # Subscribe to object position point data
         rospy.Subscriber('/adv_robocup/object_position', PointStamped, self.object_callback)
         
-        # 存储物体位置数据
+        # Store object position data
         self.object_point = None
         
-        # 参数配置
-        self.approach_distance = 0.8  # 距离物体的距离（米）
-        self.robot_height = 0.0  # 机器人基座高度
+        # Parameter configuration
+        self.approach_distance = 0.8  # Distance to object (meters)
+        self.robot_height = 0.0  # Robot base height
         
-        # 固定的机器人朝向四元数
+        # Fixed robot orientation quaternion
         self.fixed_orientation = Quaternion(x=0.000, y=0.000, z=0.961, w=-0.277)
         
-        # 任务完成标志
+        # Task completion flag
         self.task_completed = False
         
         rospy.loginfo("Pose Adjuster Node Initialized.")
@@ -47,26 +47,52 @@ class PoseAdjuster:
         rospy.loginfo("Waiting for object position point...")
     
     def object_callback(self, msg):
-        """接收物体位置点回调"""
+        """Receive object position point callback"""
         if self.task_completed:
             return
         
-        # 检查坐标系是否为base_link
+        # 如果不是 base_link 坐标系，先转换到 base_link
         if msg.header.frame_id != "base_link":
-            rospy.logwarn(f"Expected frame_id 'base_link', but received '{msg.header.frame_id}'. Ignoring message.")
-            return
+            rospy.loginfo(f"Received object position in '{msg.header.frame_id}' frame. Converting to base_link...")
+            transformed_msg = self.transform_point_to_base_link(msg)
+            if transformed_msg is None:
+                rospy.logwarn(f"Failed to transform point from '{msg.header.frame_id}' to base_link. Ignoring message.")
+                return
+            self.object_point = transformed_msg
+        else:
+            self.object_point = msg
         
-        self.object_point = msg
-        rospy.loginfo(f"Received object position: ({msg.point.x:.2f}, {msg.point.y:.2f}, {msg.point.z:.2f}) in base_link frame")
+        rospy.loginfo(f"Object position in base_link frame: ({self.object_point.point.x:.2f}, {self.object_point.point.y:.2f}, {self.object_point.point.z:.2f})")
         self.process_point()
     
-    def transform_point_to_map(self, point_stamped):
-        """将PointStamped从base_link转换到map坐标系"""
+    def transform_point_to_base_link(self, point_stamped):
+        """Transform PointStamped from any coordinate system to base_link"""
         try:
-            # 等待变换可用
-            self.tf_buffer.can_transform("map", "base_link", rospy.Time(0), rospy.Duration(1.0))
+            # 检查变换是否可用
+            if not self.tf_buffer.can_transform("base_link", point_stamped.header.frame_id, 
+                                               point_stamped.header.stamp, rospy.Duration(1.0)):
+                rospy.logwarn(f"Transform from '{point_stamped.header.frame_id}' to 'base_link' not available")
+                return None
             
             # 执行坐标变换
+            point_in_base_link = self.tf_buffer.transform(point_stamped, "base_link", rospy.Duration(1.0))
+            
+            rospy.loginfo(f"Point transformed from '{point_stamped.header.frame_id}' to base_link: "
+                         f"({point_in_base_link.point.x:.2f}, {point_in_base_link.point.y:.2f}, {point_in_base_link.point.z:.2f})")
+            
+            return point_in_base_link
+            
+        except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException) as e:
+            rospy.logerr(f"Failed to transform point from '{point_stamped.header.frame_id}' to base_link: {e}")
+            return None
+    
+    def transform_point_to_map(self, point_stamped):
+        """Transform PointStamped from base_link to map coordinate system"""
+        try:
+            # Wait for transform to be available
+            self.tf_buffer.can_transform("map", "base_link", rospy.Time(0), rospy.Duration(1.0))
+            
+            # Execute coordinate transformation
             point_in_map = self.tf_buffer.transform(point_stamped, "map", rospy.Duration(1.0))
             
             rospy.loginfo(f"Point transformed from base_link to map: "
@@ -79,22 +105,22 @@ class PoseAdjuster:
             return None
     
     def calculate_approach_pose(self, object_position_map):
-        """计算机器人的接近位姿 - 基于map坐标系中的物体位置点"""
+        """Calculate robot approach pose - based on object position point in map coordinate system"""
         
-        # 从固定朝向计算接近方向
-        # 四元数 [0.000, 0.000, 0.961, -0.277] 对应的yaw角度
-        # 使用四元数到欧拉角的转换
+        # Calculate approach direction from fixed orientation
+        # Quaternion [0.000, 0.000, 0.961, -0.277] corresponding yaw angle
+        # Use quaternion to Euler angle conversion
         qx, qy, qz, qw = 0.000, 0.000, 0.961, -0.277
         
-        # 计算yaw角度（绕z轴旋转）
+        # Calculate yaw angle (rotation around z-axis)
         siny_cosp = 2 * (qw * qz + qx * qy)
         cosy_cosp = 1 - 2 * (qy * qy + qz * qz)
         robot_yaw = math.atan2(siny_cosp, cosy_cosp)
         
         rospy.loginfo(f"Fixed yaw angle: {math.degrees(robot_yaw):.1f} degrees")
         
-        # 计算机器人应该站立的位置（在map坐标系中）
-        # 机器人在物体前方，距离为approach_distance，面向固定方向
+        # Calculate robot position (in map coordinate system)
+        # Robot stands in front of object, at distance approach_distance, facing fixed direction
         approach_offset_x = self.approach_distance * math.cos(robot_yaw)
         approach_offset_y = self.approach_distance * math.sin(robot_yaw)
         
@@ -104,12 +130,12 @@ class PoseAdjuster:
         return robot_x, robot_y
     
     def process_point(self):
-        """处理位置点数据并生成目标位姿"""
+        """Process position point data and generate target pose"""
         if self.object_point is None or self.task_completed:
             return
         
         try:
-            # 先将物体位置从base_link转换到map坐标系
+            # First transform object position from base_link to map coordinate system
             object_point_map = self.transform_point_to_map(self.object_point)
             
             if object_point_map is None:
@@ -120,32 +146,32 @@ class PoseAdjuster:
             
             rospy.loginfo(f"Object position in map frame: ({object_position_map.x:.2f}, {object_position_map.y:.2f}, {object_position_map.z:.2f})")
             
-            # 基于map坐标系中的物体位置计算机器人接近位姿
+            # Calculate robot approach pose based on object position in map coordinate system
             robot_x, robot_y = self.calculate_approach_pose(object_position_map)
             
             rospy.loginfo(f"Robot target position in map frame: ({robot_x:.2f}, {robot_y:.2f})")
             
-            # 创建目标位姿（已在map坐标系中）
+            # Create target pose (already in map coordinate system)
             target_pose = PoseStamped()
             target_pose.header.frame_id = "map"
             target_pose.header.stamp = rospy.Time.now()
             
-            # 设置位置
+            # Set position
             target_pose.pose.position.x = robot_x
             target_pose.pose.position.y = robot_y
             target_pose.pose.position.z = self.robot_height
             
-            # 设置固定朝向
+            # Set fixed orientation
             target_pose.pose.orientation = self.fixed_orientation
             
-            # 发送移动目标
+            # Send movement goal
             self.move_to_goal(target_pose)
             
         except Exception as e:
             rospy.logerr(f"Error processing point: {e}")
     
     def move_to_goal(self, pose_stamped):
-        """发送移动目标并等待完成"""
+        """Send movement goal and wait for completion"""
         rospy.loginfo(f"Moving to goal: position=({pose_stamped.pose.position.x:.2f}, "
                      f"{pose_stamped.pose.position.y:.2f}), "
                      f"orientation=[{pose_stamped.pose.orientation.x:.3f}, "
@@ -154,18 +180,18 @@ class PoseAdjuster:
                      f"{pose_stamped.pose.orientation.w:.3f}], "
                      f"frame={pose_stamped.header.frame_id}")
         
-        # 创建MoveBaseGoal
+        # Create MoveBaseGoal
         goal = MoveBaseGoal()
         goal.target_pose = pose_stamped
         
-        # 发送目标
+        # Send goal
         self.move_client.send_goal(goal)
         rospy.loginfo("Goal sent. Waiting for robot to reach the target...")
         
-        # 等待移动完成
+        # Wait for movement completion
         self.move_client.wait_for_result()
         
-        # 检查结果
+        # Check result
         result = self.move_client.get_result()
         state = self.move_client.get_state()
         
@@ -185,13 +211,13 @@ class PoseAdjuster:
             self.terminate_with_failure()
     
     def terminate_with_failure(self):
-        """任务失败时的终止处理"""
+        """Handle task failure termination"""
         rospy.logerr("Task failed. Shutting down node...")
         self.task_completed = True
         rospy.signal_shutdown("Task failed")
     
     def set_approach_distance(self, distance):
-        """设置接近距离"""
+        """Set approach distance"""
         self.approach_distance = distance
         rospy.loginfo(f"Approach distance set to {distance:.2f}m")
 
@@ -199,12 +225,12 @@ def main():
     try:
         adjuster = PoseAdjuster()
         
-        # 可以通过ROS参数设置接近距离
+        # Set approach distance via ROS parameter
         approach_dist = rospy.get_param('~approach_distance', 0.8)
         adjuster.set_approach_distance(approach_dist)
         
         rospy.loginfo("Pose adjuster ready. Publish point to:")
-        rospy.loginfo("  - /adv_robocup/object_position (物体位置点)")
+        rospy.loginfo("  - /adv_robocup/object_position (object position point)")
         rospy.loginfo("Only accepts PointStamped messages with frame_id 'base_link'")
         rospy.loginfo("Robot orientation is fixed to [0.000, 0.000, 0.961, -0.277]")
         rospy.loginfo("Node will terminate after reaching the target position")
