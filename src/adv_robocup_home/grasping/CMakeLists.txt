@@ -174,6 +174,7 @@ catkin_install_python(PROGRAMS
   scripts/object_inserter.py
   scripts/planning_grasp.py
   scripts/grasp.py
+  scripts/give_hand.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
