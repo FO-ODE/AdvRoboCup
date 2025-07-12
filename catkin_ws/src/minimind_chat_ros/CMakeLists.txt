@@ -5,6 +5,8 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   std_msgs
   message_generation
+  pal_interaction_msgs 
+  actionlib_msgs
 )
 
 ## Declare message files
@@ -17,11 +19,13 @@ add_message_files(
 generate_messages(
   DEPENDENCIES
   std_msgs
+  pal_interaction_msgs 
+  actionlib_msgs
 )
 
 ## Declare catkin package
 catkin_package(
-  CATKIN_DEPENDS rospy std_msgs message_runtime
+  CATKIN_DEPENDS rospy std_msgs message_runtime pal_interaction_msgs actionlib_msgs
 )
 
 ## Install Python scripts

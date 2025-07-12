@@ -5,6 +5,8 @@ import numpy as np
 import sys
 import os
 import torch
+from std_msgs.msg import String
+from pal_interaction_msgs.msg import TtsActionGoal
 
 # whisper
 import whisper
@@ -37,6 +39,27 @@ from transformers import AutoTokenizer, TextStreamer
 warnings.filterwarnings('ignore')
 exit_requested = False
 VALID_OBJECTS = ["bottle", "cola", "cup", "can"]
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--input-mode", choices=["voice", "text"], default="voice", help="Choose input mode: 'voice' or 'text'")
+args = parser.parse_args()
+
+# 开始信号
+start_triggered = False
+
+def start_callback(msg):
+    global start_triggered, tts_pub
+    if msg.data.strip().lower() == "start" and not start_triggered:
+        print("Received start signal from state machine.")
+        start_triggered = True
+        # 语音确认
+        if tts_pub is not None:
+            confirm = TtsActionGoal()
+            confirm.goal.rawtext.text = "Start signal received."
+            confirm.goal.rawtext.lang_id = "en_GB"
+            tts_pub.publish(confirm)
+   
+
 
 def correct_keywords(text):
     # 用简单规则或模糊匹配纠正错误关键词
@@ -132,40 +155,82 @@ def parse_intent_from_response(response):
     return action, object_, location
 
 no_speech_count = 0
-def main():
-    # 初始化 ROS 节点
-    rospy.init_node("minimind_chat_node", anonymous=True)
-    intent_pub = rospy.Publisher("chat_intent", ChatIntent, queue_size=10)
 
-    # 注册退出信号（支持 Ctrl+C）
+def main():
+    global no_speech_count, tts_pub, unknown_object_count
+    no_speech_count = 0
+    unknown_object_count = 0
+
+    rospy.init_node("minimind_chat_node", anonymous=True)
+
+    # 提前初始化 Publisher，供回调中使用
+    tts_pub = rospy.Publisher("/tts/goal", TtsActionGoal, queue_size=1)
+    rospy.sleep(0.5)
+
+    # 订阅状态机启动信号
+    rospy.Subscriber("/Adv_robocup/start_signal", String, start_callback)
+    print("Waiting for 'start' signal from state machine...")
+
+    rate = rospy.Rate(10)
+    while not start_triggered and not rospy.is_shutdown():
+        rate.sleep()
+    rospy.sleep(4.0)
+    print("Start signal received. Beginning interaction.")
+
+    # 发开场白
+    tts_msg = TtsActionGoal()
+    tts_msg.goal.rawtext.text = "I am ready to assist you. What do you need?"
+    tts_msg.goal.rawtext.lang_id = "en_GB"
+    tts_pub.publish(tts_msg)
+    rospy.sleep(3.0)
+
+    intent_pub = rospy.Publisher("/Adv_robocup/chat_intent", ChatIntent, queue_size=10)
+    finish_pub = rospy.Publisher("/Adv_robocup/chat_finished", String, queue_size=1)
+
     signal.signal(signal.SIGINT, lambda sig, frame: shutdown_hook())
 
     model, tokenizer = init_model()
     streamer = TextStreamer(tokenizer, skip_prompt=True, skip_special_tokens=True)
 
-    print("🎤 Say something! Speak for 5 seconds each time. Press Ctrl+C to exit.")
+    input_mode = args.input_mode
+    print(f"Input mode: {input_mode}")
+
+    if input_mode == "voice":
+        print("🎤 Speak for 5 seconds. Press Ctrl+C to exit.")
+    else:
+        print("⌨️ Type your command. Type 'exit' to quit.")
 
     while not rospy.is_shutdown() and not exit_requested:
         try:
-            prompt = record_and_transcribe()
-            prompt = correct_keywords(prompt)
-            if not prompt:
-                no_speech_count += 1
-                print(f"No speech detected ({no_speech_count}/2)")
-                if no_speech_count >= 2:
-                    print("No valid speech for 2 times. Exiting.")
+            # Step 1: 用户输入（语音或键盘）
+            if input_mode == "voice":
+                prompt = record_and_transcribe()
+                prompt = correct_keywords(prompt)
+
+                if not prompt:
+                    no_speech_count += 1
+                    print(f"No speech detected ({no_speech_count}/2)")
+                    if no_speech_count >= 2:
+                        print("No valid speech for 2 times. Exiting.")
+                        shutdown_hook()
+                        break
+                    else:
+                        continue
+                else:
+                    no_speech_count = 0
+
+            else:  # keyboard text mode
+                prompt = input("👶 You: ").strip()
+                if prompt.lower() == "exit":
                     shutdown_hook()
                     break
-                else:
+                if not prompt:
                     continue
-            else:
-                no_speech_count = 0
-            print(f"👶 You said: {prompt}")
-            if not prompt:
-                continue
 
+            print(f"👶 Input: {prompt}")
             setup_seed(random.randint(0, 2048))
 
+            # Step 2: 语言模型推理
             messages = [{"role": "user", "content": prompt}]
             new_prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
             inputs = tokenizer(new_prompt, return_tensors="pt", truncation=True).to("cpu")
@@ -190,18 +255,72 @@ def main():
             messages.append({"role": "assistant", "content": response})
             print("\n")
 
-            # 构造并发布 ChatIntent 消息
+            # Step 3: intent解析
             action, object_, location = parse_intent_from_response(response)
             intent_msg = ChatIntent()
             intent_msg.action = action
             intent_msg.object = object_
             intent_msg.location = location
-            #等待订阅者
-            while intent_pub.get_num_connections() == 0 and not rospy.is_shutdown():
-                print("Waiting for subscriber to connect...")
-                rospy.sleep(0.1)
 
-            intent_pub.publish(intent_msg)
+            # Step 4: 用户确认 object_
+            confirmed = False
+            if object_ == "unknown":
+                unknown_object_count += 1
+                print(f"[Warn] object unknown ({unknown_object_count}/3)")
+                if unknown_object_count >= 3:
+                    print("[Fallback] Force object = 'cola'")
+                    object_ = "cola"
+                    intent_msg.object = object_
+                    confirmed = True               # 直接认定成功
+                else:
+                    tts_unclear = TtsActionGoal()
+                    tts_unclear.goal.rawtext.text = "Sorry, I didn't catch the object. Could you please say it again?"
+                    tts_unclear.goal.rawtext.lang_id = "en_GB"
+                    tts_pub.publish(tts_unclear)
+                    rospy.sleep(2.5)
+                    continue        # 重新开始下一轮输入
+            else:
+                unknown_object_count = 0
+                tts_confirm = TtsActionGoal()
+                tts_confirm.goal.rawtext.text = f"You want the {object_}, right?"
+                tts_confirm.goal.rawtext.lang_id = "en_GB"
+                tts_pub.publish(tts_confirm)
+                rospy.sleep(2.5)
+                print("Waiting for user confirmation (say 'yes' or 'no')...")
+                reply = record_and_transcribe().lower()
+                print(f"Confirmation reply: {reply}")
+                confirmed = "yes" in reply
+
+            if confirmed:
+                # Step 5: 发布 intent
+                while intent_pub.get_num_connections() == 0 and not rospy.is_shutdown():
+                    print("Waiting for subscriber to connect...")
+                    rospy.sleep(0.1)
+                for i in range(3):
+                    intent_pub.publish(intent_msg)
+                    print(f"Published ChatIntent ({i+1}/3)")
+                    rospy.sleep(0.1)
+
+                finish_pub.publish(String(data="done"))
+                print("Sent 'done' to /chat_finished")
+                rospy.sleep(1.0)
+                # 成功语音反馈
+                tts_success = TtsActionGoal()
+                tts_success.goal.rawtext.text = "I have completed this step and informed the system."
+                tts_success.goal.rawtext.lang_id = "en_GB"
+                tts_pub.publish(tts_success)
+                rospy.sleep(2.5)
+
+                shutdown_hook() 
+                break
+                
+            else:
+                # Step 6: 回到起点
+                tts_msg = TtsActionGoal()
+                tts_msg.goal.rawtext.text = "Okay. What do you need?"
+                tts_msg.goal.rawtext.lang_id = "en_GB"
+                tts_pub.publish(tts_msg)
+                rospy.sleep(2.0)
 
         except Exception as e:
             print(f"Error occurred: {e}")

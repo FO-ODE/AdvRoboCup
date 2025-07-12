@@ -3,9 +3,9 @@
 messages_str = "/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg/ChatIntent.msg"
 services_str = ""
 pkg_name = "minimind_chat_ros"
-dependencies_str = "std_msgs"
+dependencies_str = "std_msgs;pal_interaction_msgs;actionlib_msgs"
 langs = "gencpp;geneus;genlisp;gennodejs;genpy"
-dep_include_paths_str = "minimind_chat_ros;/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg;std_msgs;/opt/ros/noetic/share/std_msgs/cmake/../msg"
+dep_include_paths_str = "minimind_chat_ros;/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg;std_msgs;/opt/ros/noetic/share/std_msgs/cmake/../msg;pal_interaction_msgs;/home/administrator/AdvRoboCup/catkin_ws/src/pal_interaction_msgs/msg;pal_interaction_msgs;/home/administrator/AdvRoboCup/catkin_ws/devel/share/pal_interaction_msgs/msg;actionlib_msgs;/opt/ros/noetic/share/actionlib_msgs/cmake/../msg"
 PYTHON_EXECUTABLE = "/home/administrator/anaconda3/envs/minimind/bin/python3"
 package_has_static_sources = '' == 'TRUE'
 genmsg_check_deps_script = "/opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py"

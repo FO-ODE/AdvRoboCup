@@ -2,7 +2,7 @@
 
 message(STATUS "minimind_chat_ros: 1 messages, 0 services")
 
-set(MSG_I_FLAGS "-Iminimind_chat_ros:/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg")
+set(MSG_I_FLAGS "-Iminimind_chat_ros:/home/administrator/AdvRoboCup/catkin_ws/src/minimind_chat_ros/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg;-Ipal_interaction_msgs:/home/administrator/AdvRoboCup/catkin_ws/src/pal_interaction_msgs/msg;-Ipal_interaction_msgs:/home/administrator/AdvRoboCup/catkin_ws/devel/share/pal_interaction_msgs/msg;-Iactionlib_msgs:/opt/ros/noetic/share/actionlib_msgs/cmake/../msg")
 
 # Find all generators
 find_package(gencpp REQUIRED)
@@ -203,6 +203,12 @@ endif()
 if(TARGET std_msgs_generate_messages_cpp)
   add_dependencies(minimind_chat_ros_generate_messages_cpp std_msgs_generate_messages_cpp)
 endif()
+if(TARGET pal_interaction_msgs_generate_messages_cpp)
+  add_dependencies(minimind_chat_ros_generate_messages_cpp pal_interaction_msgs_generate_messages_cpp)
+endif()
+if(TARGET actionlib_msgs_generate_messages_cpp)
+  add_dependencies(minimind_chat_ros_generate_messages_cpp actionlib_msgs_generate_messages_cpp)
+endif()
 
 if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/minimind_chat_ros)
   # install generated code
@@ -213,6 +219,12 @@ if(geneus_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/mi
 endif()
 if(TARGET std_msgs_generate_messages_eus)
   add_dependencies(minimind_chat_ros_generate_messages_eus std_msgs_generate_messages_eus)
+endif()
+if(TARGET pal_interaction_msgs_generate_messages_eus)
+  add_dependencies(minimind_chat_ros_generate_messages_eus pal_interaction_msgs_generate_messages_eus)
+endif()
+if(TARGET actionlib_msgs_generate_messages_eus)
+  add_dependencies(minimind_chat_ros_generate_messages_eus actionlib_msgs_generate_messages_eus)
 endif()
 
 if(genlisp_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/minimind_chat_ros)
@@ -225,6 +237,12 @@ endif()
 if(TARGET std_msgs_generate_messages_lisp)
   add_dependencies(minimind_chat_ros_generate_messages_lisp std_msgs_generate_messages_lisp)
 endif()
+if(TARGET pal_interaction_msgs_generate_messages_lisp)
+  add_dependencies(minimind_chat_ros_generate_messages_lisp pal_interaction_msgs_generate_messages_lisp)
+endif()
+if(TARGET actionlib_msgs_generate_messages_lisp)
+  add_dependencies(minimind_chat_ros_generate_messages_lisp actionlib_msgs_generate_messages_lisp)
+endif()
 
 if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/minimind_chat_ros)
   # install generated code
@@ -235,6 +253,12 @@ if(gennodejs_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_D
 endif()
 if(TARGET std_msgs_generate_messages_nodejs)
   add_dependencies(minimind_chat_ros_generate_messages_nodejs std_msgs_generate_messages_nodejs)
+endif()
+if(TARGET pal_interaction_msgs_generate_messages_nodejs)
+  add_dependencies(minimind_chat_ros_generate_messages_nodejs pal_interaction_msgs_generate_messages_nodejs)
+endif()
+if(TARGET actionlib_msgs_generate_messages_nodejs)
+  add_dependencies(minimind_chat_ros_generate_messages_nodejs actionlib_msgs_generate_messages_nodejs)
 endif()
 
 if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/minimind_chat_ros)
@@ -247,4 +271,10 @@ if(genpy_INSTALL_DIR AND EXISTS ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/mini
 endif()
 if(TARGET std_msgs_generate_messages_py)
   add_dependencies(minimind_chat_ros_generate_messages_py std_msgs_generate_messages_py)
+endif()
+if(TARGET pal_interaction_msgs_generate_messages_py)
+  add_dependencies(minimind_chat_ros_generate_messages_py pal_interaction_msgs_generate_messages_py)
+endif()
+if(TARGET actionlib_msgs_generate_messages_py)
+  add_dependencies(minimind_chat_ros_generate_messages_py actionlib_msgs_generate_messages_py)
 endif()

@@ -285,95 +285,147 @@ gtest/fast:
 .PHONY : gtest/fast
 
 #=============================================================================
-# Target rules for targets named minimind_chat_ros_genpy
+# Target rules for targets named pal_interaction_msgs_gennodejs
 
 # Build rule for target.
-minimind_chat_ros_genpy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_genpy
-.PHONY : minimind_chat_ros_genpy
+pal_interaction_msgs_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_gennodejs
+.PHONY : pal_interaction_msgs_gennodejs
 
 # fast build rule for target.
-minimind_chat_ros_genpy/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/build
-.PHONY : minimind_chat_ros_genpy/fast
+pal_interaction_msgs_gennodejs/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_gennodejs.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_gennodejs.dir/build
+.PHONY : pal_interaction_msgs_gennodejs/fast
 
 #=============================================================================
-# Target rules for targets named minimind_chat_ros_generate_messages_py
+# Target rules for targets named pal_interaction_msgs_generate_messages_nodejs
 
 # Build rule for target.
-minimind_chat_ros_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_generate_messages_py
-.PHONY : minimind_chat_ros_generate_messages_py
+pal_interaction_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_generate_messages_nodejs
+.PHONY : pal_interaction_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-minimind_chat_ros_generate_messages_py/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build
-.PHONY : minimind_chat_ros_generate_messages_py/fast
+pal_interaction_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_nodejs.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_nodejs.dir/build
+.PHONY : pal_interaction_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
-# Target rules for targets named minimind_chat_ros_gennodejs
+# Target rules for targets named pal_interaction_msgs_generate_messages_lisp
 
 # Build rule for target.
-minimind_chat_ros_gennodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_gennodejs
-.PHONY : minimind_chat_ros_gennodejs
+pal_interaction_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_generate_messages_lisp
+.PHONY : pal_interaction_msgs_generate_messages_lisp
 
 # fast build rule for target.
-minimind_chat_ros_gennodejs/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/build
-.PHONY : minimind_chat_ros_gennodejs/fast
+pal_interaction_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_lisp.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_lisp.dir/build
+.PHONY : pal_interaction_msgs_generate_messages_lisp/fast
 
 #=============================================================================
-# Target rules for targets named minimind_chat_ros_generate_messages_nodejs
+# Target rules for targets named pal_interaction_msgs_geneus
 
 # Build rule for target.
-minimind_chat_ros_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_generate_messages_nodejs
-.PHONY : minimind_chat_ros_generate_messages_nodejs
+pal_interaction_msgs_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_geneus
+.PHONY : pal_interaction_msgs_geneus
 
 # fast build rule for target.
-minimind_chat_ros_generate_messages_nodejs/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/build
-.PHONY : minimind_chat_ros_generate_messages_nodejs/fast
+pal_interaction_msgs_geneus/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_geneus.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_geneus.dir/build
+.PHONY : pal_interaction_msgs_geneus/fast
 
 #=============================================================================
-# Target rules for targets named std_msgs_generate_messages_cpp
+# Target rules for targets named pal_interaction_msgs_generate_messages_eus
 
 # Build rule for target.
-std_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_cpp
-.PHONY : std_msgs_generate_messages_cpp
+pal_interaction_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_generate_messages_eus
+.PHONY : pal_interaction_msgs_generate_messages_eus
 
 # fast build rule for target.
-std_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
-.PHONY : std_msgs_generate_messages_cpp/fast
+pal_interaction_msgs_generate_messages_eus/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_eus.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_eus.dir/build
+.PHONY : pal_interaction_msgs_generate_messages_eus/fast
 
 #=============================================================================
-# Target rules for targets named std_msgs_generate_messages_lisp
+# Target rules for targets named pal_interaction_msgs_generate_messages_cpp
 
 # Build rule for target.
-std_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_lisp
-.PHONY : std_msgs_generate_messages_lisp
+pal_interaction_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_generate_messages_cpp
+.PHONY : pal_interaction_msgs_generate_messages_cpp
 
 # fast build rule for target.
-std_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
-.PHONY : std_msgs_generate_messages_lisp/fast
+pal_interaction_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_cpp.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_cpp.dir/build
+.PHONY : pal_interaction_msgs_generate_messages_cpp/fast
 
 #=============================================================================
-# Target rules for targets named _minimind_chat_ros_generate_messages_check_deps_ChatIntent
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRService
 
 # Build rule for target.
-_minimind_chat_ros_generate_messages_check_deps_ChatIntent: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _minimind_chat_ros_generate_messages_check_deps_ChatIntent
-.PHONY : _minimind_chat_ros_generate_messages_check_deps_ChatIntent
+_pal_interaction_msgs_generate_messages_check_deps_ASRService: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRService
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRService
 
 # fast build rule for target.
-_minimind_chat_ros_generate_messages_check_deps_ChatIntent/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build.make minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build
-.PHONY : _minimind_chat_ros_generate_messages_check_deps_ChatIntent/fast
+_pal_interaction_msgs_generate_messages_check_deps_ASRService/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRService.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRService.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRService/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TtsGoal
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsGoal: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TtsGoal
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsGoal
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsGoal/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsGoal.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsGoal.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsGoal/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TtsActionFeedback
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsActionFeedback: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TtsActionFeedback
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsActionFeedback
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsActionFeedback/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsActionFeedback.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsActionFeedback.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsActionFeedback/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_EnablingSoundLocalisation
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_EnablingSoundLocalisation: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_EnablingSoundLocalisation
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_EnablingSoundLocalisation
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_EnablingSoundLocalisation/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_EnablingSoundLocalisation.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_EnablingSoundLocalisation.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_EnablingSoundLocalisation/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_AudioPlayerState
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayerState: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_AudioPlayerState
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayerState
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayerState/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayerState.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayerState.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayerState/fast
 
 #=============================================================================
 # Target rules for targets named std_msgs_generate_messages_py
@@ -385,21 +437,866 @@ std_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 std_msgs_generate_messages_py/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_py.dir/build
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/build.make pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_py.dir/build
 .PHONY : std_msgs_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named minimind_chat_ros_generate_messages_lisp
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_asrupdate
 
 # Build rule for target.
-minimind_chat_ros_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_generate_messages_lisp
-.PHONY : minimind_chat_ros_generate_messages_lisp
+_pal_interaction_msgs_generate_messages_check_deps_asrupdate: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_asrupdate
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_asrupdate
 
 # fast build rule for target.
-minimind_chat_ros_generate_messages_lisp/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build
-.PHONY : minimind_chat_ros_generate_messages_lisp/fast
+_pal_interaction_msgs_generate_messages_check_deps_asrupdate/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_asrupdate.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_asrupdate.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_asrupdate/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_I18nArgument
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_I18nArgument: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_I18nArgument
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_I18nArgument
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_I18nArgument/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_I18nArgument.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_I18nArgument.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_I18nArgument/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRStatus
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRStatus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRStatus
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRStatus
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRStatus/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRStatus.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRStatus.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRStatus/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TtsText
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsText: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TtsText
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsText
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsText/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsText.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsText.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsText/fast
+
+#=============================================================================
+# Target rules for targets named pal_interaction_msgs_genpy
+
+# Build rule for target.
+pal_interaction_msgs_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_genpy
+.PHONY : pal_interaction_msgs_genpy
+
+# fast build rule for target.
+pal_interaction_msgs_genpy/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_genpy.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_genpy.dir/build
+.PHONY : pal_interaction_msgs_genpy/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRSrvRequest
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRSrvRequest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRSrvRequest
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRSrvRequest
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRSrvRequest/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRSrvRequest.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRSrvRequest.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRSrvRequest/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_AudioPlayGoal
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayGoal: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_AudioPlayGoal
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayGoal
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayGoal/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayGoal.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayGoal.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayGoal/fast
+
+#=============================================================================
+# Target rules for targets named pal_interaction_msgs_generate_messages_py
+
+# Build rule for target.
+pal_interaction_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_generate_messages_py
+.PHONY : pal_interaction_msgs_generate_messages_py
+
+# fast build rule for target.
+pal_interaction_msgs_generate_messages_py/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_py.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages_py.dir/build
+.PHONY : pal_interaction_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASREvent
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASREvent: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASREvent
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASREvent
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASREvent/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASREvent.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASREvent.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASREvent/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionGoal
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionGoal: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionGoal
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionGoal
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionGoal/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionGoal.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionGoal.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionGoal/fast
+
+#=============================================================================
+# Target rules for targets named _catkin_empty_exported_target
+
+# Build rule for target.
+_catkin_empty_exported_target: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _catkin_empty_exported_target
+.PHONY : _catkin_empty_exported_target
+
+# fast build rule for target.
+_catkin_empty_exported_target/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_catkin_empty_exported_target.dir/build.make pal_interaction_msgs/CMakeFiles/_catkin_empty_exported_target.dir/build
+.PHONY : _catkin_empty_exported_target/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_SoundLocalisationService
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundLocalisationService: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_SoundLocalisationService
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundLocalisationService
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundLocalisationService/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundLocalisationService.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundLocalisationService.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundLocalisationService/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionFeedback
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionFeedback: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionFeedback
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionFeedback
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionFeedback/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionFeedback.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionFeedback.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionFeedback/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_cpp
+
+# Build rule for target.
+std_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_cpp
+.PHONY : std_msgs_generate_messages_cpp
+
+# fast build rule for target.
+std_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_WebGuiEvent
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_WebGuiEvent: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_WebGuiEvent
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_WebGuiEvent
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_WebGuiEvent/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_WebGuiEvent.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_WebGuiEvent.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_WebGuiEvent/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRFileFeedback
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileFeedback: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRFileFeedback
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileFeedback
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileFeedback/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileFeedback.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileFeedback.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileFeedback/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRLangModelMngmt
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRLangModelMngmt: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRLangModelMngmt
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRLangModelMngmt
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRLangModelMngmt/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRLangModelMngmt.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRLangModelMngmt.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRLangModelMngmt/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRActivation
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRActivation: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRActivation
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRActivation
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRActivation/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRActivation.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRActivation.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRActivation/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_nodejs
+
+# Build rule for target.
+std_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_nodejs
+.PHONY : std_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+std_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
+.PHONY : std_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_py
+
+# Build rule for target.
+actionlib_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_py
+.PHONY : actionlib_msgs_generate_messages_py
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_py/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build.make pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_py.dir/build
+.PHONY : actionlib_msgs_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named pal_interaction_msgs_generate_messages
+
+# Build rule for target.
+pal_interaction_msgs_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_generate_messages
+.PHONY : pal_interaction_msgs_generate_messages
+
+# fast build rule for target.
+pal_interaction_msgs_generate_messages/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_generate_messages.dir/build
+.PHONY : pal_interaction_msgs_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TtsMark
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsMark: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TtsMark
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsMark
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsMark/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsMark.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsMark.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsMark/fast
+
+#=============================================================================
+# Target rules for targets named pal_interaction_msgs_genlisp
+
+# Build rule for target.
+pal_interaction_msgs_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_genlisp
+.PHONY : pal_interaction_msgs_genlisp
+
+# fast build rule for target.
+pal_interaction_msgs_genlisp/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_genlisp.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_genlisp.dir/build
+.PHONY : pal_interaction_msgs_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_lisp
+
+# Build rule for target.
+std_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_lisp
+.PHONY : std_msgs_generate_messages_lisp
+
+# fast build rule for target.
+std_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_cpp
+
+# Build rule for target.
+actionlib_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_cpp
+.PHONY : actionlib_msgs_generate_messages_cpp
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build.make pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_cpp.dir/build
+.PHONY : actionlib_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_SoundFeedback
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundFeedback: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_SoundFeedback
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundFeedback
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundFeedback/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundFeedback.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundFeedback.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundFeedback/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TtsResult
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsResult: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TtsResult
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsResult
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsResult/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsResult.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsResult.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsResult/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_DirectionOfArrival
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_DirectionOfArrival: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_DirectionOfArrival
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_DirectionOfArrival
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_DirectionOfArrival/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_DirectionOfArrival.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_DirectionOfArrival.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_DirectionOfArrival/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_AudioPlayFeedback
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayFeedback: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_AudioPlayFeedback
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayFeedback
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayFeedback/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayFeedback.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayFeedback.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayFeedback/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRSrvResponse
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRSrvResponse: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRSrvResponse
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRSrvResponse
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRSrvResponse/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRSrvResponse.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRSrvResponse.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRSrvResponse/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_VoiceActivity
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_VoiceActivity: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_VoiceActivity
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_VoiceActivity
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_VoiceActivity/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_VoiceActivity.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_VoiceActivity.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_VoiceActivity/fast
+
+#=============================================================================
+# Target rules for targets named std_msgs_generate_messages_eus
+
+# Build rule for target.
+std_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_eus
+.PHONY : std_msgs_generate_messages_eus
+
+# fast build rule for target.
+std_msgs_generate_messages_eus/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make pal_interaction_msgs/CMakeFiles/std_msgs_generate_messages_eus.dir/build
+.PHONY : std_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_nodejs
+
+# Build rule for target.
+actionlib_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_nodejs
+.PHONY : actionlib_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build.make pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_nodejs.dir/build
+.PHONY : actionlib_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_lisp
+
+# Build rule for target.
+actionlib_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_lisp
+.PHONY : actionlib_msgs_generate_messages_lisp
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build.make pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_lisp.dir/build
+.PHONY : actionlib_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_Input
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_Input: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_Input
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_Input
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_Input/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_Input.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_Input.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_Input/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRFileGoal
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileGoal: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRFileGoal
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileGoal
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileGoal/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileGoal.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileGoal.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileGoal/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_I18nText
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_I18nText: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_I18nText
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_I18nText
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_I18nText/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_I18nText.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_I18nText.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_I18nText/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_SoundAction
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundAction: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_SoundAction
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundAction
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundAction/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundAction.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundAction.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundAction/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_AudioDeviceDescription
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioDeviceDescription: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_AudioDeviceDescription
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioDeviceDescription
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioDeviceDescription/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioDeviceDescription.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioDeviceDescription.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioDeviceDescription/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRLanguage
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRLanguage: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRLanguage
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRLanguage
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRLanguage/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRLanguage.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRLanguage.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRLanguage/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TTSstate
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TTSstate: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TTSstate
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TTSstate
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TTSstate/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TTSstate.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TTSstate.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TTSstate/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRFileAction
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileAction: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRFileAction
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileAction
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileAction/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileAction.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileAction.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileAction/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_GetSpeechDuration
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_GetSpeechDuration: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_GetSpeechDuration
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_GetSpeechDuration
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_GetSpeechDuration/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_GetSpeechDuration.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_GetSpeechDuration.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_GetSpeechDuration/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_msgs_generate_messages_eus
+
+# Build rule for target.
+actionlib_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_msgs_generate_messages_eus
+.PHONY : actionlib_msgs_generate_messages_eus
+
+# fast build rule for target.
+actionlib_msgs_generate_messages_eus/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build.make pal_interaction_msgs/CMakeFiles/actionlib_msgs_generate_messages_eus.dir/build
+.PHONY : actionlib_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TtsFeedback
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsFeedback: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TtsFeedback
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsFeedback
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsFeedback/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsFeedback.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsFeedback.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsFeedback/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_asrresult
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_asrresult: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_asrresult
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_asrresult
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_asrresult/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_asrresult.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_asrresult.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_asrresult/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionResult
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionResult: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionResult
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionResult
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionResult/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionResult.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionResult.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionResult/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_SoundGoal
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundGoal: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_SoundGoal
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundGoal
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundGoal/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundGoal.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundGoal.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundGoal/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_InputArgument
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_InputArgument: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_InputArgument
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_InputArgument
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_InputArgument/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_InputArgument.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_InputArgument.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_InputArgument/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionFeedback
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionFeedback: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionFeedback
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionFeedback
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionFeedback/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionFeedback.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileActionFeedback.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionFeedback/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_ASRFileResult
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileResult: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_ASRFileResult
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileResult
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_ASRFileResult/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileResult.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_ASRFileResult.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_ASRFileResult/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionGoal
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionGoal: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionGoal
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionGoal
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionGoal/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionGoal.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionGoal.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionGoal/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_recognizerService
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_recognizerService: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_recognizerService
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_recognizerService
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_recognizerService/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_recognizerService.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_recognizerService.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_recognizerService/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_AudioPlayAction
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayAction: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_AudioPlayAction
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayAction
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayAction/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayAction.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayAction.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayAction/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionResult
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionResult: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionResult
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionResult
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionResult/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionResult.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionResult.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionResult/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_audiosignal
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_audiosignal: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_audiosignal
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_audiosignal
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_audiosignal/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_audiosignal.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_audiosignal.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_audiosignal/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_AudioPlayResult
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayResult: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_AudioPlayResult
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayResult
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_AudioPlayResult/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayResult.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_AudioPlayResult.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_AudioPlayResult/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_SoundActionResult
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundActionResult: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_SoundActionResult
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundActionResult
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundActionResult/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionResult.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionResult.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundActionResult/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_actiontag
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_actiontag: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_actiontag
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_actiontag
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_actiontag/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_actiontag.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_actiontag.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_actiontag/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_SoundActionFeedback
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundActionFeedback: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_SoundActionFeedback
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundActionFeedback
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundActionFeedback/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionFeedback.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionFeedback.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundActionFeedback/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_SoundResult
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundResult: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_SoundResult
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundResult
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_SoundResult/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundResult.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundResult.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_SoundResult/fast
+
+#=============================================================================
+# Target rules for targets named pal_interaction_msgs_gencpp
+
+# Build rule for target.
+pal_interaction_msgs_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pal_interaction_msgs_gencpp
+.PHONY : pal_interaction_msgs_gencpp
+
+# fast build rule for target.
+pal_interaction_msgs_gencpp/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_gencpp.dir/build.make pal_interaction_msgs/CMakeFiles/pal_interaction_msgs_gencpp.dir/build
+.PHONY : pal_interaction_msgs_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TtsAction
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsAction: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TtsAction
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsAction
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsAction/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsAction.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsAction.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsAction/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TtsActionResult
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsActionResult: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TtsActionResult
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsActionResult
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsActionResult/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsActionResult.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsActionResult.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsActionResult/fast
+
+#=============================================================================
+# Target rules for targets named _pal_interaction_msgs_generate_messages_check_deps_TtsActionGoal
+
+# Build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsActionGoal: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _pal_interaction_msgs_generate_messages_check_deps_TtsActionGoal
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsActionGoal
+
+# fast build rule for target.
+_pal_interaction_msgs_generate_messages_check_deps_TtsActionGoal/fast:
+	$(MAKE) -f pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsActionGoal.dir/build.make pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_TtsActionGoal.dir/build
+.PHONY : _pal_interaction_msgs_generate_messages_check_deps_TtsActionGoal/fast
 
 #=============================================================================
 # Target rules for targets named minimind_chat_ros_generate_messages
@@ -415,17 +1312,17 @@ minimind_chat_ros_generate_messages/fast:
 .PHONY : minimind_chat_ros_generate_messages/fast
 
 #=============================================================================
-# Target rules for targets named std_msgs_generate_messages_eus
+# Target rules for targets named _minimind_chat_ros_generate_messages_check_deps_ChatIntent
 
 # Build rule for target.
-std_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_eus
-.PHONY : std_msgs_generate_messages_eus
+_minimind_chat_ros_generate_messages_check_deps_ChatIntent: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _minimind_chat_ros_generate_messages_check_deps_ChatIntent
+.PHONY : _minimind_chat_ros_generate_messages_check_deps_ChatIntent
 
 # fast build rule for target.
-std_msgs_generate_messages_eus/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_eus.dir/build
-.PHONY : std_msgs_generate_messages_eus/fast
+_minimind_chat_ros_generate_messages_check_deps_ChatIntent/fast:
+	$(MAKE) -f minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build.make minimind_chat_ros/CMakeFiles/_minimind_chat_ros_generate_messages_check_deps_ChatIntent.dir/build
+.PHONY : _minimind_chat_ros_generate_messages_check_deps_ChatIntent/fast
 
 #=============================================================================
 # Target rules for targets named minimind_chat_ros_generate_messages_cpp
@@ -454,19 +1351,6 @@ minimind_chat_ros_gencpp/fast:
 .PHONY : minimind_chat_ros_gencpp/fast
 
 #=============================================================================
-# Target rules for targets named std_msgs_generate_messages_nodejs
-
-# Build rule for target.
-std_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 std_msgs_generate_messages_nodejs
-.PHONY : std_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-std_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build.make minimind_chat_ros/CMakeFiles/std_msgs_generate_messages_nodejs.dir/build
-.PHONY : std_msgs_generate_messages_nodejs/fast
-
-#=============================================================================
 # Target rules for targets named minimind_chat_ros_geneus
 
 # Build rule for target.
@@ -478,6 +1362,19 @@ minimind_chat_ros_geneus: cmake_check_build_system
 minimind_chat_ros_geneus/fast:
 	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_geneus.dir/build
 .PHONY : minimind_chat_ros_geneus/fast
+
+#=============================================================================
+# Target rules for targets named minimind_chat_ros_genpy
+
+# Build rule for target.
+minimind_chat_ros_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_genpy
+.PHONY : minimind_chat_ros_genpy
+
+# fast build rule for target.
+minimind_chat_ros_genpy/fast:
+	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_genpy.dir/build
+.PHONY : minimind_chat_ros_genpy/fast
 
 #=============================================================================
 # Target rules for targets named minimind_chat_ros_generate_messages_eus
@@ -493,6 +1390,19 @@ minimind_chat_ros_generate_messages_eus/fast:
 .PHONY : minimind_chat_ros_generate_messages_eus/fast
 
 #=============================================================================
+# Target rules for targets named minimind_chat_ros_generate_messages_lisp
+
+# Build rule for target.
+minimind_chat_ros_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_generate_messages_lisp
+.PHONY : minimind_chat_ros_generate_messages_lisp
+
+# fast build rule for target.
+minimind_chat_ros_generate_messages_lisp/fast:
+	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_lisp.dir/build
+.PHONY : minimind_chat_ros_generate_messages_lisp/fast
+
+#=============================================================================
 # Target rules for targets named minimind_chat_ros_genlisp
 
 # Build rule for target.
@@ -504,6 +1414,45 @@ minimind_chat_ros_genlisp: cmake_check_build_system
 minimind_chat_ros_genlisp/fast:
 	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_genlisp.dir/build
 .PHONY : minimind_chat_ros_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named minimind_chat_ros_generate_messages_nodejs
+
+# Build rule for target.
+minimind_chat_ros_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_generate_messages_nodejs
+.PHONY : minimind_chat_ros_generate_messages_nodejs
+
+# fast build rule for target.
+minimind_chat_ros_generate_messages_nodejs/fast:
+	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_nodejs.dir/build
+.PHONY : minimind_chat_ros_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named minimind_chat_ros_gennodejs
+
+# Build rule for target.
+minimind_chat_ros_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_gennodejs
+.PHONY : minimind_chat_ros_gennodejs
+
+# fast build rule for target.
+minimind_chat_ros_gennodejs/fast:
+	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_gennodejs.dir/build
+.PHONY : minimind_chat_ros_gennodejs/fast
+
+#=============================================================================
+# Target rules for targets named minimind_chat_ros_generate_messages_py
+
+# Build rule for target.
+minimind_chat_ros_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 minimind_chat_ros_generate_messages_py
+.PHONY : minimind_chat_ros_generate_messages_py
+
+# fast build rule for target.
+minimind_chat_ros_generate_messages_py/fast:
+	$(MAKE) -f minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build.make minimind_chat_ros/CMakeFiles/minimind_chat_ros_generate_messages_py.dir/build
+.PHONY : minimind_chat_ros_generate_messages_py/fast
 
 # Help Target
 help:
@@ -527,23 +1476,96 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
-	@echo "... minimind_chat_ros_genpy"
-	@echo "... minimind_chat_ros_generate_messages_py"
-	@echo "... minimind_chat_ros_gennodejs"
-	@echo "... minimind_chat_ros_generate_messages_nodejs"
-	@echo "... std_msgs_generate_messages_cpp"
-	@echo "... std_msgs_generate_messages_lisp"
-	@echo "... _minimind_chat_ros_generate_messages_check_deps_ChatIntent"
+	@echo "... pal_interaction_msgs_gennodejs"
+	@echo "... pal_interaction_msgs_generate_messages_nodejs"
+	@echo "... pal_interaction_msgs_generate_messages_lisp"
+	@echo "... pal_interaction_msgs_geneus"
+	@echo "... pal_interaction_msgs_generate_messages_eus"
+	@echo "... pal_interaction_msgs_generate_messages_cpp"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRService"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TtsGoal"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TtsActionFeedback"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_EnablingSoundLocalisation"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_AudioPlayerState"
 	@echo "... std_msgs_generate_messages_py"
-	@echo "... minimind_chat_ros_generate_messages_lisp"
-	@echo "... minimind_chat_ros_generate_messages"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_asrupdate"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_I18nArgument"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRStatus"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TtsText"
+	@echo "... pal_interaction_msgs_genpy"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRSrvRequest"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_AudioPlayGoal"
+	@echo "... pal_interaction_msgs_generate_messages_py"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASREvent"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionGoal"
+	@echo "... _catkin_empty_exported_target"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_SoundLocalisationService"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionFeedback"
+	@echo "... std_msgs_generate_messages_cpp"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_WebGuiEvent"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRFileFeedback"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRLangModelMngmt"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRActivation"
+	@echo "... std_msgs_generate_messages_nodejs"
+	@echo "... actionlib_msgs_generate_messages_py"
+	@echo "... pal_interaction_msgs_generate_messages"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TtsMark"
+	@echo "... pal_interaction_msgs_genlisp"
+	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... actionlib_msgs_generate_messages_cpp"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_SoundFeedback"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TtsResult"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_DirectionOfArrival"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_AudioPlayFeedback"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRSrvResponse"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_VoiceActivity"
 	@echo "... std_msgs_generate_messages_eus"
+	@echo "... actionlib_msgs_generate_messages_nodejs"
+	@echo "... actionlib_msgs_generate_messages_lisp"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_Input"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRFileGoal"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_I18nText"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_SoundAction"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_AudioDeviceDescription"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRLanguage"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TTSstate"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRFileAction"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_GetSpeechDuration"
+	@echo "... actionlib_msgs_generate_messages_eus"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TtsFeedback"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_asrresult"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionResult"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_SoundGoal"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_InputArgument"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRFileActionFeedback"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_ASRFileResult"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionGoal"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_recognizerService"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_AudioPlayAction"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_AudioPlayActionResult"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_audiosignal"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_AudioPlayResult"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_SoundActionResult"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_actiontag"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_SoundActionFeedback"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_SoundResult"
+	@echo "... pal_interaction_msgs_gencpp"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TtsAction"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TtsActionResult"
+	@echo "... _pal_interaction_msgs_generate_messages_check_deps_TtsActionGoal"
+	@echo "... minimind_chat_ros_generate_messages"
+	@echo "... _minimind_chat_ros_generate_messages_check_deps_ChatIntent"
 	@echo "... minimind_chat_ros_generate_messages_cpp"
 	@echo "... minimind_chat_ros_gencpp"
-	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... minimind_chat_ros_geneus"
+	@echo "... minimind_chat_ros_genpy"
 	@echo "... minimind_chat_ros_generate_messages_eus"
+	@echo "... minimind_chat_ros_generate_messages_lisp"
 	@echo "... minimind_chat_ros_genlisp"
+	@echo "... minimind_chat_ros_generate_messages_nodejs"
+	@echo "... minimind_chat_ros_gennodejs"
+	@echo "... minimind_chat_ros_generate_messages_py"
 .PHONY : help
 
 

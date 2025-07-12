@@ -5,4 +5,4 @@ Description: Description of minimind_chat_ros
 Version: 0.0.1
 Cflags: -I/home/administrator/AdvRoboCup/catkin_ws/devel/include
 Libs: -L${prefix}/lib 
-Requires: rospy std_msgs message_runtime
+Requires: rospy std_msgs message_runtime pal_interaction_msgs actionlib_msgs

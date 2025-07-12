@@ -1,2 +1,2 @@
-minimind_chat_ros
+minimind_chat_ros:pal_interaction_msgs
 -DCATKIN_DEVEL_PREFIX=/home/administrator/AdvRoboCup/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/administrator/AdvRoboCup/catkin_ws/install -G Unix Makefiles
