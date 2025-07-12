@@ -1,7 +1,7 @@
 <launch>
 
   <!-- Set the param that trajectory_execution_manager needs to find the controller plugin -->
-  <node name="test2_node" type="test2.py" pkg="tiago_state_machine" output="screen" />
+  <node name="test_node" type="test.py" pkg="tiago_state_machine" output="screen" />
 
   <!-- The rest of the params are specific to this plugin -->
   <rosparam file="$(find tiago_state_machine)/config/test.yaml"/>
