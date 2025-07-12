@@ -1,3 +1,13 @@
 *.odt#
 *.bag
 README_zsl.md
+.devcontainer
+build
+devel
+install
+logs
+.catkin_tools
+*.pyc
+*.pyo
+*.pyd
+__pycache__
