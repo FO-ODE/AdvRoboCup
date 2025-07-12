@@ -168,7 +168,7 @@ def main():
     rospy.sleep(0.5)
 
     # 订阅状态机启动信号
-    rospy.Subscriber("/Adv_robocup/start_signal", String, start_callback)
+    rospy.Subscriber("/adv_robocup/start_signal", String, start_callback)
     print("Waiting for 'start' signal from state machine...")
 
     rate = rospy.Rate(10)
@@ -184,8 +184,8 @@ def main():
     tts_pub.publish(tts_msg)
     rospy.sleep(3.0)
 
-    intent_pub = rospy.Publisher("/Adv_robocup/chat_intent", ChatIntent, queue_size=10)
-    finish_pub = rospy.Publisher("/Adv_robocup/chat_finished", String, queue_size=1)
+    intent_pub = rospy.Publisher("/adv_robocup/chat_intent", ChatIntent, queue_size=10)
+    finish_pub = rospy.Publisher("/adv_robocup/chat_finished", String, queue_size=1)
 
     signal.signal(signal.SIGINT, lambda sig, frame: shutdown_hook())
 

@@ -144,22 +144,22 @@ AdvRoboCup/catkin_ws/src/minimind_chat_ros/scripts/test_whisper.py
 # 与状态机通信的 ROS 话题接口
 本模块通过以下两个话题与任务状态机进行通信：
 
-## 1. 启动信号：`/Adv_robocup/start_signal`
+## 1. 启动信号：`/adv_robocup/start_signal`
 - 类型：`std_msgs/String`
 - 用途：状态机向本模块发送启动信号，触发模型加载与语音交互流程。
 - 消息内容：需为字符串 `start`（不区分大小写）
 
 示例发布指令：
 ```bash
-rostopic pub /Adv_robocup/start_signal std_msgs/String "start"
+rostopic pub /adv_robocup/start_signal std_msgs/String "start"
 ```
-## 2. 完成信号：`/Adv_robocup/chat_finished`
+## 2. 完成信号：`/adv_robocup/chat_finished`
 - 类型：`std_msgs/String`
 - 用途：本模块在用户意图确认并成功发布后，向状态机发送完成标志
 - 消息内容：固定为 `done`
 
 示例监听方式：
 ```bash
-rostopic echo /Adv_robocup/chat_finished
+rostopic echo /adv_robocup/chat_finished
 ```
 - **建议：状态机应监听该话题，并在收到 "done" 后进入下一状态（例如导航或执行抓取等动作）**
