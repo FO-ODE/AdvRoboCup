@@ -43,30 +43,27 @@ class HeadTracker:
         
         # 记录是否已经移动过
         self.has_moved = False
+        self.task_completed = False
         
         rospy.loginfo("Head Tracker Node Initialized.")
-        rospy.loginfo("Head will move once to the first received target")
-        rospy.loginfo("Send new target to /adv_robocup/waving_person/position")
+        rospy.loginfo("Head will move once to the first received target and then shutdown")
+        rospy.loginfo("Send target to /adv_robocup/waving_person/position")
     
     def target_callback(self, msg):
-        """处理目标点回调 - 只移动一次"""
-        rospy.loginfo("Received target point for head tracking")
-        if not self.tracking_enabled:
-            rospy.loginfo("Tracking is disabled")
+        """处理目标点回调 - 只移动一次然后关闭节点"""
+        if not self.tracking_enabled or self.task_completed:
             return
             
         if self.has_moved:
-            # rospy.loginfo("Head has already moved to a target. Ignoring new target.")
-            # rospy.loginfo("Restart the node to move to a new target.")
             return
         
         rospy.loginfo(f"Received target: ({msg.point.x:.2f}, {msg.point.y:.2f}, {msg.point.z:.2f}) in {msg.header.frame_id}")
         
         try:
-            # 将目标点转换到head_1_link坐标系
+            # 将目标点转换到base_link坐标系
             target_in_head_frame = self.tf_buffer.transform(
                 msg, 
-                "head_1_link",  # 头部坐标系
+                "base_link",
                 rospy.Duration(1.0)
             )
             
@@ -81,22 +78,32 @@ class HeadTracker:
             rospy.loginfo(f"Moving head to: pan={math.degrees(target_pan_angle):.1f}°")
             
             # 移动头部
-            self.move_head(target_pan_angle, self.tilt_angle)
+            success = self.move_head(target_pan_angle, self.tilt_angle)
             
-            # 标记已经移动过
+            # 标记任务完成
             self.has_moved = True
+            self.task_completed = True
             
-            rospy.loginfo("Head movement completed. Node will ignore further targets.")
-            rospy.loginfo("To move to a new target, restart this node.")
+            if success:
+                rospy.loginfo("SUCCESS: Head movement completed!")
+                rospy.loginfo("Task completed. Shutting down node...")
+                rospy.signal_shutdown("Head tracking completed successfully")
+            else:
+                rospy.logerr("FAILED: Head movement failed!")
+                rospy.logerr("Task failed. Shutting down node...")
+                rospy.signal_shutdown("Head tracking failed")
             
         except (tf2_ros.LookupException, tf2_ros.ConnectivityException, tf2_ros.ExtrapolationException) as e:
-            rospy.logwarn(f"Could not transform target point: {e}")
+            rospy.logerr(f"Could not transform target point: {e}")
+            rospy.logerr("Task failed. Shutting down node...")
+            rospy.signal_shutdown("Coordinate transformation failed")
     
     def move_head(self, pan_angle, tilt_angle):
         """
         移动头部到指定角度
         pan_angle: 水平角度 (左右转动)
         tilt_angle: 垂直角度 (固定为0)
+        返回: True if successful, False otherwise
         """
         goal = FollowJointTrajectoryGoal()
         goal.trajectory = JointTrajectory()
@@ -116,44 +123,30 @@ class HeadTracker:
         rospy.loginfo("Waiting for head movement to complete...")
         self.head_client.wait_for_result()
         
+        # 检查结果
+        state = self.head_client.get_state()
         result = self.head_client.get_result()
-        if result:
-            rospy.loginfo("Head movement successful!")
+        
+        if state == actionlib.GoalStatus.SUCCEEDED:
+            rospy.loginfo("Head movement action succeeded!")
+            return True
+        elif state == actionlib.GoalStatus.ABORTED:
+            rospy.logwarn("Head movement action was aborted!")
+            return False
+        elif state == actionlib.GoalStatus.REJECTED:
+            rospy.logwarn("Head movement action was rejected!")
+            return False
         else:
-            rospy.logwarn("Head movement failed!")
-    
-    def reset_tracking(self):
-        """重置追踪状态，允许再次移动"""
-        self.has_moved = False
-        rospy.loginfo("Tracking reset. Ready to move to new target.")
-    
-    def enable_tracking(self):
-        """启用追踪"""
-        self.tracking_enabled = True
-        rospy.loginfo("Head tracking enabled")
-    
-    def disable_tracking(self):
-        """禁用追踪"""
-        self.tracking_enabled = False
-        rospy.loginfo("Head tracking disabled")
-    
-    def return_to_center(self):
-        """头部回到中心位置"""
-        rospy.loginfo("Returning head to center position...")
-        self.move_head(0.0, 0.0)
-        # 重置移动状态，允许再次移动到目标
-        self.has_moved = False
+            rospy.logwarn(f"Head movement ended with state: {state}")
+            return False
     
     def run(self):
-        """主循环 - 保持节点运行"""
+        """主循环 - 保持节点运行直到任务完成"""
         rospy.loginfo("Head tracker running. Waiting for target point...")
-        rospy.loginfo("Will move once to the first received target")
-
-        rate = rospy.Rate(0.1)  # 0.1 Hz
-        while not rospy.is_shutdown():
-            if self.has_moved:
-                rospy.loginfo_throttle(10, "Head tracking completed. Restart node for new target.")
-            rate.sleep()
+        rospy.loginfo("Will move once to the first received target and then shutdown")
+        
+        # 简单的自旋，等待回调
+        rospy.spin()
 
 def main():
     try:
