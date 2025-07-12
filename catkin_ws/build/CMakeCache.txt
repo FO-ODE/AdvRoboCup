@@ -301,10 +301,10 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 DOXYGEN_EXECUTABLE:FILEPATH=DOXYGEN_EXECUTABLE-NOTFOUND
 
 //Path to a program.
-EMPY_EXECUTABLE:FILEPATH=EMPY_EXECUTABLE-NOTFOUND
+EMPY_EXECUTABLE:FILEPATH=/home/administrator/.local/bin/empy
 
 //Empy script
-EMPY_SCRIPT:STRING=/home/administrator/anaconda3/envs/minimind/lib/python3.10/site-packages/em.py
+EMPY_SCRIPT:STRING=/home/administrator/.local/bin/empy
 
 //Path to a library.
 GMOCK_LIBRARY:FILEPATH=GMOCK_LIBRARY-NOTFOUND
@@ -357,9 +357,6 @@ PYTHON_EXECUTABLE:FILEPATH=/home/administrator/anaconda3/envs/minimind/bin/pytho
 
 //Specify specific Python version to use ('major.minor' or 'major')
 PYTHON_VERSION:STRING=3
-
-//Location of Python module em
-PY_EM:STRING=/home/administrator/anaconda3/envs/minimind/lib/python3.10/site-packages/em.py
 
 //Value Computed by CMake
 Project_BINARY_DIR:STATIC=/home/administrator/AdvRoboCup/catkin_ws/build
@@ -697,8 +694,6 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
-//Details about finding PY_em
-FIND_PACKAGE_MESSAGE_DETAILS_PY_em:INTERNAL=[/home/administrator/anaconda3/envs/minimind/lib/python3.10/site-packages/em.py][v()]
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/home/administrator/anaconda3/envs/minimind/bin/python3][v3.10.18()]
 //Details about finding Threads

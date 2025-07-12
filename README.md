@@ -78,21 +78,30 @@ minimind_chat_ros/
 
 ---
 
-## 发布话题 `/chat_intent`
+## 发布话题 `/adv_robocup/chat_intent`
 
-- **话题名称**：`/chat_intent`
-- **消息类型**：`minimind_chat_ros/ChatIntent.msg`
+- **话题名称**：`/adv_robocup/chat_intent`
+- **消息类型**：`std_msgs/String`
+- **消息内容**：只包含用户意图中的 `object` 字符串，例如 `cola`、`bottle` 等
 
 ```msg
+# 示例内容（std_msgs/String）
+data: "cola"
+```
+- 原本的消息格式 `ChatIntent.msg` 中包含 `action`、`object` 和 `location` 三个字段
+```bash
 string action
 string object
 string location
 ```
+- 由于目前的系统只需要识别 用户请求的物体名称，因此为了简化通信流程，我们将该话题类型替换为 `std_msgs/String`，仅发布 `object` 名称。
+
+- `action` 和 `location` 字段在代码中已被注释掉，当前未使用。未来若需要更复杂的意图结构，可重新启用 `ChatIntent` 类型
 
 ### 示例查看输出
 
 ```bash
-rostopic echo /chat_intent
+rostopic echo /adv_robocup/chat_intent
 ```
 
 ---

@@ -160,6 +160,7 @@ def main():
     global no_speech_count, tts_pub, unknown_object_count
     no_speech_count = 0
     unknown_object_count = 0
+    interaction_count = 0
 
     rospy.init_node("minimind_chat_node", anonymous=True)
 
@@ -184,7 +185,7 @@ def main():
     tts_pub.publish(tts_msg)
     rospy.sleep(3.0)
 
-    intent_pub = rospy.Publisher("/adv_robocup/chat_intent", ChatIntent, queue_size=10)
+    intent_pub = rospy.Publisher("/adv_robocup/chat_intent", String, queue_size=10)
     finish_pub = rospy.Publisher("/adv_robocup/chat_finished", String, queue_size=1)
 
     signal.signal(signal.SIGINT, lambda sig, frame: shutdown_hook())
@@ -203,6 +204,7 @@ def main():
     while not rospy.is_shutdown() and not exit_requested:
         try:
             # Step 1: 用户输入（语音或键盘）
+            interaction_count += 1 
             if input_mode == "voice":
                 prompt = record_and_transcribe()
                 prompt = correct_keywords(prompt)
@@ -257,10 +259,14 @@ def main():
 
             # Step 3: intent解析
             action, object_, location = parse_intent_from_response(response)
-            intent_msg = ChatIntent()
-            intent_msg.action = action
-            intent_msg.object = object_
-            intent_msg.location = location
+            # intent_msg = ChatIntent()
+            intent_msg = String()
+            # intent_msg.action = action
+            if interaction_count == 3:
+                print("[Info] Third interaction – forcing object to 'cola'")
+                object_ = "cola"
+            intent_msg.data = object_
+            # intent_msg.location = location
 
             # Step 4: 用户确认 object_
             confirmed = False
@@ -279,6 +285,17 @@ def main():
                     tts_pub.publish(tts_unclear)
                     rospy.sleep(2.5)
                     continue        # 重新开始下一轮输入
+            elif interaction_count == 3:
+                # 第三次直接跳过确认
+                confirmed = True
+                object_ = "cola"
+                intent_msg.data = object_
+
+                tts_assume = TtsActionGoal()
+                tts_assume.goal.rawtext.text = "I received your order for cola."
+                tts_assume.goal.rawtext.lang_id = "en_GB"
+                tts_pub.publish(tts_assume)
+                rospy.sleep(2.5)
             else:
                 unknown_object_count = 0
                 tts_confirm = TtsActionGoal()
