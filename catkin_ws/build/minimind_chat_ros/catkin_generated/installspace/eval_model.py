@@ -53,11 +53,11 @@ def start_callback(msg):
         print("Received start signal from state machine.")
         start_triggered = True
         # 语音确认
-        if tts_pub is not None:
-            confirm = TtsActionGoal()
-            confirm.goal.rawtext.text = "Start signal received."
-            confirm.goal.rawtext.lang_id = "en_GB"
-            tts_pub.publish(confirm)
+        # if tts_pub is not None:
+        #     confirm = TtsActionGoal()
+        #     confirm.goal.rawtext.text = "Start signal received."
+        #     confirm.goal.rawtext.lang_id = "en_GB"
+        #     tts_pub.publish(confirm)
    
 
 
@@ -65,9 +65,9 @@ def correct_keywords(text):
     # 用简单规则或模糊匹配纠正错误关键词
     lower_text = text.lower()
 
-    if "photo" in lower_text:
-        print("🔧 Corrected 'photo' to 'bottle'")
-        lower_text = lower_text.replace("photo", "bottle")
+    if "chib" in lower_text:
+        print("Corrected 'chib' to 'chips'")
+        lower_text = lower_text.replace("chib", "chips")
     
     # 模糊匹配
     for word in lower_text.split():
@@ -168,7 +168,7 @@ def main():
     rospy.sleep(0.5)
 
     # 订阅状态机启动信号
-    rospy.Subscriber("/start_signal", String, start_callback)
+    rospy.Subscriber("/adv_robocup/start_signal", String, start_callback)
     print("Waiting for 'start' signal from state machine...")
 
     rate = rospy.Rate(10)
@@ -184,8 +184,8 @@ def main():
     tts_pub.publish(tts_msg)
     rospy.sleep(3.0)
 
-    intent_pub = rospy.Publisher("/Adv_robocup/chat_intent", ChatIntent, queue_size=10)
-    finish_pub = rospy.Publisher("/Adv_robocup/chat_finished", String, queue_size=1)
+    intent_pub = rospy.Publisher("/adv_robocup/chat_intent", ChatIntent, queue_size=10)
+    finish_pub = rospy.Publisher("/adv_robocup/chat_finished", String, queue_size=1)
 
     signal.signal(signal.SIGINT, lambda sig, frame: shutdown_hook())
 
@@ -306,11 +306,11 @@ def main():
                 rospy.sleep(1.0)
                 # 成功语音反馈
                 tts_success = TtsActionGoal()
-                tts_success.goal.rawtext.text = "I have completed this step and informed the system."
+                tts_success.goal.rawtext.text = "I have received your order. Ready for the next task!"
                 tts_success.goal.rawtext.lang_id = "en_GB"
                 tts_pub.publish(tts_success)
                 rospy.sleep(2.5)
-                
+
                 shutdown_hook() 
                 break
                 

@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/administrator/AdvRoboCup/catkin_ws/build
 include pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal.dir/progress.make
 
 pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal:
-	cd /home/administrator/AdvRoboCup/catkin_ws/build/pal_interaction_msgs && ../catkin_generated/env_cached.sh /home/administrator/anaconda3/envs/minimind/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py pal_interaction_msgs /home/administrator/AdvRoboCup/catkin_ws/devel/share/pal_interaction_msgs/msg/SoundActionGoal.msg pal_interaction_msgs/SoundGoal:std_msgs/Header:actionlib_msgs/GoalID
+	cd /home/administrator/AdvRoboCup/catkin_ws/build/pal_interaction_msgs && ../catkin_generated/env_cached.sh /home/administrator/anaconda3/envs/minimind/bin/python3 /opt/ros/noetic/share/genmsg/cmake/../../../lib/genmsg/genmsg_check_deps.py pal_interaction_msgs /home/administrator/AdvRoboCup/catkin_ws/devel/share/pal_interaction_msgs/msg/SoundActionGoal.msg std_msgs/Header:pal_interaction_msgs/SoundGoal:actionlib_msgs/GoalID
 
 _pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal: pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal
 _pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal: pal_interaction_msgs/CMakeFiles/_pal_interaction_msgs_generate_messages_check_deps_SoundActionGoal.dir/build.make
