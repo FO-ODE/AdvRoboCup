@@ -1,3 +1,337 @@
+#!/usr/bin/env python3
+import rospy
+import smach
+import smach_ros
+import subprocess
+import time
+import signal
+from geometry_msgs.msg import PointStamped
+from std_msgs.msg import String
+from trajectory_msgs.msg import JointTrajectory, JointTrajectoryPoint
+
+class MoveToPose(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['success', 'failure'])
+        self.move_to_pose_timeout = 30.0  # 超时设置
+    
+    def execute(self, userdata):
+        rospy.loginfo("=== STATE 1: MOVE TO POSE ===")
+        
+        cmd = [
+            'rosrun', 'adv_nav', 'move_to_pose.py',
+            '_mode:=custom',
+            '_x:=2.845',
+            '_y:=1.305',
+            '_z:=0.099',
+            '_qx:=0.0',
+            '_qy:=0.0',
+            '_qz:=-0.465',
+            '_qw:=0.885',
+            '_frame:=map'
+        ]
+
+        success = self.run_process(cmd, self.move_to_pose_timeout)
+        
+        if success:
+            rospy.loginfo("Move to pose completed successfully!")
+            return 'success'
+        else:
+            rospy.logwarn("Move to pose failed or timed out.")
+            return 'failure'
+    
+    def run_process(self, cmd, timeout=None):
+        try:
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdout, stderr = process.communicate(timeout=timeout)
+            return process.returncode == 0
+        except subprocess.TimeoutExpired:
+            rospy.logwarn("Process timed out")
+            return False
+        except Exception as e:
+            rospy.logerr(f"Error running process: {e}")
+            return False
+
+
+class HeadScan(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['person_detected', 'timeout'])
+        self.head_scan_timeout = 30.0
+        self.person_detected = False
+        self.sub = rospy.Subscriber('/adv_robocup/waving_person/position', PointStamped, self.person_detected_callback)
+
+    
+    def execute(self, userdata):
+        rospy.loginfo("=== STATE 2: HEAD SCAN ===")
+        self.person_detected = False
+        cmd = ['rosrun', 'adv_nav', 'head_scan.py', '_mode:=continuous']
+        
+        # 启动扫描进程
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        start_time = time.time()
+        
+        while not self.person_detected and not rospy.is_shutdown():
+            if time.time() - start_time > self.head_scan_timeout:
+                rospy.logwarn("Head scan timed out")
+                return 'timeout'
+            rospy.sleep(0.5)
+        
+        if self.person_detected:
+            rospy.loginfo("Person detected!")
+            return 'person_detected'
+        else:
+            rospy.logwarn("No person detected!")
+            return 'timeout'
+    
+    def person_detected_callback(self, msg):
+        """人员检测回调"""
+        if not self.person_detected:
+            rospy.loginfo("Person detected!")
+            self.person_detected = True
+
+
+class HeadTracking(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['success'])
+        self.head_tracking_timeout = 5.0
+    
+    def execute(self, userdata):
+        rospy.loginfo("=== STATE 3: HEAD TRACKING ===")
+        cmd = ['rosrun', 'adv_nav', 'head_tracking.py']
+        
+        # 启动头部跟踪
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+        time.sleep(self.head_tracking_timeout)
+        
+        rospy.loginfo("Head tracking completed")
+        return 'success'
+
+
+class PersonFollowing(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['success', 'failure'])
+    
+    def execute(self, userdata):
+        rospy.loginfo("=== STATE 4: PERSON FOLLOWING ===")
+        cmd = ['rosrun', 'adv_nav', 'person_follower.py']
+        
+        try:
+            rospy.loginfo("Starting person_follower.py...")
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            
+            # 等待最长时间（比如120秒），避免无限等
+            stdout, stderr = process.communicate(timeout=20)
+
+            rospy.loginfo(f"[PersonFollower stdout]:\n{stdout.decode()}")
+            rospy.logwarn(f"[PersonFollower stderr]:\n{stderr.decode()}")
+
+            if process.returncode == 0:
+                rospy.loginfo("person_follower.py exited successfully.")
+                return 'success'
+            else:
+                rospy.logwarn("person_follower.py exited with error.")
+                return 'failure'
+
+        except subprocess.TimeoutExpired:
+            rospy.logwarn("person_follower.py timeout — assuming follow completed.")
+            process.terminate()
+            return 'success'
+
+        except Exception as e:
+            rospy.logerr(f"person_follower.py crashed: {e}")
+            return 'failure'
+
+
+
+class CenterHead(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['success', 'failure'])
+
+    def execute(self, userdata):
+        rospy.loginfo("=== STATE: CENTER HEAD ===")
+
+        cmd = ['rosrun', 'adv_nav', 'head_scan.py', '_mode:=center']
+
+        try:
+            # 执行带参数的 rosrun 命令
+            result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=10)
+            
+            if result.returncode == 0:
+                rospy.loginfo("Head centered successfully via head_scan.py")
+                return 'success'
+            else:
+                rospy.logwarn(f"head_scan.py exited with code {result.returncode}")
+                return 'failure'
+        except subprocess.TimeoutExpired:
+            rospy.logwarn("head_scan.py timed out")
+            return 'failure'
+        except Exception as e:
+            rospy.logerr(f"Error running head_scan.py: {e}")
+            return 'failure'
+
+
+class ModuleCommunication(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['success', 'failure'])
+
+        # 发布器，用于发送启动信号
+        self.start_pub = rospy.Publisher('/adv_robocup/start_signal', String, queue_size=1)
+
+        # 订阅器，用于监听聊天模块的完成信号
+        self.response_received = False
+        self.response_msg = None
+        self.sub = rospy.Subscriber('/adv_robocup/chat_finished', String, self.response_callback)
+
+        self.timeout = 60.0  # 等待完成响应的最大时间
+
+        rospy.sleep(0.5)  # 等待 pub/sub 建立连接（建议）
+
+    def execute(self, userdata):
+        rospy.loginfo("=== STATE 5: MODULE COMMUNICATION ===")
+
+        # 发布 "start" 消息
+        start_msg = String()
+        start_msg.data = "start"
+        self.start_pub.publish(start_msg)
+        rospy.loginfo("Published 'start' to /adv_robocup/start_signal")
+
+        # 等待 "done" 响应
+        start_time = time.time()
+        while not self.response_received and not rospy.is_shutdown():
+            if time.time() - start_time > self.timeout:
+                rospy.logwarn("Timeout waiting for /adv_robocup/chat_finished")
+                return 'failure'
+            rospy.sleep(0.1)
+
+        if self.response_received and self.response_msg.strip().lower() == "done":
+            rospy.loginfo("Received 'done' signal from /adv_robocup/chat_finished")
+            return 'success'
+        else:
+            rospy.logwarn(f"Unexpected response: {self.response_msg}")
+            return 'failure'
+
+    def response_callback(self, msg):
+        """接收聊天完成的回调函数"""
+        rospy.loginfo(f"chat_finished callback triggered with: {msg.data}")
+        self.response_msg = msg.data
+        self.response_received = True
+
+
+        
+class MoveToTable(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['success', 'failure'])
+        self.timeout = 30.0  # 超时时间
+
+    def execute(self, userdata):
+        rospy.loginfo("=== STATE 6: RETURN TO ORIGIN ===")
+        
+        cmd = [
+            'rosrun', 'adv_nav', 'move_to_pose.py',
+            '_mode:=preset'  # 假设这是回到起始点的预设模式
+        ]
+        
+        success = self.run_process(cmd, self.timeout)
+
+        if success:
+            rospy.loginfo("Returned to origin successfully.")
+            return 'success'
+        else:
+            rospy.logwarn("Failed to return to origin.")
+            return 'failure'
+
+    def run_process(self, cmd, timeout=None):
+        try:
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            stdout, stderr = process.communicate(timeout=timeout)
+            return process.returncode == 0
+        except subprocess.TimeoutExpired:
+            rospy.logwarn("Process timed out")
+            return False
+        except Exception as e:
+            rospy.logerr(f"Error running process: {e}")
+            return False
+
+class AdjustPose(smach.State):
+    def __init__(self):
+        smach.State.__init__(self, outcomes=['success', 'failure'])
+        self.head_pub = rospy.Publisher('/head_controller/command', JointTrajectory, queue_size=1)
+        rospy.sleep(0.5)  # 等待 Publisher 建立连接
+
+    def execute(self, userdata):
+        rospy.loginfo("=== STATE 7: ADJUST POSE ===")
+
+        try:
+            # Step 1: 低头
+            traj_msg = JointTrajectory()
+            traj_msg.joint_names = ['head_1_joint', 'head_2_joint']
+
+            point = JointTrajectoryPoint()
+            point.positions = [0.0, -0.8]  # 向下看
+            point.velocities = [0.0, 0.0]
+            point.time_from_start = rospy.Duration(1.0)
+
+            traj_msg.points.append(point)
+            traj_msg.header.stamp = rospy.Time.now()
+            self.head_pub.publish(traj_msg)
+            rospy.loginfo("Published head lowering command.")
+            rospy.sleep(1.5)  # 给足够时间执行
+
+            # Step 2: 启动 pose_adjuster 节点
+            rospy.loginfo("Starting pose_adjuster.py node...")
+            cmd = ['rosrun', 'adv_nav', 'pose_adjuster.py']
+            process = subprocess.Popen(cmd)
+            
+            # 你可以根据需要设置 timeout，或等待其自动 shutdown
+            process.wait(timeout=60)
+            if process.returncode == 0:
+                rospy.loginfo("Pose adjuster completed successfully.")
+                return 'success'
+            else:
+                rospy.logwarn("Pose adjuster exited with error.")
+                return 'failure'
+        except subprocess.TimeoutExpired:
+            rospy.logwarn("Pose adjuster timeout.")
+            return 'success'
+        except Exception as e:
+            rospy.logerr(f"AdjustPose failed: {e}")
+            return 'failure'
+
+
+def main():
+    rospy.init_node('robot_navigation_state_machine')
+    
+    # 创建状态机
+    sm = smach.StateMachine(outcomes=['completed', 'failed'])
+    
+    with sm:
+        smach.StateMachine.add('MOVE_TO_POSE', MoveToPose(), transitions={'success': 'HEAD_SCAN', 'failure': 'failed'})
+        smach.StateMachine.add('HEAD_SCAN', HeadScan(), transitions={'person_detected': 'HEAD_TRACKING', 'timeout': 'failed'})
+        smach.StateMachine.add('HEAD_TRACKING', HeadTracking(), transitions={'success': 'PERSON_FOLLOWING'})
+        smach.StateMachine.add('PERSON_FOLLOWING', PersonFollowing(), transitions={'success': 'CENTER_HEAD', 'failure': 'failed'})
+        smach.StateMachine.add('CENTER_HEAD', CenterHead(), transitions={'success': 'MODULE_COMMUNICATION', 'failure': 'failed'})
+        smach.StateMachine.add('MODULE_COMMUNICATION', ModuleCommunication(), transitions={'success': 'RETURN_TO_ORIGIN', 'failure': 'failed'})
+        smach.StateMachine.add('RETURN_TO_ORIGIN', MoveToTable(), transitions={'success': 'completed', 'failure': 'failed'})
+        smach.StateMachine.add('RETURN_TO_ORIGIN', MoveToTable(), transitions={'success': 'ADJUST_POSE', 'failure': 'failed'})
+        smach.StateMachine.add('ADJUST_POSE', AdjustPose(), transitions={'success': 'completed', 'failure': 'failed'})
+
+        
+    # 创建并启动状态机ROS处理器
+    sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT')
+    sis.start()
+    
+    # 运行状态机
+    outcome = sm.execute()
+    
+    rospy.loginfo("State machine finished with outcome: " + str(outcome))
+    sis.stop()
+
+if __name__ == '__main__':
+    main()
+
+
+
+
 # #!/usr/bin/env python3
 
 # import rospy
@@ -55,7 +389,10 @@
 # class HeadScan(smach.State):
 #     def __init__(self):
 #         smach.State.__init__(self, outcomes=['person_detected', 'timeout'])
-#         self.head_scan_timeout = 30
+#         self.head_scan_timeout = 20.0
+#         self.person_detected = False
+#         self.sub = rospy.Subscriber('/adv_robocup/waving_person/position', PointStamped, self.person_detected_callback)
+
     
 #     def execute(self, userdata):
 #         rospy.loginfo("=== STATE 2: HEAD SCAN ===")
@@ -88,25 +425,25 @@
 
 # class HeadTracking(smach.State):
 #     def __init__(self):
-#         smach.State.__init__(self, outcomes=['success', 'failure'])
-#         self.head_tracking_timeout = 10
+#         smach.State.__init__(self, outcomes=['success'])
+#         self.head_tracking_timeout = 5.0
     
 #     def execute(self, userdata):
 #         rospy.loginfo("=== STATE 3: HEAD TRACKING ===")
 #         cmd = ['rosrun', 'adv_nav', 'head_tracking.py']
         
-#         try:
-#             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#             time.sleep(self.head_tracking_timeout)
-#             process.terminate()
-#             return 'success'
-#         except Exception as e:
-#             rospy.logerr(f"Head tracking failed: {e}")
-#             return 'failure'
+#         # 启动头部跟踪
+#         process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        
+#         time.sleep(self.head_tracking_timeout)
+        
+#         rospy.loginfo("Head tracking completed")
+#         return 'success'
+
 
 # class PersonFollowing(smach.State):
 #     def __init__(self):
-#         smach.State.__init__(self, outcomes=['success', 'failure'])
+#         smach.State.__init__(self, outcomes=['success'])
     
 #     def execute(self, userdata):
 #         rospy.loginfo("=== STATE 4: PERSON FOLLOWING ===")
@@ -122,84 +459,6 @@
 #         return 'success'
 
 
-# class ModuleCommunication(smach.State):
-#     def __init__(self):
-#         smach.State.__init__(self, outcomes=['success', 'failure'])
-#         # 发布器，用于发送消息给朋友的模块
-#         self.pub = rospy.Publisher('/module_request', String, queue_size=1)
-#         # 订阅器，用于接收朋友模块的返回消息
-#         self.response_received = False
-#         self.response_msg = None
-#         self.sub = rospy.Subscriber('/module_response', String, self.response_callback)
-#         self.timeout = 30.0  # 等待响应的超时时间
-    
-#     def execute(self, userdata):
-#         rospy.loginfo("=== STATE 5: MODULE COMMUNICATION ===")
-        
-#         # 发布消息给朋友的模块
-#         request_msg = String()
-#         request_msg.data = "execute_function"  # 您可以根据需要修改这个消息内容
-        
-#         rospy.loginfo(f"Publishing message to friend's module: {request_msg.data}")
-#         self.pub.publish(request_msg)
-        
-#         # 等待响应
-#         start_time = time.time()
-#         while not self.response_received and not rospy.is_shutdown():
-#             if time.time() - start_time > self.timeout:
-#                 rospy.logwarn("Timeout waiting for module response")
-#                 return 'failure'
-#             rospy.sleep(0.1)
-        
-#         if self.response_received:
-#             rospy.loginfo(f"Received response from friend's module: {self.response_msg}")
-#             return 'success'
-#         else:
-#             rospy.logwarn("No response received from friend's module")
-#             return 'failure'
-    
-#     def response_callback(self, msg):
-#         """接收朋友模块返回消息的回调函数"""
-#         rospy.loginfo(f"Response callback triggered with message: {msg.data}")
-#         self.response_msg = msg.data
-#         self.response_received = True
-
-        
-# class MoveToTable(smach.State):
-#     def __init__(self):
-#         smach.State.__init__(self, outcomes=['success', 'failure'])
-#         self.timeout = 30.0  # 超时时间
-
-#     def execute(self, userdata):
-#         rospy.loginfo("=== STATE 6: RETURN TO ORIGIN ===")
-        
-#         cmd = [
-#             'rosrun', 'adv_nav', 'move_to_pose.py',
-#             '_mode:=home'  # 假设这是回到起始点的预设模式
-#         ]
-        
-#         success = self.run_process(cmd, self.timeout)
-
-#         if success:
-#             rospy.loginfo("Returned to origin successfully.")
-#             return 'success'
-#         else:
-#             rospy.logwarn("Failed to return to origin.")
-#             return 'failure'
-
-#     def run_process(self, cmd, timeout=None):
-#         try:
-#             process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-#             stdout, stderr = process.communicate(timeout=timeout)
-#             return process.returncode == 0
-#         except subprocess.TimeoutExpired:
-#             rospy.logwarn("Process timed out")
-#             return False
-#         except Exception as e:
-#             rospy.logerr(f"Error running process: {e}")
-#             return False
-
-
 # def main():
 #     rospy.init_node('robot_navigation_state_machine')
     
@@ -209,10 +468,8 @@
 #     with sm:
 #         smach.StateMachine.add('MOVE_TO_POSE', MoveToPose(), transitions={'success': 'HEAD_SCAN', 'failure': 'failed'})
 #         smach.StateMachine.add('HEAD_SCAN', HeadScan(), transitions={'person_detected': 'HEAD_TRACKING', 'timeout': 'failed'})
-#         smach.StateMachine.add('HEAD_TRACKING', HeadTracking(), transitions={'success': 'PERSON_FOLLOWING', 'failure': 'failed'})
-#         smach.StateMachine.add('PERSON_FOLLOWING', PersonFollowing(), transitions={'success': 'MODULE_COMMUNICATION', 'failure': 'failed'})
-#         smach.StateMachine.add('MODULE_COMMUNICATION', ModuleCommunication(), transitions={'success': 'RETURN_TO_ORIGIN', 'failure': 'failed'})
-#         smach.StateMachine.add('RETURN_TO_ORIGIN', MoveToTable(), transitions={'success': 'completed', 'failure': 'failed'})
+#         smach.StateMachine.add('HEAD_TRACKING', HeadTracking(), transitions={'success': 'PERSON_FOLLOWING'})
+#         smach.StateMachine.add('PERSON_FOLLOWING', PersonFollowing(), transitions={'success': 'completed'})
     
 #     # 创建并启动状态机ROS处理器
 #     sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT')
@@ -226,161 +483,6 @@
 
 # if __name__ == '__main__':
 #     main()
-
-
-
-
-#!/usr/bin/env python3
-
-import rospy
-import smach
-import smach_ros
-import subprocess
-import time
-import signal
-from geometry_msgs.msg import PointStamped
-from std_msgs.msg import String
-
-class MoveToPose(smach.State):
-    def __init__(self):
-        smach.State.__init__(self, outcomes=['success', 'failure'])
-        self.move_to_pose_timeout = 30.0  # 超时设置
-    
-    def execute(self, userdata):
-        rospy.loginfo("=== STATE 1: MOVE TO POSE ===")
-        
-        cmd = [
-            'rosrun', 'adv_nav', 'move_to_pose.py',
-            '_mode:=custom',
-            '_x:=2.845',
-            '_y:=1.305',
-            '_z:=0.099',
-            '_qx:=0.0',
-            '_qy:=0.0',
-            '_qz:=-0.465',
-            '_qw:=0.885',
-            '_frame:=map'
-        ]
-
-        success = self.run_process(cmd, self.move_to_pose_timeout)
-        
-        if success:
-            rospy.loginfo("Move to pose completed successfully!")
-            return 'success'
-        else:
-            rospy.logwarn("Move to pose failed or timed out.")
-            return 'failure'
-    
-    def run_process(self, cmd, timeout=None):
-        try:
-            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-            stdout, stderr = process.communicate(timeout=timeout)
-            return process.returncode == 0
-        except subprocess.TimeoutExpired:
-            rospy.logwarn("Process timed out")
-            return False
-        except Exception as e:
-            rospy.logerr(f"Error running process: {e}")
-            return False
-
-
-class HeadScan(smach.State):
-    def __init__(self):
-        smach.State.__init__(self, outcomes=['person_detected', 'timeout'])
-        self.head_scan_timeout = 20.0
-        self.person_detected = False
-        self.sub = rospy.Subscriber('/adv_robocup/waving_person/position', PointStamped, self.person_detected_callback)
-
-    
-    def execute(self, userdata):
-        rospy.loginfo("=== STATE 2: HEAD SCAN ===")
-        self.person_detected = False
-        cmd = ['rosrun', 'adv_nav', 'head_scan.py', '_mode:=continuous']
-        
-        # 启动扫描进程
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        start_time = time.time()
-        
-        while not self.person_detected and not rospy.is_shutdown():
-            if time.time() - start_time > self.head_scan_timeout:
-                rospy.logwarn("Head scan timed out")
-                return 'timeout'
-            rospy.sleep(0.5)
-        
-        if self.person_detected:
-            rospy.loginfo("Person detected!")
-            return 'person_detected'
-        else:
-            rospy.logwarn("No person detected!")
-            return 'timeout'
-    
-    def person_detected_callback(self, msg):
-        """人员检测回调"""
-        if not self.person_detected:
-            rospy.loginfo("Person detected!")
-            self.person_detected = True
-
-
-class HeadTracking(smach.State):
-    def __init__(self):
-        smach.State.__init__(self, outcomes=['success'])
-        self.head_tracking_timeout = 5.0
-    
-    def execute(self, userdata):
-        rospy.loginfo("=== STATE 3: HEAD TRACKING ===")
-        cmd = ['rosrun', 'adv_nav', 'head_tracking.py']
-        
-        # 启动头部跟踪
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
-        time.sleep(self.head_tracking_timeout)
-        
-        rospy.loginfo("Head tracking completed")
-        return 'success'
-
-
-class PersonFollowing(smach.State):
-    def __init__(self):
-        smach.State.__init__(self, outcomes=['success'])
-    
-    def execute(self, userdata):
-        rospy.loginfo("=== STATE 4: PERSON FOLLOWING ===")
-        cmd = ['rosrun', 'adv_nav', 'person_follower.py']
-        
-        rospy.loginfo("Starting person following...")
-        
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        
-        # 让人员跟随持续运行，直到节点停止
-        process.wait()
-        
-        return 'success'
-
-
-def main():
-    rospy.init_node('robot_navigation_state_machine')
-    
-    # 创建状态机
-    sm = smach.StateMachine(outcomes=['completed', 'failed'])
-    
-    with sm:
-        smach.StateMachine.add('MOVE_TO_POSE', MoveToPose(), transitions={'success': 'HEAD_SCAN', 'failure': 'failed'})
-        smach.StateMachine.add('HEAD_SCAN', HeadScan(), transitions={'person_detected': 'HEAD_TRACKING', 'timeout': 'failed'})
-        smach.StateMachine.add('HEAD_TRACKING', HeadTracking(), transitions={'success': 'PERSON_FOLLOWING'})
-        smach.StateMachine.add('PERSON_FOLLOWING', PersonFollowing(), transitions={'success': 'completed'})
-    
-    # 创建并启动状态机ROS处理器
-    sis = smach_ros.IntrospectionServer('server_name', sm, '/SM_ROOT')
-    sis.start()
-    
-    # 运行状态机
-    outcome = sm.execute()
-    
-    rospy.loginfo("State machine finished with outcome: " + str(outcome))
-    sis.stop()
-
-if __name__ == '__main__':
-    main()
 
 
 
