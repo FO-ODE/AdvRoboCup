@@ -25,7 +25,7 @@ public:
 
     gripper_pub_ = nh.advertise<trajectory_msgs::JointTrajectory>("/gripper_controller/command", 10);
     base_pub_ = nh.advertise<geometry_msgs::Twist>("/mobile_base_controller/cmd_vel", 10);
-    point_sub_ = nh.subscribe("/object_center", 1, &GraspExecutor::poseCallback, this);
+    point_sub_ = nh.subscribe("adv_robocup/object_position", 1, &GraspExecutor::poseCallback, this);
 
     move_group_.setPlannerId("RRTstarkConfigDefault"); // RRTstarkConfigDefault RRTkConfigDefault
     move_group_.setPoseReferenceFrame("base_footprint");

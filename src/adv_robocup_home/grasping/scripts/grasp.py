@@ -26,7 +26,7 @@ class GraspExecutor:
         self.gripper_pub = rospy.Publisher("/gripper_controller/command", JointTrajectory, queue_size=10)
         self.base_pub = rospy.Publisher("/mobile_base_controller/cmd_vel", Twist, queue_size=10)
 
-        rospy.Subscriber("/object_center", PointStamped, self.pose_callback)
+        rospy.Subscriber("adv_robocup/object_position", PointStamped, self.pose_callback)
 
         self.group = moveit_commander.MoveGroupCommander("arm_torso")
         self.group.set_planner_id("RRTkConfigDefault") # RRTConnectkConfigDefault SBLkConfigDefault
