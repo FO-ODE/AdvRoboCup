@@ -8,14 +8,19 @@ from tf.transformations import quaternion_from_euler
 import math
 import actionlib
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+from std_srvs.srv import Trigger  # 新增导入
 
 class PoseAdjuster:
     def __init__(self):
         rospy.init_node('pose_adjuster', anonymous=True)
+<<<<<<< HEAD
         
         # 1 表示从前方接近，-1 表示从后方接近
 
         
+=======
+ 
+>>>>>>> shilin
         # Create tf2 listener
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
@@ -52,7 +57,21 @@ class PoseAdjuster:
         rospy.loginfo("Time synchronization enabled with max delay: {:.1f}s".format(self.max_time_delay.to_sec()))
         rospy.loginfo("Waiting for object position point...")
         rospy.loginfo("Robot will position behind the target point along the target orientation")
-    
+        
+        # 在初始化时调用服务
+        rospy.loginfo("Calling /adv_robocup/sam2clip/trigger service before navigation...")
+        try:
+            rospy.wait_for_service('/adv_robocup/sam2clip/trigger', timeout=20.0)
+            trigger_srv = rospy.ServiceProxy('/adv_robocup/sam2clip/trigger', Trigger)
+            resp = trigger_srv()
+            if resp.success:
+                rospy.loginfo("Trigger service called successfully: %s" % resp.message)
+            else:
+                rospy.logwarn("Trigger service call failed: %s" % resp.message)
+        except Exception as e:
+            rospy.logwarn(f"Failed to call /adv_robocup/sam2clip/trigger: {e}")
+        rospy.loginfo("Trigger service call completed.")
+        
     def synchronize_time_stamp(self, point_stamped):
         """Synchronize the timestamp of PointStamped message"""
         current_time = rospy.Time.now()
