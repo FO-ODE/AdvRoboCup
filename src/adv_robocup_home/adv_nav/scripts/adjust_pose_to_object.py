@@ -41,10 +41,21 @@ class PoseAdjuster:
         # Task completion flag
         self.task_completed = False
         
+        # 添加精确调整参数
+        self.fine_tune_enabled = True
+        self.max_fine_tune_attempts = 3
+        self.fine_tune_threshold = 0.1  # 10cm tolerance
+        self.current_attempt = 0
+        
+        # 视觉反馈订阅器
+        rospy.Subscriber('/adv_robocup/object_position', PointStamped, self.current_object_callback)
+        self.current_object_point = None
+        
         rospy.loginfo("Pose Adjuster Node Initialized.")
         rospy.loginfo("Fixed robot orientation: [0.000, 0.000, 0.961, -0.277]")
         rospy.loginfo("Input coordinate frame is fixed to: base_link")
         rospy.loginfo("Waiting for object position point...")
+        rospy.loginfo("Fine-tuning enabled with visual feedback")
     
     def object_callback(self, msg):
         """Receive object position point callback"""
@@ -64,6 +75,12 @@ class PoseAdjuster:
         
         rospy.loginfo(f"Object position in base_link frame: ({self.object_point.point.x:.2f}, {self.object_point.point.y:.2f}, {self.object_point.point.z:.2f})")
         self.process_point()
+    
+    def current_object_callback(self, msg):
+        """当前物体位置回调（用于精确调整）"""
+        if not self.fine_tune_enabled or self.task_completed:
+            return
+        self.current_object_point = msg
     
     def transform_point_to_base_link(self, point_stamped):
         """Transform PointStamped from any coordinate system to base_link"""
@@ -171,14 +188,9 @@ class PoseAdjuster:
             rospy.logerr(f"Error processing point: {e}")
     
     def move_to_goal(self, pose_stamped):
-        """Send movement goal and wait for completion"""
+        """Send movement goal and wait for completion，添加精确调整"""
         rospy.loginfo(f"Moving to goal: position=({pose_stamped.pose.position.x:.2f}, "
-                     f"{pose_stamped.pose.position.y:.2f}), "
-                     f"orientation=[{pose_stamped.pose.orientation.x:.3f}, "
-                     f"{pose_stamped.pose.orientation.y:.3f}, "
-                     f"{pose_stamped.pose.orientation.z:.3f}, "
-                     f"{pose_stamped.pose.orientation.w:.3f}], "
-                     f"frame={pose_stamped.header.frame_id}")
+                     f"{pose_stamped.pose.position.y:.2f})")
         
         # Create MoveBaseGoal
         goal = MoveBaseGoal()
@@ -196,11 +208,114 @@ class PoseAdjuster:
         state = self.move_client.get_state()
         
         if state == actionlib.GoalStatus.SUCCEEDED:
+            rospy.loginfo("Initial navigation completed!")
+            
+            # 执行精确调整
+            if self.fine_tune_enabled and self.current_attempt < self.max_fine_tune_attempts:
+                if self.perform_fine_adjustment():
+                    return
+            
             rospy.loginfo("SUCCESS: Robot reached the target position!")
             self.task_completed = True
             rospy.loginfo("Task completed. Shutting down node...")
             rospy.signal_shutdown("Task completed successfully")
-        elif state == actionlib.GoalStatus.ABORTED:
+        else:
+            self.handle_navigation_failure(state)
+    
+    def perform_fine_adjustment(self):
+        """执行精确调整"""
+        rospy.loginfo("Starting fine adjustment...")
+        self.current_attempt += 1
+        
+        # 等待当前物体位置更新
+        rospy.sleep(1.0)
+        
+        if self.current_object_point is None:
+            rospy.logwarn("No current object position available for fine adjustment")
+            return True  # 跳过精确调整
+        
+        # 转换到base_link坐标系
+        if self.current_object_point.header.frame_id != "base_link":
+            current_obj = self.transform_point_to_base_link(self.current_object_point)
+        else:
+            current_obj = self.current_object_point
+        
+        if current_obj is None:
+            rospy.logwarn("Failed to transform current object position")
+            return True
+        
+        # 检查当前偏差
+        obj_x, obj_y = current_obj.point.x, current_obj.point.y
+        
+        # 计算期望的物体位置（在机器人前方approach_distance处）
+        expected_x = self.approach_distance
+        expected_y = 0.0
+        
+        # 计算偏差
+        error_x = obj_x - expected_x
+        error_y = obj_y - expected_y
+        error_magnitude = math.sqrt(error_x**2 + error_y**2)
+        
+        rospy.loginfo(f"Fine adjustment attempt {self.current_attempt}/{self.max_fine_tune_attempts}")
+        rospy.loginfo(f"Current object position: ({obj_x:.3f}, {obj_y:.3f})")
+        rospy.loginfo(f"Expected position: ({expected_x:.3f}, {expected_y:.3f})")
+        rospy.loginfo(f"Position error: ({error_x:.3f}, {error_y:.3f}), magnitude: {error_magnitude:.3f}")
+        
+        if error_magnitude < self.fine_tune_threshold:
+            rospy.loginfo("Position is within tolerance. Fine adjustment complete!")
+            return True
+        
+        # 计算调整量（保守调整，避免过度修正）
+        adjustment_factor = 0.8  # 80%的误差修正
+        adj_x = -error_x * adjustment_factor
+        adj_y = -error_y * adjustment_factor
+        
+        rospy.loginfo(f"Applying adjustment: ({adj_x:.3f}, {adj_y:.3f})")
+        
+        # 创建调整目标（相对于当前位置）
+        adjustment_pose = PoseStamped()
+        adjustment_pose.header.frame_id = "base_link"
+        adjustment_pose.header.stamp = rospy.Time.now()
+        adjustment_pose.pose.position.x = adj_x
+        adjustment_pose.pose.position.y = adj_y
+        adjustment_pose.pose.position.z = 0.0
+        adjustment_pose.pose.orientation = Quaternion(0, 0, 0, 1)  # 不改变朝向
+        
+        # 转换到map坐标系
+        adjustment_pose_map = self.transform_pose_to_map(adjustment_pose)
+        if adjustment_pose_map is None:
+            rospy.logwarn("Failed to transform adjustment pose to map")
+            return True
+        
+        # 发送调整目标
+        goal = MoveBaseGoal()
+        goal.target_pose = adjustment_pose_map
+        
+        self.move_client.send_goal(goal)
+        self.move_client.wait_for_result()
+        
+        state = self.move_client.get_state()
+        if state == actionlib.GoalStatus.SUCCEEDED:
+            rospy.loginfo("Fine adjustment movement completed")
+            # 递归调用进行下一次检查
+            return self.perform_fine_adjustment()
+        else:
+            rospy.logwarn(f"Fine adjustment failed with state: {state}")
+            return True
+    
+    def transform_pose_to_map(self, pose_stamped):
+        """将PoseStamped从base_link转换到map坐标系"""
+        try:
+            self.tf_buffer.can_transform("map", "base_link", rospy.Time(0), rospy.Duration(1.0))
+            pose_in_map = self.tf_buffer.transform(pose_stamped, "map", rospy.Duration(1.0))
+            return pose_in_map
+        except Exception as e:
+            rospy.logerr(f"Failed to transform pose to map: {e}")
+            return None
+    
+    def handle_navigation_failure(self, state):
+        """Handle navigation failure and take appropriate action"""
+        if state == actionlib.GoalStatus.ABORTED:
             rospy.logwarn("ABORTED: Failed to reach the target position")
             self.terminate_with_failure()
         elif state == actionlib.GoalStatus.REJECTED:
