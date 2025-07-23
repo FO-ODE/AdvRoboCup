@@ -32,7 +32,7 @@ class PoseAdjuster:
         self.object_point = None
         
         # Parameter configuration
-        self.approach_distance = 0.8  # Distance to object (meters)
+        self.approach_distance = 0.8  # Distance to object (meters) - 安全距离
         self.robot_height = 0.0  # Robot base height
         
         # Fixed robot orientation quaternion
@@ -44,7 +44,7 @@ class PoseAdjuster:
         # 添加精确调整参数
         self.fine_tune_enabled = True
         self.max_fine_tune_attempts = 3
-        self.fine_tune_threshold = 0.1  # 10cm tolerance
+        self.fine_tune_threshold = 0.15  # 15cm tolerance
         self.current_attempt = 0
         
         # 视觉反馈订阅器
@@ -56,6 +56,7 @@ class PoseAdjuster:
         rospy.loginfo("Input coordinate frame is fixed to: base_link")
         rospy.loginfo("Waiting for object position point...")
         rospy.loginfo("Fine-tuning enabled with visual feedback")
+        rospy.loginfo("Robot will position behind the target point along the target orientation")
     
     def object_callback(self, msg):
         """Receive object position point callback"""
@@ -122,27 +123,33 @@ class PoseAdjuster:
             return None
     
     def calculate_approach_pose(self, object_position_map):
-        """Calculate robot approach pose - based on object position point in map coordinate system"""
+        """Calculate robot approach pose - 机器人位于目标点沿着设定朝向反方向的安全距离处"""
         
         # Calculate approach direction from fixed orientation
         # Quaternion [0.000, 0.000, 0.961, -0.277] corresponding yaw angle
-        # Use quaternion to Euler angle conversion
         qx, qy, qz, qw = 0.000, 0.000, 0.961, -0.277
         
-        # Calculate yaw angle (rotation around z-axis)
+        # Calculate yaw angle (rotation around z-axis) - 机器人的目标朝向
         siny_cosp = 2 * (qw * qz + qx * qy)
         cosy_cosp = 1 - 2 * (qy * qy + qz * qz)
-        robot_yaw = math.atan2(siny_cosp, cosy_cosp)
+        target_yaw = math.atan2(siny_cosp, cosy_cosp)
         
-        rospy.loginfo(f"Fixed yaw angle: {math.degrees(robot_yaw):.1f} degrees")
+        rospy.loginfo(f"Target yaw angle: {math.degrees(target_yaw):.1f} degrees")
         
-        # Calculate robot position (in map coordinate system)
-        # Robot stands in front of object, at distance approach_distance, facing fixed direction
-        approach_offset_x = self.approach_distance * math.cos(robot_yaw)
-        approach_offset_y = self.approach_distance * math.sin(robot_yaw)
+        # 计算机器人位置：目标点沿着机器人朝向的反方向移动安全距离
+        # 机器人朝向的反方向就是朝向角度 + 180度
+        retreat_direction = target_yaw + math.pi
         
-        robot_x = object_position_map.x - approach_offset_x
-        robot_y = object_position_map.y - approach_offset_y
+        # 计算机器人位置偏移量（沿着朝向反方向）
+        retreat_offset_x = self.approach_distance * math.cos(retreat_direction)
+        retreat_offset_y = self.approach_distance * math.sin(retreat_direction)
+        
+        # 机器人最终位置 = 目标点位置 + 后退偏移量
+        robot_x = object_position_map.x + retreat_offset_x
+        robot_y = object_position_map.y + retreat_offset_y
+        
+        rospy.loginfo(f"Robot positioned behind target point by {self.approach_distance}m")
+        rospy.loginfo(f"Retreat direction: {math.degrees(retreat_direction):.1f} degrees")
         
         return robot_x, robot_y
     
@@ -223,12 +230,12 @@ class PoseAdjuster:
             self.handle_navigation_failure(state)
     
     def perform_fine_adjustment(self):
-        """执行精确调整"""
+        """执行精确调整 - 修改为基于新的定位方式"""
         rospy.loginfo("Starting fine adjustment...")
         self.current_attempt += 1
         
         # 等待当前物体位置更新
-        rospy.sleep(1.0)
+        rospy.sleep(10.0)
         
         if self.current_object_point is None:
             rospy.logwarn("No current object position available for fine adjustment")
@@ -247,9 +254,11 @@ class PoseAdjuster:
         # 检查当前偏差
         obj_x, obj_y = current_obj.point.x, current_obj.point.y
         
-        # 计算期望的物体位置（在机器人前方approach_distance处）
-        expected_x = self.approach_distance
-        expected_y = 0.0
+        # 计算期望的物体位置：
+        # 如果机器人正确定位，物体应该在机器人前方approach_distance处
+        # 考虑到机器人的朝向，物体应该在机器人朝向方向上
+        expected_x = self.approach_distance  # 物体在机器人前方
+        expected_y = 0.0  # 物体在机器人正前方
         
         # 计算偏差
         error_x = obj_x - expected_x
@@ -258,7 +267,7 @@ class PoseAdjuster:
         
         rospy.loginfo(f"Fine adjustment attempt {self.current_attempt}/{self.max_fine_tune_attempts}")
         rospy.loginfo(f"Current object position: ({obj_x:.3f}, {obj_y:.3f})")
-        rospy.loginfo(f"Expected position: ({expected_x:.3f}, {expected_y:.3f})")
+        rospy.loginfo(f"Expected position (in front of robot): ({expected_x:.3f}, {expected_y:.3f})")
         rospy.loginfo(f"Position error: ({error_x:.3f}, {error_y:.3f}), magnitude: {error_magnitude:.3f}")
         
         if error_magnitude < self.fine_tune_threshold:
@@ -346,7 +355,7 @@ def main():
         
         rospy.loginfo("Pose adjuster ready. Publish point to:")
         rospy.loginfo("  - /adv_robocup/object_position (object position point)")
-        rospy.loginfo("Only accepts PointStamped messages with frame_id 'base_link'")
+        rospy.loginfo("Robot will position behind the target point along the target orientation")
         rospy.loginfo("Robot orientation is fixed to [0.000, 0.000, 0.961, -0.277]")
         rospy.loginfo("Node will terminate after reaching the target position")
         
