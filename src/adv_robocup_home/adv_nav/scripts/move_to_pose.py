@@ -65,7 +65,7 @@ class MoveToPose:
     def move_to_preset_pose(self):
         """Move to a preset pose"""
         # Preset position and orientation
-        target_x = 1.7
+        target_x = 1.55
         target_y = -0.2
         target_z = 0.099
         

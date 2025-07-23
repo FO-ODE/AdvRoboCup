@@ -688,6 +688,21 @@ class Grasp(smach.State):
     def execute(self, userdata):
         rospy.loginfo('[Grasp] Executing grasp state...')
         
+        
+                # ✅ Step 0: 调用一次 rosservice，触发目标生成
+        rospy.loginfo('[Grasp] Triggering /adv_robocup/sam2clip/trigger service...')
+        try:
+            result = subprocess.run(
+                ['rosservice', 'call', '/adv_robocup/sam2clip/trigger'],
+                check=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE
+            )
+            rospy.loginfo("[Grasp] Service call succeeded:\n" + result.stdout.decode())
+        except subprocess.CalledProcessError as e:
+            rospy.logwarn("[Grasp] Service call failed:\n" + e.stderr.decode())
+            return "failure"
+        
         # 重置标志位
         self.hold_object = False
         self.gripper_succeed = False
@@ -751,9 +766,9 @@ def main():
         # smach.StateMachine.add('MoveToTable2', MoveToTable2(), transitions={'success': 'MOVE_TO_POSE', 'failure': 'failed'})
         
 
-        smach.StateMachine.add('RETURN_TO_ORIGIN', MoveToTable(), transitions={'success': 'ADJUST_POSE', 'failure': 'failed'})
-        smach.StateMachine.add('ADJUST_POSE', AdjustPose(), transitions={'success': 'GRASP', 'failure': 'failed'})
-        # smach.StateMachine.add('IDENTIFY_OBJECT', FindTarget(), transitions={'succeeded':'GRASP', 'failure':'failed'})
+        # smach.StateMachine.add('RETURN_TO_ORIGIN', MoveToTable(), transitions={'success': 'ADJUST_POSE', 'failure': 'failed'})
+        # smach.StateMachine.add('ADJUST_POSE', AdjustPose(), transitions={'success': 'GRASP', 'failure': 'failed'})
+
         smach.StateMachine.add('GRASP', Grasp(), transitions={'succeeded':'failed','failure':'failed'})
 
         # smach.StateMachine.add('GIVE_HAND', GiveHand(), transitions={'success': 'ReturnToLastPose', 'failure': 'failed'})

@@ -34,7 +34,7 @@ class PoseAdjuster:
         self.object_point = None
         
         # Parameter configuration
-        self.approach_distance = 0.8  # Distance to object (meters)
+        self.approach_distance = 0.7  # Distance to object (meters)
         self.robot_height = 0.0  # Robot base height
         
         # Fixed robot orientation quaternion
@@ -150,22 +150,8 @@ class PoseAdjuster:
             transform_time = point_stamped.header.stamp
             
             # Wait for transform to be available
-<<<<<<< HEAD
             point_stamped.header.stamp = rospy.Time.now()#xin jia
             self.tf_buffer.can_transform("map", "base_link", rospy.Time(0), rospy.Duration(1.0))
-=======
-            if not self.tf_buffer.can_transform("map", "base_link", transform_time, self.time_sync_timeout):
-                rospy.logwarn(f"Transform from 'base_link' to 'map' not available at time {transform_time.to_sec():.3f}")
-                
-                # Try with latest available transform
-                rospy.loginfo("Attempting to use latest available transform...")
-                if not self.tf_buffer.can_transform("map", "base_link", rospy.Time(0), self.time_sync_timeout):
-                    rospy.logwarn("No transform available even with latest time")
-                    return None
-                
-                # Update message to use latest transform time
-                point_stamped.header.stamp = rospy.Time(0)
->>>>>>> shilin
             
             # Execute coordinate transformation
             point_in_map = self.tf_buffer.transform(point_stamped, "map", self.time_sync_timeout)
