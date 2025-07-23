@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   smach
   smach_ros
   std_msgs
+  std_srvs
 )
 
 ## System dependencies are found with CMake's conventions
