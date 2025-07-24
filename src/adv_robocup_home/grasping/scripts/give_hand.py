@@ -37,7 +37,6 @@ def speak(text, lang_id='en_GB', wait_time=3.0):
 
 def give_hand_callback(req):
     publish_arm_trajectory()
-    rospy.sleep(6.0)
 
     text = f"Could you please give me the {clip_query}?"
     speak(text, lang_id='en_GB')
@@ -137,7 +136,7 @@ def main():
     tts_pub = rospy.Publisher('/tts/goal', TtsActionGoal, queue_size=10)
     rospy.sleep(1.0)
     
-    rospy.Subscriber("/adv_robocup/chat_intent", String, clip_query_callback)
+    rospy.Subscriber("/adv_robocup/sam2clip/clip_query", String, clip_query_callback)
 
     rospy.Service("/adv_robocup/give_hand", Trigger, give_hand_callback)
     rospy.Service("/adv_robocup/handover", Trigger, handover_callback)
