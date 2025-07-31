@@ -13,14 +13,10 @@ from std_srvs.srv import Trigger  # 新增导入
 class PoseAdjuster:
     def __init__(self):
         rospy.init_node('pose_adjuster', anonymous=True)
-<<<<<<< HEAD
         
         # 1 表示从前方接近，-1 表示从后方接近
 
         
-=======
- 
->>>>>>> shilin
         # Create tf2 listener
         self.tf_buffer = tf2_ros.Buffer()
         self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
@@ -39,7 +35,7 @@ class PoseAdjuster:
         self.object_point = None
         
         # Parameter configuration
-        self.approach_distance = 0.7  # Distance to object (meters)
+        self.approach_distance = 0.6  # Distance to object (meters)
         self.robot_height = 0.0  # Robot base height
         
         # Fixed robot orientation quaternion

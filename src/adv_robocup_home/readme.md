@@ -1,14 +1,28 @@
-# Adv RoboCup Cheat Sheet
-
-## Containerzz
-
-for real world tiago, **offline start**
-
     rocker --nvidia --x11 --privileged \
         --volume /home/troy/adv_robocup/AdvRoboCup/src/adv_robocup_home:/tiago_public_ws/src/adv_robocup_home \
         --network host \
         --name tiago_container \
         foode258/tiago_robot:env1.0
+
+export ROS_MASTER_URI=http://192.168.1.200:11311
+export ROS_IP=192.168.1.170
+
+sudo ntpdate 192.168.1.200
+
+catkin build pick
+catkin build adv_nav
+catkin build tiago_state_machine
+catkin build carry_navi
+
+rosservice call /pal_map_manager/change_map "input: 'adv_map0624'"
+
+roslaunch carry_navi localization.launch
+
+roslaunch pick pick.launch
+
+roslaunch tiago_state_machine test.launch
+
+
 
 # Launch a Docker container for the TIAGO robot environment
 rocker --nvidia --x11 --privileged \
