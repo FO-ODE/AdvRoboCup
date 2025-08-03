@@ -1,0 +1,8 @@
+<launch>
+
+  <node name="pick_node" pkg="pick" type="pick_node" respawn="false" output="screen">
+  </node>
+
+  <node name="throttle_node" pkg="topic_tools" type="throttle" args="messages /xtion/depth_registered/points 2 /throttle_filtering_points/filtered_points"/>
+
+</launch>
