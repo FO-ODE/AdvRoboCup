@@ -1,12 +1,12 @@
-# MiniMind Chat ROS 项目说明
+# MiniMind Chat ROS - Project Overview
 
-本项目基于 LoRA 微调的语言模型，通过 ROS 1 框架解析自然语言指令，并发布结构化意图信息至 ROS 话题 `/chat_intent`。适用于 RoboCup\@Home 等机器人任务中的语义理解模块。
+This project is based on a LoRA fine-tuned language model. It uses the ROS 1 framework to parse natural language instructions and publish structured intent information to the `/chat_intent` topic. It is designed for semantic understanding in tasks such as RoboCup@Home.
 
 ---
 
-## 环境配置
+## Environment Setup
 
-### 1. 创建 Conda 环境并安装依赖
+### 1. Create Conda Environment and Install Dependencies
 
 ```bash
 conda create -n minimind python=3.10 -y
@@ -16,9 +16,9 @@ pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 ---
 
-## 构建 ROS 工作空间
+## Build ROS Workspace
 
-### 1. 编译消息类型
+### 1. Compile Message Types
 
 ```bash
 cd ~/AdvRoboCup/catkin_ws
@@ -26,79 +26,84 @@ catkin_make
 source devel/setup.bash
 ```
 
-**注意：** 请确保构建时不处于 Conda 环境中，以避免 Python 路径冲突。推荐流程：
+**Note:** Make sure you are not in the Conda environment when building, to avoid Python path conflicts. Recommended steps:
 
-1. 退出 Conda 环境后执行 `catkin_make`；
-2. 构建完成后再进入 `minimind` 环境；
-3. 执行 `source devel/setup.bash` 再运行脚本。
+1. Exit Conda before running `catkin_make`;
+2. Re-enter the `minimind` environment after building;
+3. Run `source devel/setup.bash` before executing scripts.
 
 ---
 
-## 启动模型脚本
-默认为语音输入
+## Launching the Model Script
+
+By default: voice input
 ```bash
 python src/minimind_chat_ros/scripts/eval_model.py
 ```
-用文本输入测试：
+
+For text input:
 ```bash
 python src/minimind_chat_ros/scripts/eval_model.py --input-mode text
 ```
-还需订阅话题，否则无法发送topic：
+
+You also need to subscribe to the topic to send messages:
 ```bash
 rostopic echo /chat_intent
 ```
 
-该脚本将加载 LoRA 微调模型，并开始意图解析和发布。
+This script will load the LoRA fine-tuned model and start intent parsing and publishing.
 
 ---
 
-## 项目结构说明
+## Project Structure
 
 ```
 minimind_chat_ros/
 ├── CMakeLists.txt                 
 ├── package.xml                   
 ├── msg/
-│   └── ChatIntent.msg            # 自定义意图消息
+│   └── ChatIntent.msg            # Custom intent message
 ├── scripts/
-│   └── eval_model.py             # 启动脚本（需 Python 执行）
+│   └── eval_model.py             # Launch script (Python)
 ├── src/
 │   └── minimind_chat_ros/
-│       ├── dataset/              # 数据集模块（可选）
-│       ├── model/                # 模型定义与权重
+│       ├── dataset/              # Dataset module (optional)
+│       ├── model/                # Model definitions and weights
 │       │   ├── model_minimind.py
 │       │   ├── model_lora.py
 │       │   ├── tokenizer.json
 │       │   └── tokenizer_config.json
 │       └── out/
-│           ├── full_sft_512.pth          # 完整微调模型（可选）
+│           ├── full_sft_512.pth          # Full fine-tuned model (optional)
 │           └── lora/
-│               └── lora_medical_512.pth  # LoRA 参数
+│               └── lora_medical_512.pth  # LoRA weights
 ```
 
 ---
 
-## 发布话题 `/adv_robocup/chat_intent`
+## Topic: `/adv_robocup/chat_intent`
 
-- **话题名称**：`/adv_robocup/chat_intent`
-- **消息类型**：`std_msgs/String`
-- **消息内容**：只包含用户意图中的 `object` 字符串，例如 `cola`、`bottle` 等
+- **Topic name**: `/adv_robocup/chat_intent`
+- **Message type**: `std_msgs/String`
+- **Content**: Contains only the `object` string from user intent, e.g., `cola`, `bottle`
 
 ```msg
-# 示例内容（std_msgs/String）
+# Example content (std_msgs/String)
 data: "cola"
 ```
-- 原本的消息格式 `ChatIntent.msg` 中包含 `action`、`object` 和 `location` 三个字段
+
+- Original `ChatIntent.msg` format contains `action`, `object`, and `location` fields:
 ```bash
 string action
 string object
 string location
 ```
-- 由于目前的系统只需要识别 用户请求的物体名称，因此为了简化通信流程，我们将该话题类型替换为 `std_msgs/String`，仅发布 `object` 名称。
 
-- `action` 和 `location` 字段在代码中已被注释掉，当前未使用。未来若需要更复杂的意图结构，可重新启用 `ChatIntent` 类型
+- Since only the object name is needed for the current system, we replaced the topic type with `std_msgs/String` to simplify communication.
 
-### 示例查看输出
+- `action` and `location` fields are commented out in the code and not used. They can be re-enabled in the future for more complex intent structures.
+
+### Example to view output:
 
 ```bash
 rostopic echo /adv_robocup/chat_intent
@@ -106,69 +111,82 @@ rostopic echo /adv_robocup/chat_intent
 
 ---
 
-## 检查点文件路径
+## Checkpoint File Paths
 
-- 模型目录：
+- Model directory:
   - `src/minimind_chat_ros/model/`
-- 权重文件：
+- Weight file:
   - `src/minimind_chat_ros/out/lora/lora_medical_512.pth`
-- 启动脚本：
+- Launch script:
   - `src/minimind_chat_ros/scripts/eval_model.py`
 
 ---
+
 ## Git LFS
-1. 安装
+
+1. Install:
 ```bash
 sudo apt install git-lfs
 ```
 
-2. 执行一次初始化
+2. Initialize once:
 ```bash
 git lfs install
 ```
-3. 拉取 LFS 管理的 .pth 文件
+
+3. Pull .pth files managed by LFS:
 ```bash
-cd ~/AdvRoboCup  # 或你的仓库根目录
+cd ~/AdvRoboCup  # or your repository root
 git lfs pull
 ```
 
-# Whisper
-本部分实现了通过麦克风录音，使用 OpenAI Whisper 进行离线语音识别，并将识别出的文本发送给本地语言模型 MiniMind 进行问答推理。
+---
 
-## 安装与测试
+# Whisper
+
+This part enables offline speech recognition using OpenAI Whisper by recording from a microphone, then sending the recognized text to the local MiniMind model for intent inference.
+
+## Installation and Test
+
 ```bash
-# 基础依赖
+# Basic dependencies
 pip install openai-whisper sounddevice numpy transformers
 
-# Whisper 需要 ffmpeg
+# Whisper requires ffmpeg
 sudo apt install ffmpeg
 ```
-Whisper 英文模型下载:自动下载
-- 测试文件位于
+
+Whisper English model will be downloaded automatically.
+
+- Test script location:
 ```bash
 AdvRoboCup/catkin_ws/src/minimind_chat_ros/scripts/test_whisper.py
 ```
-会自动下载模型文件.
 
-# 与状态机通信的 ROS 话题接口
-本模块通过以下两个话题与任务状态机进行通信：
+---
 
-## 1. 启动信号：`/adv_robocup/start_signal`
-- 类型：`std_msgs/String`
-- 用途：状态机向本模块发送启动信号，触发模型加载与语音交互流程。
-- 消息内容：需为字符串 `start`（不区分大小写）
+# ROS Topics for State Machine Communication
 
-示例发布指令：
+This module communicates with the task state machine via two ROS topics:
+
+## 1. Start Signal: `/adv_robocup/start_signal`
+- Type: `std_msgs/String`
+- Purpose: State machine sends a start signal to this module to trigger model loading and speech interaction
+- Message content: must be string `"start"` (case insensitive)
+
+Example publish command:
 ```bash
 rostopic pub /adv_robocup/start_signal std_msgs/String "start"
 ```
-## 2. 完成信号：`/adv_robocup/chat_finished`
-- 类型：`std_msgs/String`
-- 用途：本模块在用户意图确认并成功发布后，向状态机发送完成标志
-- 消息内容：固定为 `done`
 
-示例监听方式：
+## 2. Completion Signal: `/adv_robocup/chat_finished`
+- Type: `std_msgs/String`
+- Purpose: Sent from this module to indicate that user intent has been confirmed and published
+- Message content: fixed string `"done"`
+
+Example listener:
 ```bash
 rostopic echo /adv_robocup/chat_finished
 ```
-- **建议：状态机应监听该话题，并在收到 "done" 后进入下一状态（例如导航或执行抓取等动作）**
+
+- **Recommendation**: The state machine should listen to this topic and proceed to the next state (e.g., navigation or grasping) once `"done"` is received.

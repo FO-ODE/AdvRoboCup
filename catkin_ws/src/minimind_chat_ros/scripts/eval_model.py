@@ -17,12 +17,12 @@ SAMPLERATE = 16000
 DURATION = 5
 WAV_FILE = "input.wav"
 
-# 添加 ROS 消息路径
+# Add ROS message path
 catkin_ws_path = os.path.expanduser("~/AdvRoboCup/catkin_ws")
 devel_lib_path = os.path.join(catkin_ws_path, "devel", "lib", "python3", "dist-packages")
 sys.path.insert(0, devel_lib_path)
 
-# 添加 minimind_chat_ros 源码路径
+# Add minimind_chat_ros source code path
 script_dir = os.path.dirname(os.path.abspath(__file__))
 package_dir = os.path.abspath(os.path.join(script_dir, "..", "src", "minimind_chat_ros"))
 sys.path.insert(0, package_dir)
@@ -44,7 +44,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--input-mode", choices=["voice", "text"], default="voice", help="Choose input mode: 'voice' or 'text'")
 args = parser.parse_args()
 
-# 开始信号
+# Start signal
 start_triggered = False
 
 def start_callback(msg):
@@ -52,24 +52,22 @@ def start_callback(msg):
     if msg.data.strip().lower() == "start" and not start_triggered:
         print("Received start signal from state machine.")
         start_triggered = True
-        # 语音确认
-        # if tts_pub is not None:
-        #     confirm = TtsActionGoal()
-        #     confirm.goal.rawtext.text = "Start signal received."
-        #     confirm.goal.rawtext.lang_id = "en_GB"
-        #     tts_pub.publish(confirm)
    
 
 
 def correct_keywords(text):
-    # 用简单规则或模糊匹配纠正错误关键词
+    # Correct incorrect keywords using simple rules or fuzzy matching
     lower_text = text.lower()
 
     if "chib" in lower_text:
         print("Corrected 'chib' to 'chips'")
         lower_text = lower_text.replace("chib", "chips")
+
+    if "app" in lower_text:
+        print("Corrected 'app' to 'apple'")
+        lower_text = lower_text.replace("app", "apple")
     
-    # 模糊匹配
+    # fuzzy matching
     for word in lower_text.split():
         for valid in VALID_OBJECTS:
             if word.startswith(valid[:2]) and len(word) >= 4 and valid not in lower_text:
@@ -133,8 +131,8 @@ def setup_seed(seed):
 
 def parse_intent_from_response(response):
     """
-    从模型输出中提取 action, object, location
-    示例输入:
+    Extract action, object, and location from the model output
+    Example output:
         "action: pick\nobject: bottle\nlocation: table"
     """
     action = "unknown"
@@ -164,11 +162,11 @@ def main():
 
     rospy.init_node("minimind_chat_node", anonymous=True)
 
-    # 提前初始化 Publisher，供回调中使用
+    # Initialize the Publisher in advance for use in the callback function
     tts_pub = rospy.Publisher("/tts/goal", TtsActionGoal, queue_size=1)
     rospy.sleep(0.5)
 
-    # 订阅状态机启动信号
+    # Subscribe to the start signal from the state machine
     rospy.Subscriber("/adv_robocup/start_signal", String, start_callback)
     print("Waiting for 'start' signal from state machine...")
 
@@ -178,7 +176,7 @@ def main():
     rospy.sleep(4.0)
     print("Start signal received. Beginning interaction.")
 
-    # 发开场白
+    # Send the opening prompt
     tts_msg = TtsActionGoal()
     tts_msg.goal.rawtext.text = "I am ready to assist you. What do you need?"
     tts_msg.goal.rawtext.lang_id = "en_GB"
@@ -203,7 +201,7 @@ def main():
 
     while not rospy.is_shutdown() and not exit_requested:
         try:
-            # Step 1: 用户输入（语音或键盘）
+            # Step 1: User input (voice or keyboard)
             interaction_count += 1 
             if input_mode == "voice":
                 prompt = record_and_transcribe()
@@ -232,7 +230,7 @@ def main():
             print(f"👶 Input: {prompt}")
             setup_seed(random.randint(0, 2048))
 
-            # Step 2: 语言模型推理
+            # Step 2: Language model inference
             messages = [{"role": "user", "content": prompt}]
             new_prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
             inputs = tokenizer(new_prompt, return_tensors="pt", truncation=True).to("cpu")
@@ -257,7 +255,7 @@ def main():
             messages.append({"role": "assistant", "content": response})
             print("\n")
 
-            # Step 3: intent解析
+            # Step 3: Intent parsing
             action, object_, location = parse_intent_from_response(response)
             # intent_msg = ChatIntent()
             intent_msg = String()
@@ -268,7 +266,7 @@ def main():
             intent_msg.data = object_
             # intent_msg.location = location
 
-            # Step 4: 用户确认 object_
+            # Step 4: User confirmation of object_
             confirmed = False
             if object_ == "unknown":
                 unknown_object_count += 1
@@ -277,16 +275,16 @@ def main():
                     print("[Fallback] Force object = 'cola'")
                     object_ = "cola"
                     intent_msg.object = object_
-                    confirmed = True               # 直接认定成功
+                    confirmed = True               # Directly consider it successful
                 else:
                     tts_unclear = TtsActionGoal()
                     tts_unclear.goal.rawtext.text = "Sorry, I didn't catch the object. Could you please say it again?"
                     tts_unclear.goal.rawtext.lang_id = "en_GB"
                     tts_pub.publish(tts_unclear)
                     rospy.sleep(2.5)
-                    continue        # 重新开始下一轮输入
+                    continue        # Restart the next round of input
             elif interaction_count == 3:
-                # 第三次直接跳过确认
+                # Skip confirmation on the third attempt
                 confirmed = True
                 object_ = "cola"
                 intent_msg.data = object_
@@ -309,7 +307,7 @@ def main():
                 confirmed = "yes" in reply
 
             if confirmed:
-                # Step 5: 发布 intent
+                # Step 5: Publish the intent
                 while intent_pub.get_num_connections() == 0 and not rospy.is_shutdown():
                     print("Waiting for subscriber to connect...")
                     rospy.sleep(0.1)
@@ -321,7 +319,7 @@ def main():
                 finish_pub.publish(String(data="done"))
                 print("Sent 'done' to /chat_finished")
                 rospy.sleep(1.0)
-                # 成功语音反馈
+                # Successful voice feedback
                 tts_success = TtsActionGoal()
                 tts_success.goal.rawtext.text = "I have received your order. Ready for the next task!"
                 tts_success.goal.rawtext.lang_id = "en_GB"
@@ -332,7 +330,7 @@ def main():
                 break
                 
             else:
-                # Step 6: 回到起点
+                # Step 6: Return to the starting point
                 tts_msg = TtsActionGoal()
                 tts_msg.goal.rawtext.text = "Okay. What do you need?"
                 tts_msg.goal.rawtext.lang_id = "en_GB"
