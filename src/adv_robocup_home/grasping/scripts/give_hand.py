@@ -53,6 +53,10 @@ def handover_callback(req):
 
     text = f"Here is your {clip_query}."
     speak(text, lang_id='en_GB')
+    
+    publish_arm_trajectory()
+    
+    rospy.sleep(3.0)
 
     control_gripper(open_gripper=True)
     
@@ -111,7 +115,7 @@ def tuck_arm():
 
 def control_gripper(open_gripper=True):
     pub = rospy.Publisher("/gripper_controller/command", JointTrajectory, queue_size=10)
-    rospy.sleep(1.0)
+    rospy.sleep(2.0)
 
     traj = JointTrajectory()
     traj.header.stamp = rospy.Time.now()
@@ -119,7 +123,7 @@ def control_gripper(open_gripper=True):
 
     point = JointTrajectoryPoint()
     point.positions = [0.045, 0.045] if open_gripper else [0.0, 0.0]
-    point.time_from_start = rospy.Duration(1.0)
+    point.time_from_start = rospy.Duration(2.0)
 
     traj.points.append(point)
 
